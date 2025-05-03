@@ -1,32 +1,25 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="py-[120px] container flex flex-col gap-[60px]">
-      <div className="flex items-start justify-between">
+    <footer className="container flex flex-col gap-[60px] py-[50px] md:py-[120px]">
+      <div className="flex flex-col items-start gap-[80px] md:flex-row md:justify-between md:gap-0">
         <div className="flex flex-col gap-[20px]">
-          <Image
-            src="/images/logo.svg"
-            alt="DeGov.AI Logo"
-            width={190}
-            height={39}
-          />
-          <p className="text-[24px] font-normal leading-[140%]">
-            Next-generation DAO governance platform projects
+          <Image src="/images/logo.svg" alt="DeGov.AI Logo" width={190} height={39} />
+          <p className="text-[16px] leading-[140%] font-normal md:text-[24px]">
+            Next-generation DAO governance platform powered by AI
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-[120px]">
-          <div className="flex flex-col gap-[40px]">
-            <h4 className="text-[26px] font-semibold leading-[100%]">
-              QUICK LINKS
-            </h4>
+        <div className="grid-col-1 grid gap-[80px] md:grid-cols-3 md:gap-[120px]">
+          <div className="flex flex-col gap-[20px] md:gap-[40px]">
+            <h4 className="text-[20px] leading-[100%] font-semibold md:text-[26px]">QUICK LINKS</h4>
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
                   href="/features"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Features
                 </Link>
@@ -34,7 +27,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/roadmap"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Roadmap
                 </Link>
@@ -42,7 +35,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   FAQ
                 </Link>
@@ -50,15 +43,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-[40px]">
-            <h4 className="text-[26px] font-semibold leading-[100%]">
-              RESOURCES
-            </h4>
+          <div className="flex flex-col gap-[20px] md:gap-[40px]">
+            <h4 className="text-[20px] leading-[100%] font-semibold md:text-[26px]">RESOURCES</h4>
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
                   href="/documentation"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Documentation
                 </Link>
@@ -66,7 +57,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/support"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Support
                 </Link>
@@ -75,7 +66,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="https://github.com/degov-ai"
-                  className="text-[20px] font-normal leading-[140%] hover:opacity-80 transition-opacity hover:underline"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   GitHub
                 </Link>
@@ -83,42 +74,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-[40px]">
-            <h4 className="text-[26px] font-semibold leading-[100%]">
-              FOLLOW US
-            </h4>
+          <div className="flex flex-col gap-[20px] md:gap-[40px]">
+            <h4 className="text-[20px] leading-[100%] font-semibold md:text-[26px]">FOLLOW US</h4>
             <div className="flex items-center gap-[30px]">
               <Link
                 href="https://github.com/degov-ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
+                className="transition-opacity hover:opacity-80"
               >
-                <Image
-                  src="/images/social/github.svg"
-                  alt="GitHub"
-                  width={28.286}
-                  height={27}
-                />
+                <Image src="/images/social/github.svg" alt="GitHub" width={28.286} height={27} />
               </Link>
               <Link
                 href="https://twitter.com/degov_ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
+                className="transition-opacity hover:opacity-80"
               >
-                <Image
-                  src="/images/social/x.svg"
-                  alt="Twitter"
-                  width={20.571}
-                  height={20.571}
-                />
+                <Image src="/images/social/x.svg" alt="Twitter" width={20.571} height={20.571} />
               </Link>
               <Link
                 href="https://discord.gg/degov-ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
+                className="transition-opacity hover:opacity-80"
               >
                 <Image
                   src="/images/social/telegram.svg"
@@ -131,48 +110,38 @@ export default function Footer() {
                 href="https://medium.com/degov-ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
+                className="transition-opacity hover:opacity-80"
               >
-                <Image
-                  src="/images/social/email.svg"
-                  alt="Email"
-                  width={24.429}
-                  height={18}
-                />
+                <Image src="/images/social/email.svg" alt="Email" width={24.429} height={18} />
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <p>©{new Date().getFullYear()} RingDAO</p>
-        <div className="flex items-center gap-[50px]">
+      <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:justify-between md:gap-0">
+        <p className="order-2 text-center md:order-1 md:text-left">
+          ©{new Date().getFullYear()} RingDAO
+        </p>
+        <div className="order-1 flex items-center justify-between gap-[50px] md:order-2 md:justify-start">
           <Link
             href="/licenses"
-            className="text-[16px] font-normal leading-[140%] hover:opacity-80 hover:underline transition-opacity"
+            className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
           >
             Licenses
           </Link>
           <Link
             href="/help"
-            className="text-[16px] font-normal leading-[140%] hover:opacity-80 hover:underline transition-opacity"
+            className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
           >
             Help
           </Link>
           <Link
             href="/github"
-            className="py-[5px] px-[10px] rounded-[100px] bg-[rgba(255,255,255,0.1)] flex items-center gap-[5px] hover:opacity-80 transition-opacity"
+            className="flex items-center gap-[5px] rounded-[100px] bg-[rgba(255,255,255,0.1)] px-[10px] py-[5px] transition-opacity hover:opacity-80"
           >
-            <Image
-              src="/images/social/github-light.svg"
-              alt="GitHub"
-              width={14}
-              height={14}
-            />
-            <span className="text-[20px] font-normal leading-[140%]">
-              v 1.2.3
-            </span>
+            <Image src="/images/social/github-light.svg" alt="GitHub" width={14} height={14} />
+            <span className="text-[20px] leading-[140%] font-normal">v 1.2.3</span>
           </Link>
         </div>
       </div>
