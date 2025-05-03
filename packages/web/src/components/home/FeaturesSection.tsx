@@ -52,7 +52,9 @@ export default function FeaturesSection() {
   const { ref: ref2, animatedStyles: animatedStyles2 } = useScrollAnimation({
     delay: 0.3
   });
-
+  const { ref: ref3, animatedStyles: animatedStyles3 } = useScrollAnimation({
+    delay: 0.6
+  });
   return (
     <section className="container py-[100px] md:py-[120px]">
       <h2
@@ -70,7 +72,11 @@ export default function FeaturesSection() {
         Unlock powerful benefits for your DAO and foster effortless community growth.
       </p>
 
-      <div className="mt-[20px] grid grid-cols-1 gap-[20px] md:mt-[60px] md:grid-cols-3 md:gap-[60px]">
+      <div
+        className="mt-[20px] grid grid-cols-1 gap-[20px] md:mt-[60px] md:grid-cols-3 md:gap-[60px]"
+        ref={ref3}
+        style={animatedStyles3}
+      >
         {features.map((feature, index) => (
           <FeatureCard
             key={feature.id}

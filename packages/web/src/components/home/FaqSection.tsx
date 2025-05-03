@@ -57,6 +57,9 @@ export default function FaqSection() {
   const { ref: ref4, animatedStyles: animatedStyles4 } = useScrollAnimation({
     delay: 0.6
   });
+  const { ref: ref5, animatedStyles: animatedStyles5 } = useScrollAnimation({
+    delay: 0.9
+  });
   return (
     <section className="container py-[100px] md:py-[120px]">
       <h2
@@ -83,15 +86,19 @@ export default function FaqSection() {
           <FaqItem key={index} question={item.question} answer={item.answer} />
         ))}
       </div>
-      <div className="grid-col-1 my-[30px] grid gap-x-[0] gap-y-[30px] md:my-[83px] md:hidden md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]">
+      <div
+        className="grid-col-1 my-[30px] grid gap-x-[0] gap-y-[30px] md:my-[83px] md:hidden md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]"
+        ref={ref4}
+        style={animatedStyles4}
+      >
         {faqItems.map((item, index) => (
           <FaqItemMobile key={index} question={item.question} answer={item.answer} />
         ))}
       </div>
       <p
         className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] md:mt-0 md:text-right md:text-[20px]"
-        ref={ref4}
-        style={animatedStyles4}
+        ref={ref5}
+        style={animatedStyles5}
       >
         Still have questions? Contact our{' '}
         <Link

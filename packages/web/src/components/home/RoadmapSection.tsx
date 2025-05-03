@@ -35,6 +35,9 @@ export default function RoadmapSection() {
   const { ref: ref3, animatedStyles: animatedStyles3 } = useScrollAnimation({
     delay: 0.6
   });
+  const { ref: ref4, animatedStyles: animatedStyles4 } = useScrollAnimation({
+    delay: 0.9
+  });
   return (
     <section className="container flex flex-col items-center py-[100px] md:py-[120px]">
       <div className="flex max-w-[1457px] items-center justify-center gap-[70px]">
@@ -63,7 +66,7 @@ export default function RoadmapSection() {
             Our strategic plan for advancing the DeGov.AI ecosystem
           </p>
 
-          <div className="mt-[70px] flex flex-col gap-[70px]">
+          <div className="mt-[70px] flex flex-col gap-[70px]" ref={ref4} style={animatedStyles4}>
             {phases.map((phase, index) => (
               <RoadmapPhase
                 key={phase.id}
