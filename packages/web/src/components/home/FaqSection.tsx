@@ -1,6 +1,9 @@
+'use client';
+
 import FaqItem from './FaqItem';
 import FaqItemMobile from './FaqItemMobile';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 const faqItems = [
   {
     question: 'How does DeGov.AI compare to traditional DAO platforms?',
@@ -44,16 +47,38 @@ const faqItems = [
   }
 ];
 export default function FaqSection() {
+  const { ref, animatedStyles } = useScrollAnimation();
+  const { ref: ref2, animatedStyles: animatedStyles2 } = useScrollAnimation({
+    delay: 0.3
+  });
+  const { ref: ref3, animatedStyles: animatedStyles3 } = useScrollAnimation({
+    delay: 0.6
+  });
+  const { ref: ref4, animatedStyles: animatedStyles4 } = useScrollAnimation({
+    delay: 0.6
+  });
   return (
     <section className="container py-[100px] md:py-[120px]">
-      <h2 className="text-[34px] leading-[120%] font-semibold md:text-[70px]">
+      <h2
+        className="text-[34px] leading-[120%] font-semibold md:text-[70px]"
+        ref={ref}
+        style={animatedStyles}
+      >
         Frequently Asked Questions
       </h2>
-      <p className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]">
+      <p
+        className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]"
+        ref={ref2}
+        style={animatedStyles2}
+      >
         Get answers to common questions about Degov.AI and DAO governance
       </p>
 
-      <div className="grid-col-1 my-[30px] hidden gap-x-[0] gap-y-[30px] md:my-[83px] md:grid md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]">
+      <div
+        className="grid-col-1 my-[30px] hidden gap-x-[0] gap-y-[30px] md:my-[83px] md:grid md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]"
+        ref={ref3}
+        style={animatedStyles3}
+      >
         {faqItems.map((item, index) => (
           <FaqItem key={index} question={item.question} answer={item.answer} />
         ))}
@@ -63,7 +88,11 @@ export default function FaqSection() {
           <FaqItemMobile key={index} question={item.question} answer={item.answer} />
         ))}
       </div>
-      <p className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] md:mt-0 md:text-right md:text-[20px]">
+      <p
+        className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] md:mt-0 md:text-right md:text-[20px]"
+        ref={ref4}
+        style={animatedStyles4}
+      >
         Still have questions? Contact our{' '}
         <Link
           href="https://t.me/deGovAI_Support"
