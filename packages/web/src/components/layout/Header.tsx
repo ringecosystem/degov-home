@@ -1,25 +1,19 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   return (
-    <header className="container flex items-center justify-between absolute top-[100px]">
+    <header className="absolute top-[100px] container hidden items-center justify-between md:flex">
       <Link href="/">
-        <Image
-          src="/images/logo.svg"
-          alt="DeGov.AI Logo"
-          width={135.316}
-          height={30}
-          priority
-        />
+        <Image src="/images/logo.svg" alt="DeGov.AI Logo" width={135.316} height={30} priority />
       </Link>
       <div className="flex items-center gap-[30px]">
-        <nav className="px-[30px] bg-[#202224] rounded-[80px] py-[10px]">
+        <nav className="rounded-[80px] bg-[#202224] px-[30px] py-[10px]">
           <ul className="flex items-center gap-[40px]">
             <li>
               <Link
                 href="#features"
-                className="text-[24px] font-medium leading-[140%] hover:opacity-80 transition-opacity"
+                className="text-[24px] leading-[140%] font-medium transition-opacity hover:opacity-80"
               >
                 Features
               </Link>
@@ -27,7 +21,7 @@ export default function Header() {
             <li>
               <Link
                 href="#faq"
-                className="text-[24px] font-medium leading-[140%] hover:opacity-80 transition-opacity"
+                className="text-[24px] leading-[140%] font-medium transition-opacity hover:opacity-80"
               >
                 FAQ
               </Link>
@@ -35,7 +29,7 @@ export default function Header() {
             <li>
               <Link
                 href="#get-started"
-                className="text-[24px] font-medium leading-[140%] hover:opacity-80 transition-opacity"
+                className="text-[24px] leading-[140%] font-medium transition-opacity hover:opacity-80"
               >
                 Get Started
               </Link>
@@ -43,7 +37,7 @@ export default function Header() {
             <li>
               <Link
                 href="#roadmap"
-                className="text-[24px] font-medium leading-[140%] hover:opacity-80 transition-opacity"
+                className="text-[24px] leading-[140%] font-medium transition-opacity hover:opacity-80"
               >
                 Roadmap
               </Link>
@@ -53,7 +47,7 @@ export default function Header() {
 
         <Link
           href="/app"
-          className="px-[16px] h-[46px] flex items-center justify-center rounded-[48px] bg-[var(--foreground)] text-[24px] font-medium leading-[140%] hover:opacity-80 transition-opacity text-[var(--background)]"
+          className="flex h-[46px] items-center justify-center rounded-[48px] bg-[var(--foreground)] px-[16px] text-[24px] leading-[140%] font-medium text-[var(--background)] transition-opacity hover:opacity-80"
         >
           Launch App
         </Link>
