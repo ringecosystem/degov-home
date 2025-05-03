@@ -33,7 +33,7 @@ export default function RoadmapSection() {
           alt="roadmap"
           width={728.5}
           height={1138}
-          className="hidden md:inline-block"
+          className="hidden flex-shrink-0 md:inline-block"
         />
         <div>
           <h2 className="text-[34px] leading-[120%] font-semibold md:text-[70px]">
