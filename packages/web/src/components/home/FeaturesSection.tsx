@@ -56,7 +56,7 @@ export default function FeaturesSection() {
     delay: 0.6
   });
   return (
-    <section className="container py-[100px] md:py-[120px]">
+    <section className="container py-[100px] md:py-[120px]" id="features">
       <h2
         className="text-[34px] leading-[120%] font-medium md:text-[70px]"
         ref={ref}

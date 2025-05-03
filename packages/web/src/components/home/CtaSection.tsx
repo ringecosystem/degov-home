@@ -12,7 +12,7 @@ export default function CtaSection() {
     delay: 0.6
   });
   return (
-    <section className="container py-[100px] md:py-[120px]">
+    <section className="container py-[100px] md:py-[120px]" id="get-started">
       <div className="flex h-full w-full flex-col items-center gap-[50px] bg-[url('/images/cta-background-mobile.png')] bg-cover bg-center px-[20px] py-[90px] md:bg-[url('/images/cta-background.png')] md:px-0">
         <div className="flex flex-col items-center gap-[50px]">
           <h2

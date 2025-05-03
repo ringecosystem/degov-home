@@ -61,7 +61,7 @@ export default function FaqSection() {
     delay: 0.9
   });
   return (
-    <section className="container py-[100px] md:py-[120px]">
+    <section className="container py-[100px] md:py-[120px]" id="faq">
       <h2
         className="text-[34px] leading-[120%] font-semibold md:text-[70px]"
         ref={ref}

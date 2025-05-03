@@ -39,7 +39,7 @@ export default function RoadmapSection() {
     delay: 0.9
   });
   return (
-    <section className="container flex flex-col items-center py-[100px] md:py-[120px]">
+    <section className="container flex flex-col items-center py-[100px] md:py-[120px]" id="roadmap">
       <div className="flex max-w-[1457px] items-center justify-center gap-[70px]">
         <Image
           src="/images/roadmap-background.png"
