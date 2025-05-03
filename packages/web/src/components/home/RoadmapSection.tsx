@@ -1,44 +1,45 @@
-import RoadmapPhase from "./RoadmapPhase";
-import Image from "next/image";
-import { Roadmap } from "./RoadmapStatus";
+import RoadmapPhase from './RoadmapPhase';
+import Image from 'next/image';
+import { Roadmap } from './RoadmapStatus';
 const phases = [
   {
-    id: "phase1",
+    id: 'phase1',
     number: 1,
     description:
-      "User-friendly DAO interface with proposal creation, voting, and treasury management capabilities.",
-    status: Roadmap.Completed,
+      'User-friendly DAO interface with proposal creation, voting, and treasury management capabilities.',
+    status: Roadmap.Completed
   },
   {
-    id: "phase2",
+    id: 'phase2',
     number: 2,
     description:
-      "AI-powered governance simplification with enhanced decision-making and improved community engagement features.",
-    status: Roadmap.InProgress,
+      'AI-powered governance simplification with enhanced decision-making and improved community engagement features.',
+    status: Roadmap.InProgress
   },
   {
-    id: "phase3",
+    id: 'phase3',
     number: 3,
     description:
-      "Multi-agent AI governance system for optimized decision-making. Looking for partners to collaborate!",
-    status: Roadmap.SeekingPartners,
-  },
+      'Multi-agent AI governance system for optimized decision-making. Looking for partners to collaborate!',
+    status: Roadmap.SeekingPartners
+  }
 ];
 export default function RoadmapSection() {
   return (
-    <section className="py-[120px] container flex flex-col items-center">
-      <div className=" max-w-[1457px] flex items-center justify-center gap-[70px]">
+    <section className="container flex flex-col items-center py-[100px] md:py-[120px]">
+      <div className="flex max-w-[1457px] items-center justify-center gap-[70px]">
         <Image
           src="/images/roadmap-background.png"
           alt="roadmap"
           width={728.5}
           height={1138}
+          className="hidden md:inline-block"
         />
         <div>
-          <h2 className="text-[70px] font-semibold leading-[120%]">
+          <h2 className="text-[34px] leading-[120%] font-semibold md:text-[70px]">
             Project Roadmap
           </h2>
-          <p className="text-[30px] font-normal leading-[140%] mt-[10px] opacity-70">
+          <p className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]">
             Our strategic plan for advancing the DeGov.AI ecosystem
           </p>
 
