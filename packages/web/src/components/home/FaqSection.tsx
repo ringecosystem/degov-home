@@ -63,7 +63,7 @@ export default function FaqSection() {
           <FaqItemMobile key={index} question={item.question} answer={item.answer} />
         ))}
       </div>
-      <p className="text-right text-[20px] leading-[140%] font-normal text-[#979797]">
+      <p className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] md:mt-0 md:text-right md:text-[20px]">
         Still have questions? Contact our{' '}
         <Link
           href="https://t.me/deGovAI_Support"
