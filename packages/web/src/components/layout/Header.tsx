@@ -77,7 +77,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="absolute top-[100px] container hidden items-center justify-between md:flex">
+    <header className="absolute top-[100px] container hidden items-center justify-between lg:flex">
       <Link href="/">
         <Image src="/images/logo.svg" alt="DeGov.AI Logo" width={135.316} height={30} priority />
       </Link>

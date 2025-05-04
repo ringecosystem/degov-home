@@ -56,16 +56,16 @@ export default function FeaturesSection() {
     delay: 0.6
   });
   return (
-    <section className="container py-[100px] md:py-[120px]" id="features">
+    <section className="container py-[100px] lg:py-[120px]" id="features">
       <h2
-        className="text-[34px] leading-[120%] font-medium md:text-[70px]"
+        className="text-[34px] leading-[120%] font-medium lg:text-[70px]"
         ref={ref}
         style={animatedStyles}
       >
         Powerful Features
       </h2>
       <p
-        className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]"
+        className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 lg:mt-[10px] lg:text-[30px]"
         ref={ref2}
         style={animatedStyles2}
       >
@@ -73,7 +73,7 @@ export default function FeaturesSection() {
       </p>
 
       <div
-        className="mt-[20px] grid grid-cols-1 gap-[20px] md:mt-[60px] md:grid-cols-3 md:gap-[60px]"
+        className="mt-[20px] grid grid-cols-1 gap-[20px] lg:grid-cols-2 lg:gap-[40px] xl:mt-[60px] xl:grid-cols-3 xl:gap-[40px] 2xl:gap-[60px]"
         ref={ref3}
         style={animatedStyles3}
       >

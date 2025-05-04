@@ -18,7 +18,7 @@ export default function RoadmapPhase({ number, description, status, index }: Roa
         <span className="text-[90px] leading-[100%] font-[900] italic">{number}</span>
       </div>
 
-      <p className="text-[20px] leading-[140%] font-normal md:text-[32px] md:leading-[130%]">
+      <p className="-mt-2 text-[20px] leading-[140%] font-normal lg:text-[32px] lg:leading-[130%]">
         {description}
       </p>
 

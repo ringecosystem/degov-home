@@ -12,11 +12,11 @@ export default function CtaSection() {
     delay: 0.6
   });
   return (
-    <section className="container py-[100px] md:py-[120px]" id="get-started">
-      <div className="flex h-full w-full flex-col items-center gap-[50px] bg-[url('/images/cta-background-mobile.png')] bg-cover bg-center px-[20px] py-[90px] md:bg-[url('/images/cta-background.png')] md:px-0">
+    <section className="container py-[100px] lg:py-[120px]" id="get-started">
+      <div className="flex h-full w-full flex-col items-center gap-[50px] bg-[url('/images/cta-background-mobile.png')] bg-cover bg-center px-[20px] py-[90px] lg:bg-[url('/images/cta-background.png')] lg:px-0">
         <div className="flex flex-col items-center gap-[50px]">
           <h2
-            className="text-[34px] leading-[120%] font-semibold md:text-[70px]"
+            className="text-[34px] leading-[120%] font-semibold lg:text-[70px]"
             ref={ref}
             style={animatedStyles}
           >
@@ -24,7 +24,7 @@ export default function CtaSection() {
           </h2>
 
           <p
-            className="w-full text-left text-[16px] leading-[140%] font-normal opacity-70 md:max-w-[760px] md:text-center md:text-[30px]"
+            className="w-full text-left text-[16px] leading-[140%] font-normal opacity-70 lg:max-w-[760px] lg:text-center lg:text-[30px]"
             ref={ref2}
             style={animatedStyles2}
           >
@@ -33,13 +33,13 @@ export default function CtaSection() {
           </p>
 
           <div
-            className="flex w-full flex-col items-center gap-[20px] md:w-auto md:flex-row md:gap-[50px]"
+            className="flex w-full flex-col items-center gap-[20px] lg:w-auto lg:flex-row lg:gap-[50px]"
             ref={ref3}
             style={animatedStyles3}
           >
             <Link
               href="/"
-              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[#202224] px-[20px] py-[10px] text-[16px] font-semibold transition-opacity hover:opacity-80 md:w-auto md:justify-start md:px-[30px] md:py-[20px] md:text-[24px]"
+              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[#202224] px-[20px] py-[10px] text-[16px] font-semibold transition-opacity hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
             >
               <span>Let&apos;s talk with specialists</span>
               <Image src="/images/arrow-light.svg" alt="arrow" width={12.385} height={14.8} />
@@ -47,7 +47,7 @@ export default function CtaSection() {
 
             <Link
               href="/"
-              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-semibold text-[var(--background)] transition-opacity hover:opacity-80 md:w-auto md:justify-start md:px-[30px] md:py-[20px] md:text-[24px]"
+              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-semibold text-[var(--background)] transition-opacity hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
             >
               <span>Launch App Now</span>
               <Image src="/images/arrow-dark.svg" alt="arrow" width={12.385} height={14.8} />

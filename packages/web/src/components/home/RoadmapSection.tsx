@@ -39,34 +39,34 @@ export default function RoadmapSection() {
     delay: 0.9
   });
   return (
-    <section className="container flex flex-col items-center py-[100px] md:py-[120px]" id="roadmap">
-      <div className="flex max-w-[1457px] items-center justify-center gap-[70px]">
+    <section className="container flex flex-col items-center py-[100px] lg:py-[120px]" id="roadmap">
+      <div className="flex max-w-[1457px] items-start justify-center gap-[70px]">
         <Image
           src="/images/roadmap-background.png"
           alt="roadmap"
           width={728.5}
           height={1138}
-          className="hidden flex-shrink-0 md:inline-block"
+          className="hidden max-h-[1138px] w-1/2 max-w-[728.5px] flex-shrink-0 xl:inline-block"
           ref={ref}
           style={animatedStyles}
         />
         <div>
           <h2
-            className="text-[34px] leading-[120%] font-semibold md:text-[70px]"
+            className="text-[34px] leading-[120%] font-semibold lg:text-[70px]"
             ref={ref2}
             style={animatedStyles2}
           >
             Project Roadmap
           </h2>
           <p
-            className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]"
+            className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 lg:mt-[10px] lg:text-[30px]"
             ref={ref3}
             style={animatedStyles3}
           >
             Our strategic plan for advancing the DeGov.AI ecosystem
           </p>
 
-          <div className="mt-[70px] flex flex-col gap-[70px]" ref={ref4} style={animatedStyles4}>
+          <div className="mt-[40px] flex flex-col gap-[40px]" ref={ref4} style={animatedStyles4}>
             {phases.map((phase, index) => (
               <RoadmapPhase
                 key={phase.id}

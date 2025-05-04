@@ -34,31 +34,31 @@ export default function HeroSection() {
   });
 
   return (
-    <section className="hero-section bg-[url('/images/hero-background-mobile.png')] bg-cover bg-center py-[100px] md:bg-[url('/images/hero-background.png')]">
-      <div className="container flex flex-col gap-[58px] pt-[0] md:gap-[0px] md:pt-[196px]">
-        <Link href="/" className="mx-auto flex items-center justify-center md:hidden">
+    <section className="hero-section bg-[url('/images/hero-background-mobile.png')] bg-cover bg-center py-[100px] xl:bg-[url('/images/hero-background.png')]">
+      <div className="container flex flex-col gap-[58px] pt-[0] xl:gap-[0px] xl:pt-[196px]">
+        <Link href="/" className="mx-auto flex items-center justify-center xl:hidden">
           <Image src="/images/logo.svg" alt="DeGov.AI Logo" width={135.316} height={30} priority />
         </Link>
-        <div className="container hidden flex-col gap-[58px] md:flex">
+        <div className="hidden flex-col gap-[58px] xl:flex">
           <div className="flex items-end justify-between">
             <h1 className="flex flex-col">
               <span
                 ref={ref}
-                className="text-[48px] leading-[100%] font-extralight md:text-[117px]"
+                className="text-[48px] leading-[100%] font-extralight xl:text-[117px]"
                 style={animatedStyles}
               >
                 Next-Gen DAO
               </span>
               <span
                 ref={ref2}
-                className="text-[48px] leading-[100%] font-extralight md:text-[117px]"
+                className="text-[48px] leading-[100%] font-extralight xl:text-[117px]"
                 style={animatedStyles2}
               >
                 Governance
               </span>
               <span
                 ref={ref3}
-                className="text-[48px] leading-[100%] font-bold md:text-[137px]"
+                className="text-[48px] leading-[100%] font-bold xl:text-[137px]"
                 style={animatedStyles3}
               >
                 Made Simple
@@ -92,7 +92,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-[58px] md:hidden">
+        <div className="flex flex-col gap-[58px] xl:hidden">
           <h1 className="flex flex-col items-center">
             <span
               className="text-[48px] leading-[100%] font-extralight"

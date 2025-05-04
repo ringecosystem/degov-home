@@ -61,16 +61,16 @@ export default function FaqSection() {
     delay: 0.9
   });
   return (
-    <section className="container py-[100px] md:py-[120px]" id="faq">
+    <section className="container py-[100px] lg:py-[120px]" id="faq">
       <h2
-        className="text-[34px] leading-[120%] font-semibold md:text-[70px]"
+        className="text-[34px] leading-[120%] font-semibold lg:text-[70px]"
         ref={ref}
         style={animatedStyles}
       >
         Frequently Asked Questions
       </h2>
       <p
-        className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 md:mt-[10px] md:text-[30px]"
+        className="mt-[16px] text-[16px] leading-[140%] font-normal opacity-70 lg:mt-[10px] lg:text-[30px]"
         ref={ref2}
         style={animatedStyles2}
       >
@@ -78,7 +78,7 @@ export default function FaqSection() {
       </p>
 
       <div
-        className="grid-col-1 my-[30px] hidden gap-x-[0] gap-y-[30px] md:my-[83px] md:grid md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]"
+        className="grid-col-1 my-[30px] hidden gap-x-[0] gap-y-[30px] lg:my-[83px] lg:grid lg:grid-cols-2 lg:gap-x-[80px] lg:gap-y-[50px]"
         ref={ref3}
         style={animatedStyles3}
       >
@@ -87,7 +87,7 @@ export default function FaqSection() {
         ))}
       </div>
       <div
-        className="grid-col-1 my-[30px] grid gap-x-[0] gap-y-[30px] md:my-[83px] md:hidden md:grid-cols-2 md:gap-x-[80px] md:gap-y-[50px]"
+        className="grid-col-1 my-[30px] grid gap-x-[0] gap-y-[30px] lg:my-[83px] lg:hidden lg:grid-cols-2 lg:gap-x-[80px] lg:gap-y-[50px]"
         ref={ref4}
         style={animatedStyles4}
       >
@@ -96,7 +96,7 @@ export default function FaqSection() {
         ))}
       </div>
       <p
-        className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] md:mt-0 md:text-right md:text-[20px]"
+        className="mt-[30px] text-left text-[16px] leading-[140%] font-normal text-[#979797] lg:mt-0 lg:text-right lg:text-[20px]"
         ref={ref5}
         style={animatedStyles5}
       >
