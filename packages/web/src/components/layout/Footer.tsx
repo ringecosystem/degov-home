@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import GithubWithTag from './GithubWithTag';
 
 export default function Footer() {
   return (
@@ -146,15 +147,7 @@ export default function Footer() {
           >
             Help
           </Link>
-          <Link
-            href="https://github.com/ringecosystem/degov"
-            className="flex items-center gap-[5px] rounded-[100px] bg-[rgba(255,255,255,0.1)] px-[10px] py-[5px] transition-opacity hover:opacity-80"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image src="/images/social/github-light.svg" alt="GitHub" width={14} height={14} />
-            <span className="text-[20px] leading-[140%] font-normal">v 1.2.3</span>
-          </Link>
+          <GithubWithTag />
         </div>
       </div>
     </footer>
