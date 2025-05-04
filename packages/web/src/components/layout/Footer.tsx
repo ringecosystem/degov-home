@@ -18,7 +18,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
-                  href="/features"
+                  href="#features"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Features
@@ -26,7 +26,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/roadmap"
+                  href="#roadmap"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   Roadmap
@@ -34,7 +34,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/faq"
+                  href="#faq"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
                 >
                   FAQ
@@ -48,16 +48,20 @@ export default function Footer() {
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
-                  href="/documentation"
+                  href="https://deepwiki.com/ringecosystem/degov/1-overview"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Documentation
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/support"
+                  href="https://deepwiki.com/ringecosystem/degov/1-overview"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Support
                 </Link>
@@ -65,8 +69,10 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="https://github.com/degov-ai"
+                  href="https://github.com/ringecosystem/degov"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 md:text-[20px]"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   GitHub
                 </Link>
@@ -78,7 +84,7 @@ export default function Footer() {
             <h4 className="text-[20px] leading-[100%] font-semibold md:text-[26px]">FOLLOW US</h4>
             <div className="flex items-center gap-[30px]">
               <Link
-                href="https://github.com/degov-ai"
+                href="https://github.com/ringecosystem/degov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity hover:opacity-80"
@@ -86,7 +92,7 @@ export default function Footer() {
                 <Image src="/images/social/github.svg" alt="GitHub" width={28.286} height={27} />
               </Link>
               <Link
-                href="https://twitter.com/degov_ai"
+                href="https://x.com/ai_degov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity hover:opacity-80"
@@ -94,7 +100,7 @@ export default function Footer() {
                 <Image src="/images/social/x.svg" alt="Twitter" width={20.571} height={20.571} />
               </Link>
               <Link
-                href="https://discord.gg/degov-ai"
+                href="https://t.me/DeGov_AI"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity hover:opacity-80"
@@ -107,7 +113,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="https://medium.com/degov-ai"
+                href="mailto:support@degov.ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-opacity hover:opacity-80"
@@ -125,20 +131,26 @@ export default function Footer() {
         </p>
         <div className="order-1 flex items-center justify-between gap-[50px] md:order-2 md:justify-start">
           <Link
-            href="/licenses"
+            href="https://github.com/ringecosystem/degov?tab=License-1-ov-file"
             className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Licenses
           </Link>
           <Link
-            href="/help"
+            href="https://deepwiki.com/ringecosystem/degov/1-overview"
             className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Help
           </Link>
           <Link
-            href="/github"
+            href="https://github.com/ringecosystem/degov"
             className="flex items-center gap-[5px] rounded-[100px] bg-[rgba(255,255,255,0.1)] px-[10px] py-[5px] transition-opacity hover:opacity-80"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Image src="/images/social/github-light.svg" alt="GitHub" width={14} height={14} />
             <span className="text-[20px] leading-[140%] font-normal">v 1.2.3</span>
