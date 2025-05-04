@@ -49,16 +49,16 @@ const faqItems = [
 export default function FaqSection() {
   const { ref, animatedStyles } = useScrollAnimation();
   const { ref: ref2, animatedStyles: animatedStyles2 } = useScrollAnimation({
-    delay: 0.3
+    delay: 0.1
   });
   const { ref: ref3, animatedStyles: animatedStyles3 } = useScrollAnimation({
-    delay: 0.6
+    delay: 0.2
   });
   const { ref: ref4, animatedStyles: animatedStyles4 } = useScrollAnimation({
-    delay: 0.6
+    delay: 0.3
   });
   const { ref: ref5, animatedStyles: animatedStyles5 } = useScrollAnimation({
-    delay: 0.9
+    delay: 0.4
   });
   return (
     <section className="container py-[100px] lg:py-[120px]" id="faq">
