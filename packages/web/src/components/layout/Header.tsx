@@ -7,7 +7,10 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { href: '#features', label: 'Features' },
   { href: '#faq', label: 'FAQ' },
-  { href: '#get-started', label: 'Get Started' },
+  {
+    href: 'https://github.com/ringecosystem/degov-launcher?tab=readme-ov-file#getting-started',
+    label: 'Get Started'
+  },
   { href: '#roadmap', label: 'Roadmap' }
 ];
 
@@ -88,6 +91,8 @@ export default function Header() {
               <li key={href}>
                 <Link
                   href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className={cn(
                     'relative text-[24px] leading-[140%] font-medium text-[var(--foreground)] transition-all duration-300 ease-in-out hover:opacity-80',
                     'group overflow-hidden'
@@ -102,7 +107,9 @@ export default function Header() {
         </nav>
 
         <Link
-          href="/app"
+          href="https://github.com/ringecosystem/degov"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex h-[46px] items-center justify-center rounded-[48px] bg-[var(--foreground)] px-[16px] text-[24px] leading-[140%] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"
         >
           Launch App

@@ -49,9 +49,9 @@ export default function Footer() {
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
-                  href="https://deepwiki.com/ringecosystem/degov/1-overview"
-                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
+                  href="https://github.com/ringecosystem/degov/discussions"
                   target="_blank"
+                  className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                   rel="noopener noreferrer"
                 >
                   Documentation
@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://deepwiki.com/ringecosystem/degov/1-overview"
+                  href="https://github.com/ringecosystem/degov/discussions"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -132,7 +132,7 @@ export default function Footer() {
         </p>
         <div className="order-1 flex items-center justify-between gap-[50px] xl:order-2 xl:justify-start">
           <Link
-            href="https://github.com/ringecosystem/degov?tab=License-1-ov-file"
+            href="https://github.com/ringecosystem/degov/blob/main/LICENSE.md"
             className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
             target="_blank"
             rel="noopener noreferrer"
@@ -140,7 +140,7 @@ export default function Footer() {
             Licenses
           </Link>
           <Link
-            href="https://deepwiki.com/ringecosystem/degov/1-overview"
+            href="https://github.com/ringecosystem/degov/discussions"
             className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
             target="_blank"
             rel="noopener noreferrer"

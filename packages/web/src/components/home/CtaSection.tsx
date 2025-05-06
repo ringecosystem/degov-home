@@ -38,16 +38,20 @@ export default function CtaSection() {
             style={animatedStyles3}
           >
             <Link
-              href="/"
-              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[#202224] px-[20px] py-[10px] text-[16px] font-semibold transition-opacity hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
+              href="https://github.com/ringecosystem/degov/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[#202224] px-[20px] py-[10px] text-[16px] font-semibold transition-all hover:scale-105 hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
             >
-              <span>Let&apos;s talk with specialists</span>
+              <span>Launch with Assistance</span>
               <Image src="/images/arrow-light.svg" alt="arrow" width={12.385} height={14.8} />
             </Link>
 
             <Link
-              href="/"
-              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-semibold text-[var(--background)] transition-opacity hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
+              href="https://github.com/ringecosystem/degov"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-semibold text-[var(--background)] transition-all hover:scale-105 hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
             >
               <span>Launch App Now</span>
               <Image src="/images/arrow-dark.svg" alt="arrow" width={12.385} height={14.8} />
