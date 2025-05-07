@@ -9,8 +9,6 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-# dependencies in packages
-/packages/*/node_modules
 
 # testing
 /coverage
@@ -18,12 +16,9 @@
 # next.js
 /.next/
 /out/
-/packages/*/.next/
-/packages/*/out/
 
 # production
 /build
-/packages/*/build
 
 # misc
 .DS_Store
@@ -44,7 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# cursor
-.cursor/
-/packages/*/.cursor/

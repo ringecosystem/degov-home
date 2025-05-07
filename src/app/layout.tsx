@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils';
 const urbanist = Urbanist({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DeGov.AI - Next-Gen DAO Governance Made Simple',
+  title: 'DeGov.AI',
   description:
-    'Scale your DAO with simple yet powerful AI tools that make complex DAO governance seamless.'
+    'DeGov.AI is a AI-powered platform for decentralized governance, built on the Openzeppelin contracts.'
 };
 
 export default function RootLayout({
