@@ -19,6 +19,7 @@ jobs:
           vercel_group: itering
           preview_output: true
           project_name: degov-home
+          dist_path: out
           enable_cache: true
           enable_notify_slack: true
           slack_channel: public-degov
