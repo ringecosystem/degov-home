@@ -102,16 +102,18 @@ export default function FaqSection() {
       >
         Still have questions? Contact our{' '}
         <Link
-          href="https://t.me/deGovAI_Support"
+          href="mailto:support@degov.ai"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-[var(--foreground)] underline transition-opacity duration-300 hover:opacity-80"
         >
           support team
         </Link>{' '}
         or join our{' '}
         <Link
-          href="https://t.me/deGovAI_Community"
+          href="https://t.me/DeGov_AI"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-[var(--foreground)] underline transition-opacity duration-300 hover:opacity-80"
         >
           community Telegram
