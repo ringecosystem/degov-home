@@ -80,7 +80,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="absolute top-[100px] container hidden items-center justify-between lg:flex">
+    <header className="absolute top-[100px] left-1/2 container hidden -translate-x-1/2 items-center justify-between lg:flex">
       <Link href="/">
         <Image src="/images/logo.svg" alt="DeGov.AI Logo" width={135.316} height={30} priority />
       </Link>
@@ -110,7 +110,7 @@ export default function Header() {
           href="https://github.com/ringecosystem/degov"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-[46px] items-center justify-center rounded-[48px] bg-[var(--foreground)] px-[16px] text-[24px] leading-[140%] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"
+          className="flex h-[46px] items-center justify-center rounded-[48px] bg-[var(--foreground)] px-[16px] text-[20px] leading-[140%] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"
         >
           Launch App
         </Link>
