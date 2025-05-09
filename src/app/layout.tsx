@@ -7,12 +7,6 @@ import { cn } from '@/lib/utils';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'DeGov.AI',
-  description:
-    'DeGov.AI is a AI-powered platform for decentralized governance, built on the Openzeppelin contracts.'
-};
-
 export async function generateMetadata(): Promise<Metadata> {
   const name = 'DeGov.AI';
   const description =
