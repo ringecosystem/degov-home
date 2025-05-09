@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     'DeGov.AI is a AI-powered platform for decentralized governance, built on the Openzeppelin contracts.';
   const siteUrl = 'https://degov.ai';
-  const ogImageUrl = `${siteUrl}/image/og.png`;
+  const ogImageUrl = `${siteUrl}/images/og.png`;
 
   return {
     title: name,
