@@ -10,7 +10,9 @@ interface FeatureCardProps {
 
 export default function FeatureCard({ title, description, icon, index }: FeatureCardProps) {
   const { ref, animatedStyles } = useScrollAnimation({
-    delay: 0.1 * index
+    delay: 0.1 * Math.min(index, 2), // Cap the delay at 0.2s
+    mobileDelay: 0.05 * Math.min(index, 1), // Even shorter delay on mobile
+    mobileDuration: 0.15
   });
   return (
     <div
