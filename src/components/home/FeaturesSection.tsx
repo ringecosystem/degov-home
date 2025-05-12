@@ -48,12 +48,19 @@ const features = [
 ];
 
 export default function FeaturesSection() {
-  const { ref, animatedStyles } = useScrollAnimation();
+  const { ref, animatedStyles } = useScrollAnimation({
+    mobileDuration: 0.15,
+    mobileDelay: 0
+  });
   const { ref: ref2, animatedStyles: animatedStyles2 } = useScrollAnimation({
-    delay: 0.1
+    delay: 0.1,
+    mobileDuration: 0.15,
+    mobileDelay: 0.05
   });
   const { ref: ref3, animatedStyles: animatedStyles3 } = useScrollAnimation({
-    delay: 0.2
+    delay: 0.2,
+    mobileDuration: 0.15,
+    mobileDelay: 0.1
   });
   return (
     <section className="container py-[100px] lg:py-[120px]" id="features">
