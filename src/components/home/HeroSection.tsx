@@ -66,7 +66,7 @@ export default function HeroSection() {
             </h1>
 
             <Link
-              href="https://github.com/ringecosystem/degov-launcher?tab=readme-ov-file#getting-started"
+              href="https://docs.degov.ai"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-[144px] bg-[var(--foreground)] px-[30px] py-[20px] text-[24px] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"
@@ -127,7 +127,7 @@ export default function HeroSection() {
             governance contracts.
           </p>
           <Link
-            href="https://github.com/ringecosystem/degov-launcher?tab=readme-ov-file#getting-started"
+            href="https://docs.degov.ai"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-auto w-fit rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"

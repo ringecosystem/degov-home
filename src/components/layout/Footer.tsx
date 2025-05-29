@@ -27,7 +27,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#roadmap"
+                  href="https://docs.degov.ai/roadmap"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                 >
                   Roadmap
@@ -35,7 +35,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#faq"
+                  href="https://docs.degov.ai/faqs/"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                 >
                   FAQ
@@ -49,7 +49,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-[20px]">
               <li>
                 <Link
-                  href="https://github.com/ringecosystem/degov/discussions"
+                  href="https://docs.degov.ai/"
                   target="_blank"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                   rel="noopener noreferrer"
@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://github.com/ringecosystem/degov/discussions"
+                  href="https://docs.degov.ai/#join-our-community"
                   className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80 xl:text-[20px]"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -140,7 +140,7 @@ export default function Footer() {
             Licenses
           </Link>
           <Link
-            href="https://github.com/ringecosystem/degov/discussions"
+            href="https://docs.degov.ai/#join-our-community"
             className="text-[16px] leading-[140%] font-normal transition-opacity hover:underline hover:opacity-80"
             target="_blank"
             rel="noopener noreferrer"
