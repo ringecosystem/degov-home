@@ -38,7 +38,7 @@ export default function CtaSection() {
             style={animatedStyles3}
           >
             <Link
-              href="https://docs.degov.ai/integration/launch/"
+              href="https://forms.gle/d3PUY764urWkm5vz6"
               target="_blank"
               rel="noopener noreferrer"
               className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[#202224] px-[20px] py-[10px] text-[16px] font-semibold transition-all hover:scale-105 hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
