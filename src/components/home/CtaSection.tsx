@@ -48,7 +48,7 @@ export default function CtaSection() {
             </Link>
 
             <Link
-              href="https://docs.degov.ai/integration/launch/"
+              href="https://apps.degov.ai/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex w-full items-center justify-between gap-[10px] rounded-[144px] bg-[var(--foreground)] px-[20px] py-[10px] text-[16px] font-semibold text-[var(--background)] transition-all hover:scale-105 hover:opacity-80 lg:w-auto lg:justify-start lg:px-[30px] lg:py-[20px] lg:text-[24px]"
