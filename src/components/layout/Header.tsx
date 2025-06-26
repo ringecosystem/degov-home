@@ -113,7 +113,7 @@ export default function Header() {
         </nav>
 
         <Link
-          href="https://docs.degov.ai/integration/overview/"
+          href="https://apps.degov.ai/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex h-[46px] items-center justify-center rounded-[48px] bg-[var(--foreground)] px-[16px] text-[20px] leading-[140%] font-medium text-[var(--background)] transition-all hover:scale-105 hover:opacity-80"
