@@ -54,8 +54,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(urbanist.className, 'bg-black text-white antialiased')}>
-        <div className="min-h-screen w-screen">
+      <body className={cn(urbanist.className, 'bg-black text-white antialiased overflow-x-hidden')}>
+        <div className="min-h-screen w-full overflow-x-hidden">
           <Header />
           {children}
           <Footer />
