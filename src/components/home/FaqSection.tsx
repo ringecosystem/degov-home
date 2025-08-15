@@ -111,7 +111,7 @@ export default function FaqSection() {
         </Link>{' '}
         or join our{' '}
         <Link
-          href="https://t.me/DeGov_AI"
+          href="https://t.me/RingDAO_Hub"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[var(--foreground)] underline transition-opacity duration-300 hover:opacity-80"

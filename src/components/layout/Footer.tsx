@@ -101,7 +101,7 @@ export default function Footer() {
                 <Image src="/images/social/x.svg" alt="Twitter" width={20.571} height={20.571} />
               </Link>
               <Link
-                href="https://t.me/DeGov_AI"
+                href="https://t.me/RingDAO_Hub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-shrink-0 transition-opacity hover:opacity-80"
