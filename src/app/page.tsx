@@ -1,17 +1,25 @@
-import HeroSection from "@/components/home/HeroSection";
-import FeaturesSection from "@/components/home/FeaturesSection";
-import RoadmapSection from "@/components/home/RoadmapSection";
-import FaqSection from "@/components/home/FaqSection";
-import CtaSection from "@/components/home/CtaSection";
+import HeroSection from '@/sections/home/hero/HeroSection';
+import FeatureTabsSection from '@/sections/home/feature-tabs/FeatureTabsSection';
+import EcosystemSection from '@/sections/home/ecosystem/EcosystemSection';
+import ToolsSection from '@/sections/home/tools/ToolsSection';
+import StorytellingSection from '@/sections/home/storytelling/StorytellingSection';
+import BenefitsSection from '@/sections/home/benefits/BenefitsSection';
+import FaqSection from '@/sections/home/faq/FaqSection';
+import CtaSection from '@/sections/home/cta/CtaSection';
+import FooterSection from '@/sections/home/footer/FooterSection';
 
 export default function HomePage() {
   return (
-    <main className="home-page">
+    <main className="flex w-full flex-col gap-[140px] bg-black text-white">
       <HeroSection />
-      <FeaturesSection />
-      <RoadmapSection />
+      <FeatureTabsSection />
+      <EcosystemSection />
+      <ToolsSection />
+      <StorytellingSection />
+      <BenefitsSection />
       <FaqSection />
       <CtaSection />
+      <FooterSection />
     </main>
   );
 }

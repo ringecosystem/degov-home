@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { cn } from '@/lib/utils';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
@@ -55,11 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(urbanist.className, 'overflow-x-hidden bg-black text-white antialiased')}>
-        <div className="min-h-screen w-full overflow-x-hidden">
-          <Header />
-          {children}
-          <Footer />
-        </div>
+        <div className="min-h-screen w-full overflow-x-hidden">{children}</div>
       </body>
     </html>
   );

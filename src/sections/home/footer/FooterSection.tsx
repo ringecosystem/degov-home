@@ -24,10 +24,10 @@ const footerColumns = [
 
 export default function FooterSection() {
   return (
-    <footer className="flex w-full justify-center bg-[#000000]">
-      <div className="container flex w-full flex-col gap-[60px] px-[20px] py-[120px] lg:px-[100px]">
-        <div className="grid grid-cols-1 gap-[60px] text-[#ffffff] lg:grid-cols-[420px,1fr] lg:items-start lg:gap-[120px]">
-          <div className="flex flex-col gap-[20px] text-left">
+    <footer className="flex w-full justify-center bg-black">
+      <div className="container flex w-full flex-col gap-14 px-6 pt-24 pb-20 text-white sm:px-10 lg:px-24 lg:pb-24">
+        <div className="flex flex-col gap-14 lg:flex-row lg:items-start lg:justify-between">
+          <div className="flex max-w-[384px] flex-col gap-5 text-left">
             <Link href="/" className="flex items-center">
               <LazyImage
                 src="/images/logo.svg"
@@ -37,22 +37,18 @@ export default function FooterSection() {
                 showLoadingIndicator={false}
               />
             </Link>
-            <p className="h-[136px] text-[18px] leading-[140%] text-[#979797] lg:text-[20px]">
+            <p className="h-[136px] text-xl leading-7 text-[#979797]">
               DeGov.AI is an open-source tool for DAOs built based on the OpenZeppelin governor
               contracts.
             </p>
-            <p className="text-[18px] leading-[140%] text-[#979797] lg:text-[20px]">
-              ©{new Date().getFullYear()} RingDAO
-            </p>
+            <p className="text-xl leading-7 text-[#979797]">©{new Date().getFullYear()} RingDAO</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-[60px] lg:grid-cols-2 lg:gap-[120px]">
+          <div className="grid grid-cols-1 gap-10 text-left lg:grid-cols-2 lg:gap-28">
             {footerColumns.map((column) => (
-              <div key={column.title} className="flex flex-col gap-[40px]">
-                <h4 className="text-[20px] font-semibold uppercase lg:text-[26px]">
-                  {column.title}
-                </h4>
-                <ul className="flex flex-col gap-[20px] text-[18px] leading-[140%] text-[#ffffff] lg:text-[20px]">
+              <div key={column.title} className="flex flex-col gap-10">
+                <h4 className="text-2xl font-semibold uppercase">{column.title}</h4>
+                <ul className="flex flex-col gap-5 text-xl leading-7 text-white">
                   {column.links.map((link) => (
                     <li
                       key={link.label}
