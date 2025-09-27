@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ComponentProps } from 'react';
+import { JSX, useState, type ComponentProps } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { LazyImage } from '@/components/ui/LazyImage';

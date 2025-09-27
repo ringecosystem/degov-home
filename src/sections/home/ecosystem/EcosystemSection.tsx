@@ -14,7 +14,7 @@ export default function EcosystemSection() {
         </div>
 
         <LazyImage
-          src="/images/ecosystem/proposal-list.svg"
+          src="/images/ecosystem/proposal-list.png"
           alt="Proposal List"
           width={1636}
           height={563}
