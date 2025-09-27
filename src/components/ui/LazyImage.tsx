@@ -28,7 +28,7 @@ const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(function LazyImag
   const {
     className,
     wrapperClassName,
-    showLoadingIndicator = true,
+    showLoadingIndicator = false,
     wrapperStyle,
     loading = 'lazy',
     placeholder,

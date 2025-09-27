@@ -42,19 +42,13 @@ const benefits = [
 
 export default function BenefitsSection() {
   return (
-    <section className="flex w-full justify-center bg-black">
-      <div className="container flex w-full flex-col gap-14 px-6 pt-24 pb-20 text-white sm:px-10 lg:px-24 lg:pb-24">
-        <div className="flex flex-col gap-2.5 text-left">
-          <h2 className="text-4xl leading-[54px] font-medium tracking-wide lg:text-6xl lg:leading-[72px]">
-            Why Choose DeGov.AI?
-          </h2>
-        </div>
+    <section className="container flex w-full flex-col justify-center gap-[60px] bg-black">
+      <h2 className="text-[60px] leading-[72px] font-medium tracking-wide">Why Choose DeGov.AI?</h2>
 
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-[60px]">
-          {benefits.map((benefit, index) => (
-            <BenefitCard key={benefit.id} benefit={benefit} index={index} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-[60px]">
+        {benefits.map((benefit, index) => (
+          <BenefitCard key={benefit.id} benefit={benefit} index={index} />
+        ))}
       </div>
     </section>
   );
@@ -73,7 +67,7 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
     <article
       ref={ref}
       style={animatedStyles}
-      className="relative flex h-full flex-col gap-7 rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-7 shadow-[6px_6px_54px_rgba(0,0,0,0.05)]"
+      className="relative flex h-full flex-col gap-[30px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-7 shadow-[6px_6px_54px_rgba(0,0,0,0.05)]"
     >
       <GlowingEffect
         blur={2}
@@ -84,18 +78,18 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
         proximity={100}
         inactiveZone={0.18}
       />
-      <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-white/5">
+      <div className="flex h-20 w-20 items-center justify-center">
         <LazyImage
           src={benefit.icon}
           alt={benefit.title}
-          width={56}
-          height={56}
+          width={80}
+          height={80}
           showLoadingIndicator={false}
         />
       </div>
       <div className="flex flex-col gap-2.5 text-left">
-        <h3 className="text-3xl font-semibold text-white lg:text-4xl">{benefit.title}</h3>
-        <p className="text-2xl leading-9 font-normal text-white/70">{benefit.description}</p>
+        <h3 className="text-[40px] font-semibold text-white">{benefit.title}</h3>
+        <p className="text-[24px] font-normal text-white/70">{benefit.description}</p>
       </div>
     </article>
   );
