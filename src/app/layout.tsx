@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import './globals.css';
+import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
 import { cn } from '@/lib/utils';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
@@ -53,7 +54,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(urbanist.className, 'overflow-x-hidden bg-black text-white antialiased')}>
-        <div className="min-h-screen w-full overflow-x-hidden">{children}</div>
+        <ReactQueryProvider>
+          <div className="min-h-screen w-full overflow-x-hidden">{children}</div>
+        </ReactQueryProvider>
       </body>
     </html>
   );
