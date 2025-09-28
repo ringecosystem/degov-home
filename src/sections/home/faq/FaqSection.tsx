@@ -1,3 +1,7 @@
+'use client';
+
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
 const faqs = [
   {
     question: 'Does DeGov governance happen on-chain or off-chain?',
@@ -36,9 +40,12 @@ const faqs = [
 ];
 
 export default function FaqSection() {
+  const { ref: headerRef, animatedStyles: headerStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: footerRef, animatedStyles: footerStyles } = useScrollAnimation({ delay: 0.3 });
+
   return (
     <section className="container flex w-full flex-col justify-center gap-[83px] bg-black">
-      <header className="flex flex-col gap-2.5 text-left">
+      <header className="flex flex-col gap-2.5 text-left" ref={headerRef} style={headerStyles}>
         <h2 className="text-[60px] leading-[72px] font-medium tracking-wide">
           Frequently Asked Questions
         </h2>
@@ -48,22 +55,40 @@ export default function FaqSection() {
       </header>
 
       <div className="grid grid-cols-1 gap-12 text-left lg:grid-cols-2 lg:gap-20">
-        {faqs.map((faq) => (
-          <article key={faq.question} className="flex flex-col gap-6">
-            <h3 className="text-[32px] leading-[42px] font-medium">{faq.question}</h3>
-            <div className="flex flex-col text-[20px] leading-[28px] text-white/70">
-              {faq.answer.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </article>
+        {faqs.map((faq, index) => (
+          <FaqItem key={faq.question} faq={faq} index={index} />
         ))}
       </div>
 
-      <p className="text-base leading-snug font-normal text-[#979797] lg:text-lg">
+      <p
+        className="text-base leading-snug font-normal text-[#979797] lg:text-lg"
+        ref={footerRef}
+        style={footerStyles}
+      >
         Want to see more FAQs? Check out the full list here:{' '}
         <span className="text-white underline">https://docs.degov.ai/faqs</span>
       </p>
     </section>
+  );
+}
+
+type Faq = (typeof faqs)[number];
+
+function FaqItem({ faq, index }: { faq: Faq; index: number }) {
+  const { ref, animatedStyles } = useScrollAnimation({
+    delay: 0.12 * Math.min(index, 3),
+    mobileDelay: 0.06 * Math.min(index, 2),
+    mobileDuration: 0.18
+  });
+
+  return (
+    <article ref={ref} style={animatedStyles} className="flex flex-col gap-6">
+      <h3 className="text-[32px] leading-[42px] font-medium">{faq.question}</h3>
+      <div className="flex flex-col text-[20px] leading-[28px] text-white/70">
+        {faq.answer.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
+    </article>
   );
 }

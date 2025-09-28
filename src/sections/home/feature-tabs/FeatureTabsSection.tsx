@@ -4,6 +4,7 @@ import { JSX, useState, type ComponentProps } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { LazyImage } from '@/components/ui/LazyImage';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 import {
   AgentVotingIcon,
@@ -43,10 +44,16 @@ const featureTabs: FeatureTab[] = [
 export default function FeatureTabsSection() {
   const [activeTabId, setActiveTabId] = useState(featureTabs[0]?.id ?? '');
   const activeTab = featureTabs.find((tab) => tab.id === activeTabId) ?? featureTabs[0];
+  const { ref: tabListRef, animatedStyles: tabListStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: previewRef, animatedStyles: previewStyles } = useScrollAnimation({ delay: 0.2 });
 
   return (
     <section className="container flex w-full flex-col items-center justify-center gap-[60px] bg-black">
-      <div className="flex w-full flex-wrap items-center justify-center gap-[40px]">
+      <div
+        className="flex w-full flex-wrap items-center justify-center gap-[40px]"
+        ref={tabListRef}
+        style={tabListStyles}
+      >
         {featureTabs.map((tab) => {
           const isActive = tab.id === activeTab?.id;
 
@@ -83,7 +90,11 @@ export default function FeatureTabsSection() {
         })}
       </div>
 
-      <div className="relative flex w-full max-w-[1200px] justify-center overflow-hidden rounded-[26px]">
+      <div
+        className="relative flex w-full max-w-[1200px] justify-center overflow-hidden rounded-[26px]"
+        ref={previewRef}
+        style={previewStyles}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab?.id}

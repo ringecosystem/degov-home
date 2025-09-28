@@ -1,7 +1,10 @@
+'use client';
+
 import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
 
 import { DocsIcon, GithubIcon, XIcon } from '@/components/icons/hero';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const heroButtons = [
   {
@@ -19,6 +22,11 @@ const heroButtons = [
 ];
 
 export default function HeroSection() {
+  const { ref: headerRef, animatedStyles: headerStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: heroTitleRef, animatedStyles: heroTitleStyles } = useScrollAnimation({ delay: 0.2 });
+  const { ref: heroDescriptionRef, animatedStyles: heroDescriptionStyles } = useScrollAnimation({ delay: 0.25 });
+  const { ref: heroButtonsRef, animatedStyles: heroButtonsStyles } = useScrollAnimation({ delay: 0.3 });
+
   return (
     <section className="relative flex w-full justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -41,7 +49,11 @@ export default function HeroSection() {
       </div>
 
       <div className="relative container flex w-full flex-col gap-[100px] py-[100px]">
-        <div className="flex w-full flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+        <div
+          className="flex w-full flex-col items-start justify-between gap-8 lg:flex-row lg:items-center"
+          ref={headerRef}
+          style={headerStyles}
+        >
           <Link href="/" className="flex items-center">
             <LazyImage
               src="/images/logo.svg"
@@ -92,18 +104,22 @@ export default function HeroSection() {
         </div>
 
         <div className="flex w-full flex-col items-center gap-[60px] text-center">
-          <h1 className="flex flex-col text-[100px] font-semibold text-white">
-            <span className="leading-tight lg:leading-[100px]">Next-Gen</span>
-            <span className="leading-tight lg:leading-[100px]">DAO Governance</span>
-            <span className="leading-tight lg:leading-[100px]">Made Simple</span>
-          </h1>
+          <div ref={heroTitleRef} style={heroTitleStyles}>
+            <h1 className="flex flex-col text-[100px] font-semibold text-white">
+              <span className="leading-tight lg:leading-[100px]">Next-Gen</span>
+              <span className="leading-tight lg:leading-[100px]">DAO Governance</span>
+              <span className="leading-tight lg:leading-[100px]">Made Simple</span>
+            </h1>
+          </div>
 
-          <p className="text-[30px] leading-[40px] font-normal text-white/70">
-            An open-source system that equips OpenZeppelin Governor
-            <br /> DAOs with AI agents capable of voting and receiving delegations.
-          </p>
+          <div ref={heroDescriptionRef} style={heroDescriptionStyles}>
+            <p className="text-[30px] leading-[40px] font-normal text-white/70">
+              An open-source system that equips OpenZeppelin Governor
+              <br /> DAOs with AI agents capable of voting and receiving delegations.
+            </p>
+          </div>
 
-          <div className="flex items-center gap-[20px]">
+          <div className="flex items-center gap-[20px]" ref={heroButtonsRef} style={heroButtonsStyles}>
             {heroButtons.map((button) => (
               <Link
                 key={button.id}

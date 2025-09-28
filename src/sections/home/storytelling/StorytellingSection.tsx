@@ -1,4 +1,7 @@
+'use client';
+
 import { LazyImage } from '@/components/ui/LazyImage';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const stories = [
   {
@@ -37,9 +40,11 @@ const stories = [
 ];
 
 export default function StorytellingSection() {
+  const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.1 });
+
   return (
     <section className="container flex w-full flex-col justify-center gap-[70px] bg-black">
-      <div className="flex flex-col gap-2.5 text-left">
+      <div className="flex flex-col gap-2.5 text-left" ref={headingRef} style={headingStyles}>
         <h2 className="text-4xl leading-[54px] font-medium tracking-wide lg:text-6xl lg:leading-[72px]">
           Agent governance unlocks new possibilities
         </h2>
@@ -49,8 +54,8 @@ export default function StorytellingSection() {
       </div>
 
       <div className="flex flex-col items-center gap-[71px]">
-        {stories.map((story) => (
-          <StoryBlock key={story.id} {...story} />
+        {stories.map((story, index) => (
+          <StoryBlock key={story.id} {...story} index={index} />
         ))}
       </div>
     </section>
@@ -64,7 +69,8 @@ function StoryBlock({
   reverse,
   width,
   height,
-  bordered
+  bordered,
+  index
 }: {
   title: string;
   description: string;
@@ -73,12 +79,21 @@ function StoryBlock({
   width: number;
   height: number;
   bordered: boolean;
+  index: number;
 }) {
+  const { ref, animatedStyles } = useScrollAnimation({
+    delay: 0.14 * Math.min(index, 3),
+    mobileDelay: 0.08 * Math.min(index, 2),
+    mobileDuration: 0.2
+  });
+
   return (
     <div
       className={`flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16 ${
         reverse ? 'lg:flex-row-reverse' : ''
       }`}
+      ref={ref}
+      style={animatedStyles}
     >
       <div
         className={`relative w-full overflow-hidden rounded-[20px] ${

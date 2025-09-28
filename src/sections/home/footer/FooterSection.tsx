@@ -1,5 +1,9 @@
+'use client';
+
 import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
+
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const footerColumns = [
   {
@@ -23,9 +27,12 @@ const footerColumns = [
 ];
 
 export default function FooterSection() {
+  const { ref: brandRef, animatedStyles: brandStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: columnsRef, animatedStyles: columnsStyles } = useScrollAnimation({ delay: 0.2 });
+
   return (
     <footer className="container flex w-full justify-between bg-black py-[120px]">
-      <div className="flex flex-col gap-[20px] text-left">
+      <div className="flex flex-col gap-[20px] text-left" ref={brandRef} style={brandStyles}>
         <Link href="/" className="flex items-center">
           <LazyImage
             src="/images/logo.svg"
@@ -44,22 +51,40 @@ export default function FooterSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-[120px] text-left lg:grid-cols-2">
-        {footerColumns.map((column) => (
-          <div key={column.title} className="flex flex-col gap-[40px]">
-            <h4 className="text-[26px] font-semibold uppercase">{column.title}</h4>
-            <ul className="flex flex-col gap-[20px] text-[20px] leading-[28px] text-white">
-              {column.links.map((link) => (
-                <li key={link.label} className="opacity-70 transition-opacity hover:opacity-100">
-                  <Link href={link.href} target="_blank" rel="noopener noreferrer">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div
+        className="grid grid-cols-1 gap-[120px] text-left lg:grid-cols-2"
+        ref={columnsRef}
+        style={columnsStyles}
+      >
+        {footerColumns.map((column, index) => (
+          <FooterColumn key={column.title} column={column} index={index} />
         ))}
       </div>
     </footer>
+  );
+}
+
+type FooterColumnConfig = (typeof footerColumns)[number];
+
+function FooterColumn({ column, index }: { column: FooterColumnConfig; index: number }) {
+  const { ref, animatedStyles } = useScrollAnimation({
+    delay: 0.16 + index * 0.08,
+    mobileDelay: 0.08 * Math.min(index, 1),
+    mobileDuration: 0.2
+  });
+
+  return (
+    <div ref={ref} style={animatedStyles} className="flex flex-col gap-[40px]">
+      <h4 className="text-[26px] font-semibold uppercase">{column.title}</h4>
+      <ul className="flex flex-col gap-[20px] text-[20px] leading-[28px] text-white">
+        {column.links.map((link) => (
+          <li key={link.label} className="opacity-70 transition-opacity hover:opacity-100">
+            <Link href={link.href} target="_blank" rel="noopener noreferrer">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

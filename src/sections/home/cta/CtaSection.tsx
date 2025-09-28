@@ -1,5 +1,9 @@
+'use client';
+
 import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
+
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const ctaButtons = [
   {
@@ -19,9 +23,14 @@ const ctaButtons = [
 ];
 
 export default function CtaSection() {
+  const { ref: cardRef, animatedStyles: cardStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.18 });
+  const { ref: descriptionRef, animatedStyles: descriptionStyles } = useScrollAnimation({ delay: 0.24 });
+  const { ref: buttonsRef, animatedStyles: buttonsStyles } = useScrollAnimation({ delay: 0.3 });
+
   return (
     <section className="container flex w-full flex-col justify-center bg-black">
-      <div className="relative overflow-hidden rounded-[20px]">
+      <div className="relative overflow-hidden rounded-[20px]" ref={cardRef} style={cardStyles}>
         <LazyImage
           src="/images/cta-background.png"
           alt="CTA background"
@@ -41,14 +50,20 @@ export default function CtaSection() {
         {/* <div className="absolute inset-0 bg-black/60" /> */}
 
         <div className="relative flex flex-col items-center gap-[50px] px-6 py-[90px] text-white">
-          <h2 className="text-center text-[70px] leading-[84px] font-medium tracking-wider">
-            Ready to Create Your DAO?
-          </h2>
-          <p className="max-w-[760px] text-center text-[30px] leading-[42px] font-normal text-white/70">
+          <div ref={headingRef} style={headingStyles}>
+            <h2 className="text-center text-[70px] leading-[84px] font-medium tracking-wider">
+              Ready to Create Your DAO?
+            </h2>
+          </div>
+          <p
+            className="max-w-[760px] text-center text-[30px] leading-[42px] font-normal text-white/70"
+            ref={descriptionRef}
+            style={descriptionStyles}
+          >
             Build better communities with <span className="underline">DeGov.AI</span>, which makes
             governance easy, efficient, and powerful.
           </p>
-          <div className="flex items-center gap-[50px]">
+          <div className="flex items-center gap-[50px]" ref={buttonsRef} style={buttonsStyles}>
             {ctaButtons.map((button) => (
               <Link
                 key={button.id}
