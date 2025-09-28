@@ -1,6 +1,9 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 import { LazyImage } from '@/components/ui/LazyImage';
+import { useParallaxMotion } from '@/hooks/useParallaxMotion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const tools = [
@@ -64,14 +67,24 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
     mobileDelay: 0.06 * Math.min(index, 2),
     mobileDuration: 0.18
   });
+  const { ref: mediaRef, style: mediaStyles } = useParallaxMotion({
+    yRange: [-12, 12],
+    scaleRange: [0.98, 1.02]
+  });
 
   return (
-    <article
+    <motion.article
       ref={ref}
       style={animatedStyles}
-      className="group flex h-full flex-col gap-[30px] rounded-[20px] bg-[#202224] p-[30px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)]"
+      className="group flex h-full flex-col gap-[30px] rounded-[20px] bg-[#202224]/90 p-[30px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-[background] duration-300"
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22, mass: 0.9 }}
     >
-      <div className="relative w-full overflow-hidden" style={{ aspectRatio: '674 / 354' }}>
+      <motion.div
+        ref={mediaRef}
+        className="relative w-full overflow-hidden rounded-[12px] will-change-transform"
+        style={{ aspectRatio: '674 / 354', ...mediaStyles }}
+      >
         <LazyImage
           src={tool.image}
           alt={tool.title}
@@ -80,12 +93,13 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
           className="rounded-[10px] object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           wrapperClassName="relative h-full w-full"
         />
-      </div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </motion.div>
 
       <div className="flex flex-col gap-2.5 text-left">
         <h3 className="text-[40px] font-semibold text-white">{tool.title}</h3>
         <p className="text-[20px] font-normal text-white/70">{tool.description}</p>
       </div>
-    </article>
+    </motion.article>
   );
 }

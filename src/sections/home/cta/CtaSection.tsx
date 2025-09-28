@@ -1,9 +1,11 @@
 'use client';
 
-import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
+import { LazyImage } from '@/components/ui/LazyImage';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useSpotlightMotion } from '@/hooks/useSpotlightMotion';
 
 const ctaButtons = [
   {
@@ -27,29 +29,59 @@ export default function CtaSection() {
   const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.18 });
   const { ref: descriptionRef, animatedStyles: descriptionStyles } = useScrollAnimation({ delay: 0.24 });
   const { ref: buttonsRef, animatedStyles: buttonsStyles } = useScrollAnimation({ delay: 0.3 });
+  const spotlight = useSpotlightMotion({ radius: 620, intensity: 0.52 });
 
   return (
     <section className="container flex w-full flex-col justify-center bg-black">
-      <div className="relative overflow-hidden rounded-[20px]" ref={cardRef} style={cardStyles}>
-        <LazyImage
-          src="/images/cta-background.png"
-          alt="CTA background"
-          fill
-          priority
-          className="object-cover"
-          wrapperClassName="hidden h-full w-full lg:block absolute inset-0"
-        />
-        <LazyImage
-          src="/images/cta-background-mobile.png"
-          alt="CTA background mobile"
-          fill
-          priority
-          className="object-cover"
-          wrapperClassName="block h-full w-full lg:hidden absolute inset-0"
-        />
-        {/* <div className="absolute inset-0 bg-black/60" /> */}
+      <motion.div
+        className="relative overflow-hidden rounded-[20px]"
+        ref={cardRef}
+        style={cardStyles}
+        onPointerMove={spotlight.onPointerMove}
+        onPointerLeave={spotlight.onPointerLeave}
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: 'spring', stiffness: 240, damping: 24, mass: 1 }}
+      >
+        <div className="absolute inset-0">
+          <motion.div
+            className="relative hidden h-full w-full lg:block"
+            initial={{ scale: 1.05, opacity: 0.6 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <LazyImage
+              src="/images/cta-background.png"
+              alt="CTA background"
+              fill
+              priority
+              className="object-cover"
+              wrapperClassName="absolute inset-0 hidden h-full w-full lg:block"
+            />
+          </motion.div>
+          <motion.div
+            className="relative block h-full w-full lg:hidden"
+            initial={{ scale: 1.08, opacity: 0.6 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <LazyImage
+              src="/images/cta-background-mobile.png"
+              alt="CTA background mobile"
+              fill
+              priority
+              className="object-cover"
+              wrapperClassName="absolute inset-0 block h-full w-full lg:hidden"
+            />
+          </motion.div>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-screen"
+            style={spotlight.style}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#050505]/40 via-transparent to-[#7f5dff1f]" />
+        </div>
 
-        <div className="relative flex flex-col items-center gap-[50px] px-6 py-[90px] text-white">
+        <div className="relative z-10 flex flex-col items-center gap-[50px] px-6 py-[90px] text-white">
           <div ref={headingRef} style={headingStyles}>
             <h2 className="text-center text-[70px] leading-[84px] font-medium tracking-wider">
               Ready to Create Your DAO?
@@ -88,7 +120,7 @@ export default function CtaSection() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

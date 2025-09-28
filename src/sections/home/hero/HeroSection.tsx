@@ -1,10 +1,12 @@
 'use client';
 
-import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 import { DocsIcon, GithubIcon, XIcon } from '@/components/icons/hero';
+import { LazyImage } from '@/components/ui/LazyImage';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useSpotlightMotion } from '@/hooks/useSpotlightMotion';
 
 const heroButtons = [
   {
@@ -26,26 +28,58 @@ export default function HeroSection() {
   const { ref: heroTitleRef, animatedStyles: heroTitleStyles } = useScrollAnimation({ delay: 0.2 });
   const { ref: heroDescriptionRef, animatedStyles: heroDescriptionStyles } = useScrollAnimation({ delay: 0.25 });
   const { ref: heroButtonsRef, animatedStyles: heroButtonsStyles } = useScrollAnimation({ delay: 0.3 });
+  const spotlight = useSpotlightMotion({ radius: 720, intensity: 0.6 });
 
   return (
-    <section className="relative flex w-full justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <LazyImage
-          src="/images/hero-background.png"
-          alt="Hero background"
-          fill
-          priority
-          className="object-cover"
-          wrapperClassName="hidden h-full w-full lg:block"
+    <section
+      className="relative flex w-full justify-center overflow-hidden"
+      onPointerMove={spotlight.onPointerMove}
+      onPointerLeave={spotlight.onPointerLeave}
+    >
+      <div className="absolute inset-0 -z-10">
+        <motion.div
+          className="relative hidden h-full w-full lg:block"
+          initial={{ scale: 1.1, opacity: 0.6 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <LazyImage
+            src="/images/hero-background.png"
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover"
+            wrapperClassName="h-full w-full"
+          />
+        </motion.div>
+        <motion.div
+          className="relative block h-full w-full lg:hidden"
+          initial={{ scale: 1.08, opacity: 0.6 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <LazyImage
+            src="/images/hero-background-mobile.png"
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover"
+            wrapperClassName="h-full w-full"
+          />
+        </motion.div>
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 mix-blend-screen"
+          style={spotlight.style}
         />
-        <LazyImage
-          src="/images/hero-background-mobile.png"
-          alt="Hero background"
-          fill
-          priority
-          className="object-cover"
-          wrapperClassName="block h-full w-full lg:hidden"
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_10%,rgba(118,85,255,0.28),rgba(12,12,20,0)_70%)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         />
+        <div className="pointer-events-none absolute inset-x-0 bottom-[-16%] h-[45%] bg-gradient-to-t from-black via-black/40 to-transparent" />
       </div>
 
       <div className="relative container flex w-full flex-col gap-[100px] py-[100px]">

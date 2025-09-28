@@ -1,6 +1,9 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 import { LazyImage } from '@/components/ui/LazyImage';
+import { useParallaxMotion } from '@/hooks/useParallaxMotion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const stories = [
@@ -86,6 +89,11 @@ function StoryBlock({
     mobileDelay: 0.08 * Math.min(index, 2),
     mobileDuration: 0.2
   });
+  const { ref: mediaRef, style: mediaMotionStyles } = useParallaxMotion({
+    yRange: reverse ? [18, -18] : [-18, 18],
+    rotateRange: reverse ? [1.4, -1.4] : [-1.4, 1.4],
+    scaleRange: [0.96, 1]
+  });
 
   return (
     <div
@@ -95,11 +103,12 @@ function StoryBlock({
       ref={ref}
       style={animatedStyles}
     >
-      <div
+      <motion.div
+        ref={mediaRef}
         className={`relative w-full overflow-hidden rounded-[20px] ${
           bordered ? 'border border-white/10' : ''
-        }`}
-        style={{ maxWidth: `${width}px` }}
+        } will-change-transform`}
+        style={{ maxWidth: `${width}px`, ...mediaMotionStyles }}
       >
         <LazyImage
           src={image}
@@ -110,7 +119,7 @@ function StoryBlock({
           className="h-auto w-full object-cover"
           wrapperClassName="block w-full"
         />
-      </div>
+      </motion.div>
 
       <div className="flex w-full max-w-[450px] flex-col gap-[30px] text-left text-white">
         <h3 className="text-[40px] font-semibold">{title}</h3>

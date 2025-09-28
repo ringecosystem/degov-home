@@ -1,5 +1,7 @@
 'use client';
 
+import Script from 'next/script';
+
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const faqs = [
@@ -39,6 +41,19 @@ const faqs = [
   }
 ];
 
+const faqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer.join('\n')
+    }
+  }))
+});
+
 export default function FaqSection() {
   const { ref: headerRef, animatedStyles: headerStyles } = useScrollAnimation({ delay: 0.1 });
   const { ref: footerRef, animatedStyles: footerStyles } = useScrollAnimation({ delay: 0.3 });
@@ -68,6 +83,12 @@ export default function FaqSection() {
         Want to see more FAQs? Check out the full list here:{' '}
         <span className="text-white underline">https://docs.degov.ai/faqs</span>
       </p>
+      <Script
+        id="faq-structured-data"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: faqJsonLd }}
+      />
     </section>
   );
 }
