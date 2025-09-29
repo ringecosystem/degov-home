@@ -69,16 +69,16 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
   ));
 
   return (
-    <section className="container flex w-full flex-col justify-center gap-[60px] bg-black">
+    <section className="container flex w-full flex-col justify-center gap-[30px] bg-black lg:gap-[60px]">
       <div
         className="flex flex-col gap-2.5 text-left text-white"
         ref={headingRef}
         style={headingStyles}
       >
-        <h2 className="text-[60px] leading-[72px] font-medium tracking-wide">
+        <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Explore the DAOs in our ecosystem
         </h2>
-        <p className="text-[30px] leading-[42px] font-normal text-white/70">
+        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
           Help our partner DAOs build better communities.
         </p>
       </div>
@@ -92,13 +92,13 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
           <div className="flex w-96 items-center gap-1 px-5 py-3.5">
             <div className="text-xs font-semibold text-white">Name</div>
           </div>
-          <div className="flex flex-1 items-center gap-1 px-5 py-3.5">
+          <div className="hidden flex-1 items-center gap-1 px-5 py-3.5 lg:flex">
             <div className="text-xs font-semibold text-white">Network</div>
           </div>
-          <div className="flex flex-1 items-center gap-1 px-5 py-3.5">
+          <div className="hidden flex-1 items-center gap-1 px-5 py-3.5 lg:flex">
             <div className="text-xs font-semibold text-white">Last Proposal</div>
           </div>
-          <div className="flex flex-1 items-center justify-center gap-1 px-5 py-3.5">
+          <div className="hidden flex-1 items-center justify-center gap-1 px-5 py-3.5 lg:flex">
             <div className="text-xs font-semibold text-white">Proposals</div>
           </div>
         </div>
@@ -168,7 +168,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                   ) : null}
                 </div>
               </div>
-              <div className="flex flex-1 items-center gap-2.5 p-5">
+              <div className="hidden flex-1 items-center gap-2.5 p-5 lg:flex">
                 {dao.networkLogo ? (
                   <LazyImage
                     src={dao.networkLogo}
@@ -182,7 +182,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                 )}
                 <span className="text-base leading-snug text-white">{networkLabel}</span>
               </div>
-              <div className="flex flex-1 flex-col items-start gap-1 p-5 text-left">
+              <div className="hidden flex-1 flex-col items-start gap-1 p-5 text-left lg:flex">
                 {dao.lastProposal?.proposalLink ? (
                   <Link
                     href={dao.lastProposal.proposalLink}
@@ -196,7 +196,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                   <span className="text-base text-white">No proposals yet</span>
                 )}
               </div>
-              <div className="flex flex-1 flex-col items-center gap-1 p-5">
+              <div className="hidden flex-1 flex-col items-center gap-1 p-5 lg:flex">
                 <span className="text-base text-white">{formatNumber(dao.proposals)}</span>
               </div>
             </div>
@@ -212,13 +212,20 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
 
       <Link
         href="https://app.degov.io/"
-        className="inline-flex w-[207px] cursor-pointer items-center justify-center rounded-full border border-white py-2.5 text-[24px] font-medium text-white"
+        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white lg:w-[207px] lg:justify-center lg:text-[24px]"
         ref={buttonRef}
         style={buttonStyles}
         target="_blank"
         rel="noopener noreferrer"
       >
         View All DAOs
+        <LazyImage
+          src={'/images/arrow-light.svg'}
+          alt="arrow"
+          width={13}
+          height={15}
+          className="block lg:hidden"
+        />
       </Link>
     </section>
   );
