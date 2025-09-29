@@ -27,14 +27,16 @@ const ctaButtons = [
 export default function CtaSection() {
   const { ref: cardRef, animatedStyles: cardStyles } = useScrollAnimation({ delay: 0.1 });
   const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.18 });
-  const { ref: descriptionRef, animatedStyles: descriptionStyles } = useScrollAnimation({ delay: 0.24 });
+  const { ref: descriptionRef, animatedStyles: descriptionStyles } = useScrollAnimation({
+    delay: 0.24
+  });
   const { ref: buttonsRef, animatedStyles: buttonsStyles } = useScrollAnimation({ delay: 0.3 });
   const spotlight = useSpotlightMotion({ radius: 620, intensity: 0.52 });
 
   return (
     <section className="container flex w-full flex-col justify-center bg-black">
       <motion.div
-        className="relative overflow-hidden rounded-[20px]"
+        className="relative overflow-hidden rounded-[0px] lg:rounded-[20px]"
         ref={cardRef}
         style={cardStyles}
         onPointerMove={spotlight.onPointerMove}
@@ -81,21 +83,25 @@ export default function CtaSection() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#050505]/40 via-transparent to-[#7f5dff1f]" />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center gap-[50px] px-6 py-[90px] text-white">
+        <div className="relative z-10 flex flex-col items-center gap-[50px] px-[20px] py-[90px] text-white lg:px-6">
           <div ref={headingRef} style={headingStyles}>
-            <h2 className="text-center text-[70px] leading-[84px] font-medium tracking-wider">
+            <h2 className="text-left text-[34px] leading-[40px] font-medium tracking-wider lg:text-center lg:text-[70px] lg:leading-[84px]">
               Ready to Create Your DAO?
             </h2>
           </div>
           <p
-            className="max-w-[760px] text-center text-[30px] leading-[42px] font-normal text-white/70"
+            className="text-left text-[16px] leading-[22px] font-normal text-white/70 lg:max-w-[760px] lg:text-center lg:text-[30px] lg:leading-[42px]"
             ref={descriptionRef}
             style={descriptionStyles}
           >
             Build better communities with <span className="underline">DeGov.AI</span>, which makes
             governance easy, efficient, and powerful.
           </p>
-          <div className="flex items-center gap-[50px]" ref={buttonsRef} style={buttonsStyles}>
+          <div
+            className="flex w-full flex-col items-center gap-[20px] lg:flex-row lg:gap-[50px]"
+            ref={buttonsRef}
+            style={buttonsStyles}
+          >
             {ctaButtons.map((button) => (
               <Link
                 key={button.id}
@@ -104,8 +110,8 @@ export default function CtaSection() {
                 rel="noopener noreferrer"
                 className={
                   button.variant === 'dark'
-                    ? 'flex items-center gap-2.5 rounded-full bg-[#202224] px-7 py-5 text-2xl font-medium text-white transition-transform duration-300 hover:scale-[1.04]'
-                    : 'flex items-center gap-2.5 rounded-full bg-white px-7 py-5 text-2xl font-medium text-neutral-900 transition-transform duration-300 hover:scale-[1.04]'
+                    ? 'flex w-full items-center justify-between gap-2.5 rounded-full bg-[#202224] px-[20px] py-[10px] text-[16px] font-medium text-white transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-7 lg:py-5 lg:text-2xl'
+                    : 'flex w-full items-center justify-between gap-2.5 rounded-full bg-white px-[20px] py-[10px] text-[16px] font-medium text-neutral-900 transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-7 lg:py-5 lg:text-2xl'
                 }
               >
                 {button.label}

@@ -31,7 +31,7 @@ export default function FooterSection() {
   const { ref: columnsRef, animatedStyles: columnsStyles } = useScrollAnimation({ delay: 0.2 });
 
   return (
-    <footer className="container flex w-full justify-between bg-black py-[120px]">
+    <footer className="container flex w-full flex-col justify-between gap-[60px] bg-black py-[40px] lg:flex-row lg:gap-[0] lg:py-[120px]">
       <div className="flex flex-col gap-[20px] text-left" ref={brandRef} style={brandStyles}>
         <Link href="/" className="flex items-center">
           <LazyImage
@@ -42,17 +42,17 @@ export default function FooterSection() {
             showLoadingIndicator={false}
           />
         </Link>
-        <p className="h-[136px] text-[20px] leading-[28px] text-[#979797]">
+        <p className="h-auto text-[16px] leading-[22.4px] text-[#979797] lg:h-[136px] lg:text-[20px] lg:leading-[28px]">
           DeGov.AI is an open-source tool for DAOs built
           <br /> based on the OpenZeppelin governor contracts.
         </p>
-        <p className="text-[20px] leading-[28px] text-[#979797]">
+        <p className="hidden text-[20px] leading-[28px] text-[#97977] lg:block">
           ©{new Date().getFullYear()} RingDAO
         </p>
       </div>
 
       <div
-        className="grid grid-cols-1 gap-[120px] text-left lg:grid-cols-2"
+        className="grid grid-cols-1 gap-[60px] text-left lg:grid-cols-2 lg:gap-[120px]"
         ref={columnsRef}
         style={columnsStyles}
       >
@@ -60,6 +60,10 @@ export default function FooterSection() {
           <FooterColumn key={column.title} column={column} index={index} />
         ))}
       </div>
+
+      <p className="text-[16px] leading-[22px] text-white/70 lg:hidden">
+        ©{new Date().getFullYear()} RingDAO
+      </p>
     </footer>
   );
 }
@@ -74,9 +78,9 @@ function FooterColumn({ column, index }: { column: FooterColumnConfig; index: nu
   });
 
   return (
-    <div ref={ref} style={animatedStyles} className="flex flex-col gap-[40px]">
-      <h4 className="text-[26px] font-semibold uppercase">{column.title}</h4>
-      <ul className="flex flex-col gap-[20px] text-[20px] leading-[28px] text-white">
+    <div ref={ref} style={animatedStyles} className="flex flex-col gap-[20px] lg:gap-[40px]">
+      <h4 className="text-[20px] font-semibold uppercase lg:text-[26px]">{column.title}</h4>
+      <ul className="flex flex-col gap-[20px] text-[16px] leading-[22.4px] text-white lg:gap-[20px] lg:text-[20px] lg:leading-[28px]">
         {column.links.map((link) => (
           <li key={link.label} className="opacity-70 transition-opacity hover:opacity-100">
             <Link href={link.href} target="_blank" rel="noopener noreferrer">

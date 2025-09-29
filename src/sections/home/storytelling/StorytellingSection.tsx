@@ -48,10 +48,10 @@ export default function StorytellingSection() {
   return (
     <section className="container flex w-full flex-col justify-center gap-[70px] bg-black">
       <div className="flex flex-col gap-2.5 text-left" ref={headingRef} style={headingStyles}>
-        <h2 className="text-4xl leading-[54px] font-medium tracking-wide lg:text-6xl lg:leading-[72px]">
+        <h2 className="text-[34px] leading-[54px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Agent governance unlocks new possibilities
         </h2>
-        <p className="text-lg leading-8 font-normal text-white/70 lg:text-3xl lg:leading-10">
+        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
           Empower the latest AI technology to change the way we govern.
         </p>
       </div>
@@ -97,7 +97,7 @@ function StoryBlock({
 
   return (
     <div
-      className={`flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16 ${
+      className={`flex flex-col items-center gap-[20px] lg:flex-row lg:items-center lg:justify-between lg:gap-16 ${
         reverse ? 'lg:flex-row-reverse' : ''
       }`}
       ref={ref}
@@ -105,7 +105,7 @@ function StoryBlock({
     >
       <motion.div
         ref={mediaRef}
-        className={`relative w-full overflow-hidden rounded-[20px] ${
+        className={`relative w-full overflow-hidden rounded-[12px] lg:rounded-[20px] ${
           bordered ? 'border border-white/10' : ''
         } will-change-transform`}
         style={{ maxWidth: `${width}px`, ...mediaMotionStyles }}
@@ -121,9 +121,9 @@ function StoryBlock({
         />
       </motion.div>
 
-      <div className="flex w-full max-w-[450px] flex-col gap-[30px] text-left text-white">
-        <h3 className="text-[40px] font-semibold">{title}</h3>
-        <p className="text-[24px] font-normal text-white/70">{description}</p>
+      <div className="flex w-full max-w-[450px] flex-col gap-[10px] text-left text-white lg:gap-[30px]">
+        <h3 className="text-[22px] font-semibold lg:text-[40px]">{title}</h3>
+        <p className="text-[16px] font-normal text-white/70 lg:text-[24px]">{description}</p>
       </div>
     </div>
   );

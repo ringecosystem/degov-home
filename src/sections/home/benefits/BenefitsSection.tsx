@@ -42,10 +42,17 @@ const benefits = [
 
 export default function BenefitsSection() {
   return (
-    <section className="container flex w-full flex-col justify-center gap-[60px] bg-black">
-      <h2 className="text-[60px] leading-[72px] font-medium tracking-wide">Why Choose DeGov.AI?</h2>
+    <section className="container flex w-full flex-col justify-center gap-[30px] bg-black lg:gap-[60px]">
+      <header className="flex flex-col gap-4 text-left">
+        <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
+          Why Choose DeGov.AI?
+        </h2>
+        <p className="text-[16px] leading-[24px] font-normal text-white/70">
+          Get answers to common questions about Degov.AI and DAO governance
+        </p>
+      </header>
 
-      <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-[60px]">
+      <div className="grid grid-cols-1 gap-[30px] lg:grid-cols-2 lg:gap-[60px]">
         {benefits.map((benefit, index) => (
           <BenefitCard key={benefit.id} benefit={benefit} index={index} />
         ))}
@@ -67,7 +74,7 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
     <article
       ref={ref}
       style={animatedStyles}
-      className="relative flex h-full flex-col gap-[30px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-7 shadow-[6px_6px_54px_rgba(0,0,0,0.05)]"
+      className="relative flex h-full flex-col gap-[20px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-[20px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] lg:gap-[30px] lg:p-7"
     >
       <GlowingEffect
         blur={2}
@@ -88,8 +95,10 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
         />
       </div>
       <div className="flex flex-col gap-2.5 text-left">
-        <h3 className="text-[40px] font-semibold text-white">{benefit.title}</h3>
-        <p className="text-[24px] font-normal text-white/70">{benefit.description}</p>
+        <h3 className="text-[22px] font-semibold text-white lg:text-[40px]">{benefit.title}</h3>
+        <p className="text-[16px] font-normal text-white/70 lg:text-[24px]">
+          {benefit.description}
+        </p>
       </div>
     </article>
   );

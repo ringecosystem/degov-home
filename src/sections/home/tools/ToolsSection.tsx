@@ -40,17 +40,17 @@ export default function ToolsSection() {
   const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.1 });
 
   return (
-    <section className="container flex w-full flex-col justify-center gap-[60px] bg-black">
+    <section className="container flex w-full flex-col justify-center gap-[30px] bg-black lg:gap-[60px]">
       <div className="flex flex-col gap-2.5 text-left" ref={headingRef} style={headingStyles}>
-        <h2 className="text-[60px] leading-[72px] font-medium tracking-wide">
+        <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           All Your Governance Tools in One Place
         </h2>
-        <p className="text-[30px] leading-[42px] font-normal text-white/70">
+        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
           Offer a unified platform for governance: proposals, voting and delegation.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-[40px] lg:grid-cols-2 lg:gap-[60px]">
+      <div className="grid grid-cols-1 gap-[30px] lg:grid-cols-2 lg:gap-[60px]">
         {tools.map((tool, index) => (
           <ToolCard key={tool.id} tool={tool} index={index} />
         ))}
@@ -76,7 +76,7 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
     <motion.article
       ref={ref}
       style={animatedStyles}
-      className="group flex h-full flex-col gap-[30px] rounded-[20px] bg-[#202224]/90 p-[30px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-[background] duration-300"
+      className="group flex h-full flex-col gap-[30px] rounded-[20px] bg-[#202224]/90 p-[20px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-[background] duration-300 lg:p-[30px]"
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ type: 'spring', stiffness: 260, damping: 22, mass: 0.9 }}
     >
@@ -97,8 +97,8 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
       </motion.div>
 
       <div className="flex flex-col gap-2.5 text-left">
-        <h3 className="text-[40px] font-semibold text-white">{tool.title}</h3>
-        <p className="text-[20px] font-normal text-white/70">{tool.description}</p>
+        <h3 className="text-[22px] font-semibold text-white lg:text-[40px]">{tool.title}</h3>
+        <p className="text-[16px] font-normal text-white/70 lg:text-[20px]">{tool.description}</p>
       </div>
     </motion.article>
   );
