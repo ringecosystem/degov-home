@@ -10,7 +10,7 @@ import FooterSection from '@/sections/home/footer/FooterSection';
 
 export default function HomePage() {
   return (
-    <main className="flex w-full flex-col gap-[140px] bg-black text-white">
+    <main className="flex w-full flex-col gap-[58px] bg-black text-white lg:gap-[140px]">
       <HeroSection />
       <FeatureTabsSection />
       <EcosystemSection />
