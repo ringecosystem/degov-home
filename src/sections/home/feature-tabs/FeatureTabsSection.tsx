@@ -50,18 +50,8 @@ export default function FeatureTabsSection() {
   return (
     <section className="container -mt-[52px] flex w-full flex-col items-center justify-center bg-black lg:mt-0">
       <div className="flex w-full flex-col items-start gap-[58px] lg:hidden">
-        {featureTabs.map((tab) => (
-          <div key={tab.id} className="flex w-full flex-col gap-5">
-            <LazyImage
-              src={tab.screenshot}
-              alt={`${tab.label} screenshot`}
-              width={335}
-              height={201}
-              className="h-auto w-full object-cover"
-              wrapperClassName="flex w-full"
-            />
-            <div className="w-full text-center text-[20px] font-normal">{tab.label}</div>
-          </div>
+        {featureTabs.map((tab, index) => (
+          <MobileFeatureCard key={tab.id} tab={tab} index={index} />
         ))}
       </div>
 
@@ -135,5 +125,27 @@ export default function FeatureTabsSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function MobileFeatureCard({ tab, index }: { tab: FeatureTab; index: number }) {
+  const { ref, animatedStyles } = useScrollAnimation({
+    delay: 0.1 * Math.min(index, 2),
+    mobileDelay: 0.06 * Math.min(index, 2),
+    mobileDuration: 0.18
+  });
+
+  return (
+    <div ref={ref} style={animatedStyles} className="flex w-full flex-col gap-5">
+      <LazyImage
+        src={tab.screenshot}
+        alt={`${tab.label} screenshot`}
+        width={335}
+        height={201}
+        className="h-auto w-full object-cover"
+        wrapperClassName="flex w-full"
+      />
+      <div className="w-full text-center text-[20px] font-normal">{tab.label}</div>
+    </div>
   );
 }

@@ -1,36 +1,20 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Urbanist } from 'next/font/google';
 
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
+import { SEO_ORGANIZATION, SEO_WEBSITE, SITE_URL } from '@/lib/seo';
 
-const SITE_URL = 'https://degov.ai';
-const STRUCTURED_DATA = JSON.stringify([
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'DeGov.AI',
-    url: SITE_URL,
-    sameAs: [
-      'https://x.com/ai_degov',
-      'https://docs.degov.ai/',
-      'https://github.com/ringecosystem/degov'
-    ],
-    description:
-      'DeGov.AI is an AI-powered, open-source governance platform built on the OpenZeppelin Governor framework.'
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'DeGov.AI',
-    url: SITE_URL,
-    description:
-      'DeGov.AI equips DAOs with AI delegation, real-time monitoring, and transparent on-chain governance tooling.'
-  }
-]);
+const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 
 const urbanist = Urbanist({ subsets: ['latin'] });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#000000'
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const name = 'DeGov.AI';

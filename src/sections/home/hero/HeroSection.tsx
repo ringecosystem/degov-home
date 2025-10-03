@@ -33,6 +33,9 @@ export default function HeroSection() {
   const { ref: heroButtonsRef, animatedStyles: heroButtonsStyles } = useScrollAnimation({
     delay: 0.3
   });
+  const { ref: mobileLogoRef, animatedStyles: mobileLogoStyles } = useScrollAnimation({
+    delay: 0.15
+  });
   const spotlight = useSpotlightMotion({ radius: 720, intensity: 0.6 });
 
   return (
@@ -72,6 +75,7 @@ export default function HeroSection() {
             wrapperClassName="h-full w-full "
           />
         </motion.div>
+        <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={spotlight.style} />
       </div>
 
       <div className="relative z-10 container flex w-full flex-col gap-[60px] py-[30px] lg:gap-[100px] lg:py-[100px]">
@@ -128,7 +132,11 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-        <div className="flex w-full items-center justify-center lg:hidden">
+        <div
+          ref={mobileLogoRef}
+          style={mobileLogoStyles}
+          className="flex w-full items-center justify-center lg:hidden"
+        >
           <LazyImage
             src="/images/logo.svg"
             alt="DeGov.AI Logo"

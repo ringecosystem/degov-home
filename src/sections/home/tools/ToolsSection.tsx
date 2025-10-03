@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 
 import { LazyImage } from '@/components/ui/LazyImage';
-import { useParallaxMotion } from '@/hooks/useParallaxMotion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const tools = [
@@ -67,23 +66,17 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
     mobileDelay: 0.06 * Math.min(index, 2),
     mobileDuration: 0.18
   });
-  const { ref: mediaRef, style: mediaStyles } = useParallaxMotion({
-    yRange: [-12, 12],
-    scaleRange: [0.98, 1.02]
-  });
 
   return (
     <motion.article
       ref={ref}
       style={animatedStyles}
       className="group flex h-full flex-col gap-[30px] rounded-[20px] bg-[#202224]/90 p-[20px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-[background] duration-300 lg:p-[30px]"
-      whileHover={{ y: -6, scale: 1.01 }}
       transition={{ type: 'spring', stiffness: 260, damping: 22, mass: 0.9 }}
     >
       <motion.div
-        ref={mediaRef}
         className="relative w-full overflow-hidden rounded-[12px] will-change-transform"
-        style={{ aspectRatio: '674 / 354', ...mediaStyles }}
+        style={{ aspectRatio: '674 / 354' }}
       >
         <LazyImage
           src={tool.image}

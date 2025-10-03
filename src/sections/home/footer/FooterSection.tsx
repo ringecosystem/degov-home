@@ -46,7 +46,7 @@ export default function FooterSection() {
           DeGov.AI is an open-source tool for DAOs built
           <br /> based on the OpenZeppelin governor contracts.
         </p>
-        <p className="hidden text-[20px] leading-[28px] text-[#97977] lg:block">
+        <p className="hidden text-[20px] leading-[28px] text-[#979797] lg:block">
           ©{new Date().getFullYear()} RingDAO
         </p>
       </div>

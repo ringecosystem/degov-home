@@ -1,4 +1,5 @@
 const GRAPHQL_ENDPOINT = 'https://api.degov.ai/graphql';
+const DEFAULT_FETCH_TIMEOUT_MS = 8000;
 
 const DAO_QUERY = /* GraphQL */ `
   query TopDaos {
@@ -87,31 +88,66 @@ function mapDao(dao: Dao): DaoSummary {
   };
 }
 
-export async function fetchTopDaos(limit = 5, init?: RequestInit): Promise<DaoSummary[]> {
-  const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query: DAO_QUERY }),
-    ...init
-  });
+type ExtendedRequestInit = RequestInit & {
+  next?: {
+    revalidate?: number;
+  };
+};
 
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+export async function fetchTopDaos(limit = 5, init: ExtendedRequestInit = {}): Promise<DaoSummary[]> {
+  const { signal, headers: initHeaders, ...restInit } = init;
+
+  const headers = new Headers(initHeaders as HeadersInit | undefined);
+  if (!headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
   }
 
-  const json = (await response.json()) as GraphqlResponse;
+  const controller = signal ? null : new AbortController();
+  const activeSignal = signal ?? controller?.signal;
+  const timeoutId = controller
+    ? setTimeout(() => {
+        controller.abort();
+      }, DEFAULT_FETCH_TIMEOUT_MS)
+    : null;
 
-  if (json.errors?.length) {
-    throw new Error(json.errors.map((err) => err.message).filter(Boolean).join('; '));
+  try {
+    const response = await fetch(GRAPHQL_ENDPOINT, {
+      ...restInit,
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ query: DAO_QUERY }),
+      signal: activeSignal
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const json = (await response.json()) as GraphqlResponse;
+
+    if (json.errors?.length) {
+      throw new Error(json.errors.map((err) => err.message).filter(Boolean).join('; '));
+    }
+
+    const rawDaos = json.data?.daos ?? [];
+
+    return rawDaos
+      .filter((dao): dao is Dao => Boolean(dao) && Boolean(dao.id))
+      .map(mapDao)
+      .sort((a, b) => b.proposals - a.proposals)
+      .slice(0, limit);
+  } catch (error) {
+    if (
+      error instanceof DOMException &&
+      (error.name === 'AbortError' || error.message === 'The operation was aborted.')
+    ) {
+      throw new Error('Request timed out. Please try again.');
+    }
+
+    throw error;
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
   }
-
-  const rawDaos = json.data?.daos ?? [];
-
-  return rawDaos
-    .filter((dao): dao is Dao => Boolean(dao) && Boolean(dao.id))
-    .map(mapDao)
-    .sort((a, b) => b.proposals - a.proposals)
-    .slice(0, limit);
 }

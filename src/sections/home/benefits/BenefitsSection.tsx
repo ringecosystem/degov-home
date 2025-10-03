@@ -1,9 +1,12 @@
 'use client';
 
+import { useMemo, useState } from 'react';
+
 import { LazyImage } from '@/components/ui/LazyImage';
 
 import { GlowingEffect } from '@/components/ui/glowing-effect';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { cn } from '@/lib/utils';
 
 const benefits = [
   {
@@ -72,13 +75,40 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
     mobileDelay: 0.06 * Math.min(index, 1),
     mobileDuration: 0.18
   });
+  const [isActive, setIsActive] = useState(false);
+
+  const glowSettings = useMemo(() => {
+    return {
+      spread: 56,
+      borderWidth: 1.5,
+      proximity: 40,
+      inactiveZone: 0.6,
+      className: undefined
+    } as const;
+  }, []);
 
   return (
     <article
       ref={ref}
       style={animatedStyles}
-      className="relative flex h-full flex-col gap-[20px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-[20px] lg:gap-[30px] lg:p-[30px]"
+      onPointerEnter={() => setIsActive(true)}
+      onPointerLeave={() => setIsActive(false)}
+      onPointerCancel={() => setIsActive(false)}
+      className={cn(
+        'group relative flex h-full flex-col gap-[20px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-[20px] transition-all duration-300 ease-out lg:gap-[30px] lg:p-[30px]',
+        'hover:-translate-y-1 hover:border-white/60 hover:bg-[#25272b]'
+      )}
     >
+      <GlowingEffect
+        glow={isActive}
+        disabled={!isActive}
+        spread={glowSettings.spread}
+        borderWidth={glowSettings.borderWidth}
+        proximity={glowSettings.proximity}
+        inactiveZone={glowSettings.inactiveZone}
+        blur={0}
+        className={glowSettings.className}
+      />
       <div className="flex h-20 w-20 items-center justify-center">
         <LazyImage
           src={benefit.icon}

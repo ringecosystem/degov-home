@@ -4,7 +4,9 @@ import { fetchTopDaos } from '@/lib/degov';
 export default async function EcosystemSection() {
   try {
     const daos = await fetchTopDaos(5, {
-      cache: 'no-store'
+      next: {
+        revalidate: 300
+      }
     });
     return <EcosystemSectionClient initialDaos={daos} initialError={null} />;
   } catch (error) {
