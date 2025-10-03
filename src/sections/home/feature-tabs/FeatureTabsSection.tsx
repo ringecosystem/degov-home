@@ -48,7 +48,7 @@ export default function FeatureTabsSection() {
   const { ref: previewRef, animatedStyles: previewStyles } = useScrollAnimation({ delay: 0.2 });
 
   return (
-    <section className="container flex w-full flex-col items-center justify-center bg-black">
+    <section className="container -mt-[52px] flex w-full flex-col items-center justify-center bg-black lg:mt-0">
       <div className="flex w-full flex-col items-start gap-[58px] lg:hidden">
         {featureTabs.map((tab) => (
           <div key={tab.id} className="flex w-full flex-col gap-5">
@@ -57,7 +57,7 @@ export default function FeatureTabsSection() {
               alt={`${tab.label} screenshot`}
               width={335}
               height={201}
-              className="h-auto w-full rounded-[26px] object-cover"
+              className="h-auto w-full object-cover"
               wrapperClassName="flex w-full"
             />
             <div className="w-full text-center text-[20px] font-normal">{tab.label}</div>

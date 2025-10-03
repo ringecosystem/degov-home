@@ -11,7 +11,8 @@ const benefits = [
     title: 'Transparency and Security',
     description:
       'Everything happens on-chain and open-sourced for maximum transparency and security.',
-    icon: '/images/feature-1.svg',
+    icon: '/images/feature-2.svg',
+
     accent: 'rotate'
   },
   {
@@ -19,7 +20,8 @@ const benefits = [
     title: 'OpenZeppelin Governor Based',
     description:
       'Fully compatible with OpenZeppelin Governor, a widely adopted and trusted on-chain governance framework.',
-    icon: '/images/feature-2.svg',
+    icon: '/images/feature-1.svg',
+
     accent: 'solid'
   },
   {
@@ -27,7 +29,8 @@ const benefits = [
     title: 'Agent Governance',
     description:
       'Boost governance participation with AI-powered agent governance, allowing members to delegate their votes to intelligent agents.',
-    icon: '/images/feature-3.svg',
+    icon: '/images/feature-4.svg',
+
     accent: 'solid'
   },
   {
@@ -35,7 +38,7 @@ const benefits = [
     title: 'DeGovX Agent',
     description:
       'The agent existed on X (formerly Twitter) to help you stay updated with the latest governance activities.',
-    icon: '/images/feature-4.svg',
+    icon: '/images/feature-5.svg',
     accent: 'rotate'
   }
 ];

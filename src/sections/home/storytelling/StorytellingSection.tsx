@@ -72,7 +72,6 @@ function StoryBlock({
   reverse,
   width,
   height,
-  bordered,
   index
 }: {
   title: string;
@@ -81,7 +80,6 @@ function StoryBlock({
   reverse: boolean;
   width: number;
   height: number;
-  bordered: boolean;
   index: number;
 }) {
   const { ref, animatedStyles } = useScrollAnimation({
@@ -105,9 +103,7 @@ function StoryBlock({
     >
       <motion.div
         ref={mediaRef}
-        className={`relative w-full overflow-hidden rounded-[12px] lg:rounded-[20px] ${
-          bordered ? 'border border-white/10' : ''
-        } will-change-transform`}
+        className={`relative w-full overflow-hidden will-change-transform`}
         style={{ maxWidth: `${width}px`, ...mediaMotionStyles }}
       >
         <LazyImage

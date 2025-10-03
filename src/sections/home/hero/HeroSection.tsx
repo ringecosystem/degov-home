@@ -159,7 +159,7 @@ export default function HeroSection() {
               An open-source system that equips OpenZeppelin Governor
               <br /> DAOs with AI agents capable of voting and receiving delegations.
             </p>
-            <p className="text-[18px] leading-[28px] font-normal text-white lg:hidden">
+            <p className="px-4 text-[18px] leading-[28px] font-normal text-white lg:hidden">
               An open-source system that equips OpenZeppelin Governor DAOs with AI agents capable of
               voting and receiving delegations.
             </p>
