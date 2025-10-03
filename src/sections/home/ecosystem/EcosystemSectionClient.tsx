@@ -89,7 +89,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
         style={listStyles}
       >
         <div className="inline-flex w-full items-center justify-start rounded-[14px] bg-[#2E2E2E]">
-          <div className="flex w-96 items-center px-5 py-[15px]">
+          <div className="flex w-full items-center px-5 py-[15px] lg:w-96">
             <div className="text-xs font-semibold text-white">Name</div>
           </div>
           <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
@@ -138,7 +138,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                 isLastRow ? '' : 'border-b border-[#474747]'
               }`}
             >
-              <div className="flex w-96 items-center gap-2.5 p-5">
+              <div className="flex w-full items-center gap-2.5 p-5 lg:w-96">
                 {dao.logo ? (
                   <LazyImage
                     src={dao.logo}

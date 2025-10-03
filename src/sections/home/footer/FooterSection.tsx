@@ -4,6 +4,7 @@ import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { CurrentYear } from '@/components/ui/CurrentYear';
 
 const footerColumns = [
   {
@@ -47,7 +48,7 @@ export default function FooterSection() {
           <br /> based on the OpenZeppelin governor contracts.
         </p>
         <p className="hidden text-[20px] leading-[28px] text-[#979797] lg:block">
-          ©{new Date().getFullYear()} RingDAO
+          ©<CurrentYear /> RingDAO
         </p>
       </div>
 
@@ -62,7 +63,7 @@ export default function FooterSection() {
       </div>
 
       <p className="text-[16px] leading-[22px] text-white/70 lg:hidden">
-        ©{new Date().getFullYear()} RingDAO
+        ©<CurrentYear /> RingDAO
       </p>
     </footer>
   );

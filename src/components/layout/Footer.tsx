@@ -1,6 +1,7 @@
 import { LazyImage } from '@/components/ui/LazyImage';
 import Link from 'next/link';
 
+import { CurrentYear } from '@/components/ui/CurrentYear';
 const footerColumns = [
   {
     title: 'Resources',
@@ -42,7 +43,7 @@ export default function FooterSection() {
               contracts.
             </p>
             <p className="text-[18px] leading-[140%] text-[#979797] lg:text-[20px]">
-              ©{new Date().getFullYear()} RingDAO
+              ©<CurrentYear /> RingDAO
             </p>
           </div>
 
