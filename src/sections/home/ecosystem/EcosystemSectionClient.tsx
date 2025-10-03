@@ -88,17 +88,17 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
         ref={listRef}
         style={listStyles}
       >
-        <div className="inline-flex w-full items-center justify-start rounded-xl bg-[#2E2E2E]">
-          <div className="flex w-96 items-center gap-1 px-5 py-3.5">
+        <div className="inline-flex w-full items-center justify-start rounded-[14px] bg-[#2E2E2E]">
+          <div className="flex w-96 items-center px-5 py-[15px]">
             <div className="text-xs font-semibold text-white">Name</div>
           </div>
-          <div className="hidden flex-1 items-center gap-1 px-5 py-3.5 lg:flex">
+          <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
             <div className="text-xs font-semibold text-white">Network</div>
           </div>
-          <div className="hidden flex-1 items-center gap-1 px-5 py-3.5 lg:flex">
+          <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
             <div className="text-xs font-semibold text-white">Last Proposal</div>
           </div>
-          <div className="hidden flex-1 items-center justify-center gap-1 px-5 py-3.5 lg:flex">
+          <div className="hidden flex-1 items-center justify-center px-5 py-[15px] lg:flex">
             <div className="text-xs font-semibold text-white">Proposals</div>
           </div>
         </div>
@@ -145,14 +145,14 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                     alt={`${dao.name} logo`}
                     width={34}
                     height={34}
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="h-[34px] w-[34px] rounded-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2a2a2a] text-sm text-white/70">
+                  <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#2a2a2a] text-[16px] text-white/70">
                     {dao.name.slice(0, 1).toUpperCase()}
                   </div>
                 )}
-                <div className="flex flex-1 items-center gap-3">
+                <div className="flex flex-1 items-center gap-[10px]">
                   <Link
                     href={daoDashboardUrl}
                     target="_blank"
@@ -162,7 +162,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                     {dao.name}
                   </Link>
                   {isActiveDao ? (
-                    <span className="rounded-full bg-[#00B7FF0D] px-2.5 py-[5px] text-xs font-medium text-[#00B7FF]">
+                    <span className="rounded-[100px] bg-[#00B7FF0D] px-2.5 py-[5px] text-xs font-medium text-[#00B7FF]">
                       Active
                     </span>
                   ) : null}
@@ -190,7 +190,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
                     rel="noopener noreferrer"
                     className="text-base text-white underline-offset-4 hover:underline"
                   >
-                    {lastProposalLabel || 'View proposal'}
+                    {lastProposalLabel || '-'}
                   </Link>
                 ) : (
                   <span className="text-base text-white">No proposals yet</span>
@@ -212,7 +212,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
 
       <Link
         href="https://app.degov.io/"
-        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white lg:w-[207px] lg:justify-center lg:text-[24px]"
+        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white lg:w-[210px] lg:justify-center lg:text-[24px] lg:tracking-[-0.24px]"
         ref={buttonRef}
         style={buttonStyles}
         target="_blank"

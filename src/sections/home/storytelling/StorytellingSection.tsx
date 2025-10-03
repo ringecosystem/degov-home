@@ -46,7 +46,7 @@ export default function StorytellingSection() {
   const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.1 });
 
   return (
-    <section className="container flex w-full flex-col justify-center gap-[70px] bg-black">
+    <section className="container flex w-full flex-col justify-center gap-[71px] bg-black">
       <div className="flex flex-col gap-2.5 text-left" ref={headingRef} style={headingStyles}>
         <h2 className="text-[34px] leading-[54px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Agent governance unlocks new possibilities
@@ -97,7 +97,7 @@ function StoryBlock({
 
   return (
     <div
-      className={`flex flex-col items-center gap-[20px] lg:flex-row lg:items-center lg:justify-between lg:gap-16 ${
+      className={`flex flex-col items-center gap-[20px] lg:flex-row lg:items-center lg:justify-between lg:gap-[71px] ${
         reverse ? 'lg:flex-row-reverse' : ''
       }`}
       ref={ref}

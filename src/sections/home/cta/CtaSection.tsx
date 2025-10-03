@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { LazyImage } from '@/components/ui/LazyImage';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useSpotlightMotion } from '@/hooks/useSpotlightMotion';
+import { cn } from '@/lib/utils';
 
 const ctaButtons = [
   {
@@ -94,11 +95,11 @@ export default function CtaSection() {
             ref={descriptionRef}
             style={descriptionStyles}
           >
-            Build better communities with <span className="underline">DeGov.AI</span>, which makes
-            governance easy, efficient, and powerful.
+            Build better communities with DeGov.AI, which makes governance easy, efficient, and
+            powerful.
           </p>
           <div
-            className="flex w-full flex-col items-center gap-[20px] lg:flex-row lg:gap-[50px]"
+            className="flex w-full flex-col items-center gap-[20px] lg:flex-row lg:justify-center lg:gap-[50px]"
             ref={buttonsRef}
             style={buttonsStyles}
           >
@@ -108,11 +109,13 @@ export default function CtaSection() {
                 href={button.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={
-                  button.variant === 'dark'
-                    ? 'flex w-full items-center justify-between gap-2.5 rounded-full bg-[#202224] px-[20px] py-[10px] text-[16px] font-medium text-white transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-7 lg:py-5 lg:text-2xl'
-                    : 'flex w-full items-center justify-between gap-2.5 rounded-full bg-white px-[20px] py-[10px] text-[16px] font-medium text-neutral-900 transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-7 lg:py-5 lg:text-2xl'
-                }
+                className={cn(
+                  'flex w-full items-center justify-between gap-2.5 rounded-full px-[20px] py-[10px] text-[16px] font-medium transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-[30px] lg:py-5 lg:text-[24px]',
+                  {
+                    'bg-[#202224] text-white': button.variant === 'dark',
+                    'bg-white text-neutral-900': button.variant !== 'dark'
+                  }
+                )}
               >
                 {button.label}
                 <LazyImage

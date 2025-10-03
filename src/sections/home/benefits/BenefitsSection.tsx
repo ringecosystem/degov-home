@@ -74,17 +74,8 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
     <article
       ref={ref}
       style={animatedStyles}
-      className="relative flex h-full flex-col gap-[20px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-[20px] shadow-[6px_6px_54px_rgba(0,0,0,0.05)] lg:gap-[30px] lg:p-7"
+      className="relative flex h-full flex-col gap-[20px] rounded-[20px] border-[2px] border-[#474747]/80 bg-[#202224] p-[20px] lg:gap-[30px] lg:p-[30px]"
     >
-      <GlowingEffect
-        blur={2}
-        borderWidth={2}
-        spread={90}
-        glow
-        disabled={false}
-        proximity={100}
-        inactiveZone={0.18}
-      />
       <div className="flex h-20 w-20 items-center justify-center">
         <LazyImage
           src={benefit.icon}

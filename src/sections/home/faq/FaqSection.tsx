@@ -70,7 +70,7 @@ export default function FaqSection() {
         </p>
       </header>
 
-      <div className="hidden grid-cols-1 gap-12 text-left lg:grid lg:grid-cols-2 lg:gap-20">
+      <div className="hidden grid-cols-1 text-left lg:grid lg:grid-cols-2 lg:gap-x-[80px] lg:gap-y-[50px]">
         {faqs.map((faq, index) => (
           <FaqItem key={faq.question} faq={faq} index={index} />
         ))}
@@ -88,7 +88,14 @@ export default function FaqSection() {
         style={footerStyles}
       >
         Want to see more FAQs? Check out the full list here:{' '}
-        <span className="text-white underline">https://docs.degov.ai/faqs</span>
+        <a
+          className="text-white underline transition-opacity duration-200 hover:opacity-70"
+          href="https://docs.degov.ai/faqs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://docs.degov.ai/faqs
+        </a>
       </p>
       <Script
         id="faq-structured-data"
@@ -102,6 +109,80 @@ export default function FaqSection() {
 
 type Faq = (typeof faqs)[number];
 
+type AnswerSection =
+  | {
+      type: 'paragraph';
+      content: string;
+    }
+  | {
+      type: 'list';
+      items: string[];
+    };
+
+function getAnswerSections(answer: string[]): AnswerSection[] {
+  const sections: AnswerSection[] = [];
+  let currentList: string[] = [];
+
+  const flushList = () => {
+    if (currentList.length === 0) {
+      return;
+    }
+
+    sections.push({ type: 'list', items: currentList });
+    currentList = [];
+  };
+
+  answer.forEach((segment) => {
+    const trimmed = segment.trim();
+
+    if (!trimmed) {
+      return;
+    }
+
+    const withoutLeadingSpaces = segment.trimStart();
+
+    if (withoutLeadingSpaces.startsWith('•')) {
+      const listItem = withoutLeadingSpaces.slice(1).trim();
+
+      if (listItem) {
+        currentList.push(listItem);
+      }
+
+      return;
+    }
+
+    flushList();
+    sections.push({ type: 'paragraph', content: trimmed });
+  });
+
+  flushList();
+
+  return sections;
+}
+
+function FaqContent({ answer, className }: { answer: string[]; className?: string }) {
+  const sections = getAnswerSections(answer);
+  const containerClassName = ['flex flex-col text-white/70', className].filter(Boolean).join(' ');
+
+  return (
+    <div className={containerClassName}>
+      {sections.map((section, index) => {
+        if (section.type === 'list') {
+          return (
+            <ul key={`list-${index}`} className="list-disc pl-6 marker:text-white">
+              {section.items.map((item, itemIndex) => (
+                <li key={`list-${index}-item-${itemIndex}`}>{item}</li>
+              ))}
+            </ul>
+          );
+        }
+
+        return <p key={`paragraph-${index}`}>{section.content}</p>;
+      })}
+    </div>
+  );
+}
+
 function FaqItem({ faq, index }: { faq: Faq; index: number }) {
   const { ref, animatedStyles } = useScrollAnimation({
     delay: 0.12 * Math.min(index, 3),
@@ -112,11 +193,7 @@ function FaqItem({ faq, index }: { faq: Faq; index: number }) {
   return (
     <article ref={ref} style={animatedStyles} className="flex flex-col gap-6">
       <h3 className="text-[32px] leading-[42px] font-medium">{faq.question}</h3>
-      <div className="flex flex-col text-[20px] leading-[28px] text-white/70">
-        {faq.answer.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </div>
+      <FaqContent answer={faq.answer} className="gap-4 text-[20px] leading-[28px]" />
     </article>
   );
 }
@@ -161,15 +238,11 @@ function FaqAccordionItem({ faq, index }: { faq: Faq; index: number }) {
       </button>
       <div
         id={contentId}
-        className={`overflow-hidden text-base leading-6 text-white/70 transition-all duration-300 ease-out ${
+        className={`overflow-hidden transition-all duration-300 ease-out ${
           isOpen ? 'max-h-[480px] pb-5' : 'max-h-0'
         }`}
       >
-        <div className="flex flex-col gap-3">
-          {faq.answer.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <FaqContent answer={faq.answer} className="gap-3 text-base leading-6" />
       </div>
     </article>
   );

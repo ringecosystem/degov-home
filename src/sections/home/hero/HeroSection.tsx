@@ -119,7 +119,7 @@ export default function HeroSection() {
                 className="group"
               >
                 <span className="flex items-center justify-center gap-[10px] transition-colors duration-200 group-hover:text-white/70">
-                  <GithubIcon className="h-[16px] w-[16px] rounded-full text-white transition-colors duration-200 group-hover:text-white/70 lg:h-[24px] lg:w-[24px]" />
+                  <GithubIcon className="h-[16px] w-[16px] rounded-full text-white group-hover:text-white/70 lg:h-[24px] lg:w-[24px]" />
                   <span className="text-[16px] font-normal tracking-[-0.2px] lg:text-[20px] lg:font-medium">
                     ringecosystem/degov
                   </span>
@@ -177,9 +177,10 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
+                  'flex items-center justify-center rounded-full px-[30px] py-[10px] text-[16px] font-medium transition-transform duration-300 hover:scale-[1.04] lg:min-w-[200px] lg:text-[24px]',
                   button.variant === 'light'
-                    ? 'flex items-center justify-center rounded-full bg-white px-[30px] py-[10px] text-[16px] font-medium text-[#202224] transition-transform duration-300 hover:scale-[1.04] lg:min-w-[200px] lg:text-[24px]'
-                    : 'flex items-center justify-center rounded-full border border-white px-[30px] py-[10px] text-[16px] font-medium text-white transition-transform duration-300 hover:scale-[1.04] lg:min-w-[200px] lg:text-[24px]'
+                    ? 'bg-white text-[#202224]'
+                    : 'border border-white text-white'
                 )}
               >
                 {button.label}
