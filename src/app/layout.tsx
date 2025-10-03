@@ -12,7 +12,6 @@ const STRUCTURED_DATA = JSON.stringify([
     '@type': 'Organization',
     name: 'DeGov.AI',
     url: SITE_URL,
-    logo: `${SITE_URL}/images/logo.svg`,
     sameAs: [
       'https://x.com/ai_degov',
       'https://docs.degov.ai/',
@@ -39,7 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
     'DeGov.AI is a AI-powered platform for decentralized governance, built on the Openzeppelin contracts.';
   const siteUrl = SITE_URL;
   const ogImageUrl = `${siteUrl}/images/og.png`;
-  const logoUrl = `${siteUrl}/images/logo.svg`;
   const keywords = [
     'DeGov',
     'DAO governance',
@@ -94,10 +92,6 @@ export async function generateMetadata(): Promise<Metadata> {
         'max-image-preview': 'large',
         'max-video-preview': -1
       }
-    },
-    icons: {
-      icon: logoUrl,
-      shortcut: logoUrl
     }
   };
 }
