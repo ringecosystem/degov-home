@@ -212,7 +212,7 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
 
       <Link
         href="https://square.degov.ai"
-        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white lg:w-[210px] lg:justify-center lg:text-[24px] lg:tracking-[-0.24px]"
+        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white transition-all duration-300 hover:scale-[1.01] hover:opacity-80 lg:w-[210px] lg:justify-center lg:text-[24px] lg:tracking-[-0.24px]"
         ref={buttonRef}
         style={buttonStyles}
         target="_blank"
