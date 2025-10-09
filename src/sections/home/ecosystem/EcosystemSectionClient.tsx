@@ -78,8 +78,8 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
         <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Explore the DAOs in our ecosystem
         </h2>
-        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
-          Helping our partner DAOs build stronger, more resilient communities.
+        <p className="font-display text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
+          Help our partners DAOs to build better communities.
         </p>
       </div>
 

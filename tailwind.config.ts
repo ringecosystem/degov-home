@@ -11,6 +11,9 @@ const config: Config = {
       screens: {
         '3xl': '1728px'
       },
+      fontFamily: {
+        display: ['"SF UI Display"', 'SF Pro Display', 'system-ui', 'sans-serif']
+      },
       container: {
         center: true,
         padding: {

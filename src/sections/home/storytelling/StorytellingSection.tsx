@@ -51,7 +51,7 @@ export default function StorytellingSection() {
         <h2 className="text-[34px] leading-[54px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Agent governance unlocks new possibilities
         </h2>
-        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
+        <p className="font-display text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
           Empower the latest AI technology to change the way we govern.
         </p>
       </div>

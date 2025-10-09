@@ -53,9 +53,6 @@ export default function BenefitsSection() {
         <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Why Choose DeGov.AI?
         </h2>
-        <p className="text-[16px] leading-[24px] font-normal text-white/70">
-          Get answers to common questions about Degov.AI and DAO governance
-        </p>
       </header>
 
       <div className="grid grid-cols-1 gap-[30px] lg:grid-cols-2 lg:gap-[60px]">

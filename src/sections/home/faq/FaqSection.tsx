@@ -55,9 +55,23 @@ const faqJsonLd = JSON.stringify({
   }))
 });
 
+type Faq = (typeof faqs)[number];
+
+type FaqWithIndex = {
+  faq: Faq;
+  index: number;
+};
+
 export default function FaqSection() {
   const { ref: headerRef, animatedStyles: headerStyles } = useScrollAnimation({ delay: 0.1 });
   const { ref: footerRef, animatedStyles: footerStyles } = useScrollAnimation({ delay: 0.3 });
+  const faqColumns = faqs.reduce(
+    (columns, faq, index) => {
+      columns[index % 2].push({ faq, index });
+      return columns;
+    },
+    [[], []] as [FaqWithIndex[], FaqWithIndex[]]
+  );
 
   return (
     <section className="container flex w-full flex-col justify-center gap-[30px] bg-black lg:gap-[83px]">
@@ -65,14 +79,15 @@ export default function FaqSection() {
         <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           Frequently Asked Questions
         </h2>
-        <p className="text-[16px] leading-[22px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
-          Get answers to common questions about Degov.AI and DAO governance
-        </p>
       </header>
 
-      <div className="hidden grid-cols-1 text-left lg:grid lg:grid-cols-2 lg:gap-x-[80px] lg:gap-y-[50px]">
-        {faqs.map((faq, index) => (
-          <FaqItem key={faq.question} faq={faq} index={index} />
+      <div className="hidden text-left lg:flex lg:gap-[80px]">
+        {faqColumns.map((columnFaqs, columnIndex) => (
+          <div key={columnIndex} className="flex flex-1 flex-col gap-[50px]">
+            {columnFaqs.map(({ faq, index }) => (
+              <FaqItem key={faq.question} faq={faq} index={index} />
+            ))}
+          </div>
         ))}
       </div>
 
@@ -106,8 +121,6 @@ export default function FaqSection() {
     </section>
   );
 }
-
-type Faq = (typeof faqs)[number];
 
 type AnswerSection =
   | {
@@ -191,7 +204,7 @@ function FaqItem({ faq, index }: { faq: Faq; index: number }) {
   });
 
   return (
-    <article ref={ref} style={animatedStyles} className="flex flex-col gap-6">
+    <article ref={ref} style={animatedStyles} className="flex break-inside-avoid flex-col gap-6">
       <h3 className="text-[32px] leading-[42px] font-medium">{faq.question}</h3>
       <FaqContent answer={faq.answer} className="gap-4 text-[20px] leading-[28px]" />
     </article>

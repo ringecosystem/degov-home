@@ -21,8 +21,7 @@ const footerColumns = [
     links: [
       { label: 'X', href: 'https://x.com/ai_degov' },
       { label: 'Telegram', href: 'https://t.me/RingDAO_Hub' },
-      { label: 'GitHub', href: 'https://github.com/ringecosystem/degov' },
-      { label: 'Open Square', href: 'https://square.degov.ai/' }
+      { label: 'GitHub', href: 'https://github.com/ringecosystem/degov' }
     ]
   }
 ];

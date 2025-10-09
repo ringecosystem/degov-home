@@ -91,7 +91,7 @@ export default function CtaSection() {
             </h2>
           </div>
           <p
-            className="text-left text-[16px] leading-[22px] font-normal text-white/70 lg:max-w-[760px] lg:text-center lg:text-[30px] lg:leading-[42px]"
+            className="font-display text-left text-[16px] leading-[22px] font-normal text-white/70 lg:max-w-[760px] lg:text-center lg:text-[30px] lg:leading-[42px]"
             ref={descriptionRef}
             style={descriptionStyles}
           >

@@ -44,7 +44,7 @@ export default function ToolsSection() {
         <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
           All Your Governance Tools in One Place
         </h2>
-        <p className="text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
+        <p className="font-display text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
           Offer a unified platform for governance: proposals, voting and delegation.
         </p>
       </div>
