@@ -75,7 +75,11 @@ export default function HeroSection() {
             wrapperClassName="h-full w-full "
           />
         </motion.div>
-        <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={spotlight.style} />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={spotlight.style}
+        />
       </div>
 
       <div className="relative z-10 container flex w-full flex-col gap-[60px] py-[30px] lg:gap-[100px] lg:py-[100px]">
@@ -163,11 +167,11 @@ export default function HeroSection() {
           </div>
 
           <div ref={heroDescriptionRef} style={heroDescriptionStyles}>
-            <p className="hidden text-[30px] leading-[40px] font-normal text-white/70 lg:block">
+            <p className="font-display hidden text-[30px] leading-[40px] font-normal text-white/70 lg:block">
               An open-source system that equips OpenZeppelin Governor
               <br /> DAOs with AI agents capable of voting and receiving delegations.
             </p>
-            <p className="px-4 text-[18px] leading-[28px] font-normal text-white lg:hidden">
+            <p className="font-display px-4 text-[18px] leading-[28px] font-normal text-white lg:hidden">
               An open-source system that equips OpenZeppelin Governor DAOs with AI agents capable of
               voting and receiving delegations.
             </p>

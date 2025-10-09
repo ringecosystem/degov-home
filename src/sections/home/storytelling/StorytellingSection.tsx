@@ -119,7 +119,9 @@ function StoryBlock({
 
       <div className="flex w-full max-w-[450px] flex-col gap-[10px] text-left text-white lg:gap-[30px]">
         <h3 className="text-[22px] font-semibold lg:text-[40px]">{title}</h3>
-        <p className="text-[16px] font-normal text-white/70 lg:text-[24px]">{description}</p>
+        <p className="font-display text-[16px] font-normal text-white/70 lg:text-[24px]">
+          {description}
+        </p>
       </div>
     </div>
   );

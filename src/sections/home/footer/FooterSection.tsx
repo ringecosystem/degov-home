@@ -42,11 +42,11 @@ export default function FooterSection() {
             showLoadingIndicator={false}
           />
         </Link>
-        <p className="h-auto text-[16px] leading-[22.4px] text-[#979797] lg:h-[136px] lg:text-[20px] lg:leading-[28px]">
+        <p className="font-display h-auto text-[16px] leading-[22.4px] text-[#979797] lg:h-[136px] lg:text-[20px] lg:leading-[28px]">
           DeGov.AI is an open-source tool for DAOs built
           <br /> based on the OpenZeppelin governor contracts.
         </p>
-        <p className="hidden text-[20px] leading-[28px] text-[#979797] lg:block">
+        <p className="font-display hidden text-[20px] leading-[28px] text-[#979797] lg:block">
           ©<CurrentYear /> RingDAO
         </p>
       </div>
@@ -61,7 +61,7 @@ export default function FooterSection() {
         ))}
       </div>
 
-      <p className="text-[16px] leading-[22px] text-white/70 lg:hidden">
+      <p className="font-display text-[16px] leading-[22px] text-white/70 lg:hidden">
         ©<CurrentYear /> RingDAO
       </p>
     </footer>
@@ -82,7 +82,10 @@ function FooterColumn({ column, index }: { column: FooterColumnConfig; index: nu
       <h4 className="text-[20px] font-semibold uppercase lg:text-[26px]">{column.title}</h4>
       <ul className="flex flex-col gap-[20px] text-[16px] leading-[22.4px] text-white lg:gap-[20px] lg:text-[20px] lg:leading-[28px]">
         {column.links.map((link) => (
-          <li key={link.label} className="opacity-70 transition-opacity hover:opacity-100">
+          <li
+            key={link.label}
+            className="font-display opacity-70 transition-opacity hover:opacity-100"
+          >
             <Link href={link.href} target="_blank" rel="noopener noreferrer">
               {link.label}
             </Link>

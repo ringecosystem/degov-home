@@ -117,7 +117,7 @@ function BenefitCard({ benefit, index }: { benefit: Benefit; index: number }) {
       </div>
       <div className="flex flex-col gap-2.5 text-left">
         <h3 className="text-[22px] font-semibold text-white lg:text-[40px]">{benefit.title}</h3>
-        <p className="text-[16px] font-normal text-white/70 lg:text-[24px]">
+        <p className="font-display text-[16px] font-normal text-white/70 lg:text-[24px]">
           {benefit.description}
         </p>
       </div>

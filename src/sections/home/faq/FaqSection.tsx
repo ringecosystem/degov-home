@@ -98,13 +98,13 @@ export default function FaqSection() {
       </div>
 
       <p
-        className="text-[16px] leading-[22px] font-normal text-[#979797] lg:text-[20px] lg:leading-[28px]"
+        className="font-display text-[16px] leading-[22px] font-normal text-[#979797] lg:text-[20px] lg:leading-[28px]"
         ref={footerRef}
         style={footerStyles}
       >
         Want to see more FAQs? Check out the full list here:{' '}
         <a
-          className="text-white underline transition-opacity duration-200 hover:opacity-70"
+          className="font-display text-white underline transition-opacity duration-200 hover:opacity-70"
           href="https://docs.degov.ai/faqs"
           target="_blank"
           rel="noopener noreferrer"
@@ -184,13 +184,19 @@ function FaqContent({ answer, className }: { answer: string[]; className?: strin
           return (
             <ul key={`list-${index}`} className="list-disc pl-6 marker:text-white">
               {section.items.map((item, itemIndex) => (
-                <li key={`list-${index}-item-${itemIndex}`}>{item}</li>
+                <li key={`list-${index}-item-${itemIndex}`} className="font-display">
+                  {item}
+                </li>
               ))}
             </ul>
           );
         }
 
-        return <p key={`paragraph-${index}`}>{section.content}</p>;
+        return (
+          <p key={`paragraph-${index}`} className="font-display">
+            {section.content}
+          </p>
+        );
       })}
     </div>
   );
