@@ -98,7 +98,7 @@ export default function FeatureTabsSection() {
         </div>
 
         <div
-          className="relative flex w-full max-w-[1200px] justify-center overflow-hidden rounded-[26px]"
+          className="group relative flex w-full max-w-[1200px] justify-center overflow-hidden rounded-[26px]"
           ref={previewRef}
           style={previewStyles}
         >
@@ -111,15 +111,18 @@ export default function FeatureTabsSection() {
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="h-full w-full"
             >
-              <LazyImage
-                src={activeTab?.screenshot ?? featureTabs[0].screenshot}
-                alt={`${activeTab?.label ?? featureTabs[0].label} screenshot`}
-                width={1200}
-                height={720}
-                className="h-auto w-full object-cover"
-                priority
-                wrapperClassName="h-full w-full"
-              />
+              <div className="relative h-full w-full">
+                <LazyImage
+                  src={activeTab?.screenshot ?? featureTabs[0].screenshot}
+                  alt={`${activeTab?.label ?? featureTabs[0].label} screenshot`}
+                  width={1200}
+                  height={720}
+                  className="h-auto w-full object-cover"
+                  priority
+                  wrapperClassName="block h-full w-full"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -136,15 +139,18 @@ function MobileFeatureCard({ tab, index }: { tab: FeatureTab; index: number }) {
   });
 
   return (
-    <div ref={ref} style={animatedStyles} className="flex w-full flex-col gap-5">
-      <LazyImage
-        src={tab.screenshot}
-        alt={`${tab.label} screenshot`}
-        width={335}
-        height={201}
-        className="h-auto w-full object-cover"
-        wrapperClassName="flex w-full"
-      />
+    <div ref={ref} style={animatedStyles} className="group flex w-full flex-col gap-5">
+      <div className="relative w-full">
+        <LazyImage
+          src={tab.screenshot}
+          alt={`${tab.label} screenshot`}
+          width={335}
+          height={201}
+          className="h-auto w-full object-cover"
+          wrapperClassName="block w-full"
+        />
+        <div className="pointer-events-none absolute inset-0 rounded-[18px] bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </div>
       <div className="w-full text-center text-[20px] font-normal">{tab.label}</div>
     </div>
   );

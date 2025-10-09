@@ -83,7 +83,7 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
           alt={tool.title}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="rounded-[10px] object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          className="rounded-[10px] object-contain transition-transform duration-500 ease-out group-hover:scale-[1.01]"
           wrapperClassName="relative h-full w-full"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

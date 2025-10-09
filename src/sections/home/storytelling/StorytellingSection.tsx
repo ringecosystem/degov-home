@@ -103,7 +103,7 @@ function StoryBlock({
     >
       <motion.div
         ref={mediaRef}
-        className={`relative w-full overflow-hidden will-change-transform`}
+        className={`group relative w-full overflow-hidden will-change-transform hover:rounded-[12px]`}
         style={{ maxWidth: `${width}px`, ...mediaMotionStyles }}
       >
         <LazyImage
@@ -112,9 +112,10 @@ function StoryBlock({
           width={width}
           height={height}
           sizes="(min-width: 1024px) 780px, 100vw"
-          className="h-auto w-full object-cover"
+          className="h-auto w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.01] group-hover:rounded-[12px]"
           wrapperClassName="block w-full"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:rounded-[12px] group-hover:opacity-100" />
       </motion.div>
 
       <div className="flex w-full max-w-[450px] flex-col gap-[10px] text-left text-white lg:gap-[30px]">
