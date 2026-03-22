@@ -46,5 +46,5 @@ next-env.d.ts
 skills/
 skills-lock.json
 
-# v2 design docs
-docs/v2-design/
+
+.agents/

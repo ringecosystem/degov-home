@@ -1,14 +1,26 @@
 import type { Metadata, Viewport } from 'next';
-import { Urbanist } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
 import { SEO_ORGANIZATION, SEO_WEBSITE, SITE_URL } from '@/lib/seo';
+import Navbar from '@/components/layout/navbar';
+import { HeroGrid } from '@/components/ui/hero-grid';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
-
-const urbanist = Urbanist({ subsets: ['latin'] });
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -19,7 +31,7 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const name = 'DeGov.AI';
   const description =
-    'DeGov.AI is a AI-powered platform for decentralized governance, built on the Openzeppelin contracts.';
+    'Open-source governance frontend for OpenZeppelin Governor DAOs. Self-host or use managed hosting — fully under your control.';
   const siteUrl = SITE_URL;
   const ogImageUrl = `${siteUrl}/images/og.png`;
   const keywords = [
@@ -27,8 +39,8 @@ export async function generateMetadata(): Promise<Metadata> {
     'DAO governance',
     'on-chain governance',
     'OpenZeppelin Governor',
-    'AI delegation',
-    'decentralized decision making'
+    'self-hosted governance',
+    'open-source DAO'
   ];
 
   return {
@@ -86,10 +98,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(urbanist.className, 'overflow-x-hidden bg-black text-white antialiased')}>
+    <html lang="en" data-scroll-behavior="smooth">
+      <body className={cn(spaceGrotesk.variable, jetbrainsMono.variable, 'overflow-x-hidden antialiased')}>
         <ReactQueryProvider>
-          <div className="min-h-screen w-full overflow-x-hidden">{children}</div>
+          <HeroGrid />
+          <Navbar />
+          <div className="relative z-10 min-h-screen w-full overflow-x-hidden">{children}</div>
         </ReactQueryProvider>
         <script
           type="application/ld+json"

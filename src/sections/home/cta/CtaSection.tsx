@@ -1,135 +1,184 @@
 'use client';
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-
-import { LazyImage } from '@/components/ui/LazyImage';
+import { Button } from '@/components/ui/button';
+import { SectionWrapper } from '@/components/ui/section-wrapper';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { useSpotlightMotion } from '@/hooks/useSpotlightMotion';
-import { cn } from '@/lib/utils';
 
-const ctaButtons = [
-  {
-    id: 'self-deploy',
-    label: 'Deploy By Yourself',
-    href: 'https://docs.degov.ai/integration/deploy/',
-    variant: 'dark',
-    icon: '/images/arrow-light.svg'
-  },
-  {
-    id: 'open-square',
-    label: 'Open Square',
-    href: 'https://square.degov.ai/',
-    variant: 'light',
-    icon: '/images/arrow-dark.svg'
-  }
+/* Corner bracket positions: [top, left, rotationDeg] */
+const CORNER_BRACKETS: [string, string, number][] = [
+  ['12px', '12px', 0],
+  ['12px', 'calc(100% - 36px)', 90],
+  ['calc(100% - 36px)', 'calc(100% - 36px)', 180],
+  ['calc(100% - 36px)', '12px', 270],
 ];
 
 export default function CtaSection() {
-  const { ref: cardRef, animatedStyles: cardStyles } = useScrollAnimation({ delay: 0.1 });
-  const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.18 });
-  const { ref: descriptionRef, animatedStyles: descriptionStyles } = useScrollAnimation({
-    delay: 0.24
-  });
+  const { ref: headingRef, animatedStyles: headingStyles } = useScrollAnimation({ delay: 0.1 });
+  const { ref: descRef, animatedStyles: descStyles } = useScrollAnimation({ delay: 0.2 });
   const { ref: buttonsRef, animatedStyles: buttonsStyles } = useScrollAnimation({ delay: 0.3 });
-  const spotlight = useSpotlightMotion({ radius: 620, intensity: 0.52 });
 
   return (
-    <section className="container flex w-full flex-col justify-center bg-black">
-      <motion.div
-        className="relative overflow-hidden rounded-[0px] lg:rounded-[20px]"
-        ref={cardRef}
-        style={cardStyles}
-        onPointerMove={spotlight.onPointerMove}
-        onPointerLeave={spotlight.onPointerLeave}
-        whileHover={{ scale: 1.01 }}
-        transition={{ type: 'spring', stiffness: 240, damping: 24, mass: 1 }}
+    <SectionWrapper paddings="py-16 lg:py-20" className="bg-white/[0.02]">
+      <div
+        className="relative overflow-hidden rounded-[20px] border border-white/[0.10] bg-bg-card"
+        style={{ boxShadow: '0 0 80px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.06)' }}
       >
-        <div className="absolute inset-0">
-          <motion.div
-            className="relative hidden h-full w-full lg:block"
-            initial={{ scale: 1.05, opacity: 0.6 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <LazyImage
-              src="/images/cta-background.png"
-              alt="CTA background"
-              fill
-              priority
-              className="object-cover"
-              wrapperClassName="absolute inset-0 hidden h-full w-full lg:block"
-            />
-          </motion.div>
-          <motion.div
-            className="relative block h-full w-full lg:hidden"
-            initial={{ scale: 1.08, opacity: 0.6 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <LazyImage
-              src="/images/cta-background-mobile.png"
-              alt="CTA background mobile"
-              fill
-              priority
-              className="object-cover"
-              wrapperClassName="absolute inset-0 block h-full w-full lg:hidden"
-            />
-          </motion.div>
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 mix-blend-screen"
-            style={spotlight.style}
+        {/* Blueprint decorations */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          {/* Layer 1: Fine grid — major 40px + minor 8px */}
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage: [
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.5) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.5) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.25) 0 1px, transparent 1px 8px)',
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.25) 0 1px, transparent 1px 8px)',
+              ].join(', '),
+            }}
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#050505]/40 via-transparent to-[#7f5dff1f]" />
+
+          {/* Layer 2: Tick marks on all four edges */}
+          {/* Top edge */}
+          <div
+            className="absolute top-0 right-0 left-0 h-3 opacity-[0.12]"
+            style={{
+              backgroundImage: [
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.8) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.4) 0 1px, transparent 1px 8px)',
+              ].join(', '),
+              backgroundSize: '40px 12px, 8px 6px',
+              backgroundPosition: '0 0, 0 0',
+              backgroundRepeat: 'repeat-x',
+            }}
+          />
+          {/* Bottom edge */}
+          <div
+            className="absolute right-0 bottom-0 left-0 h-3 opacity-[0.12]"
+            style={{
+              backgroundImage: [
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.8) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to right, rgba(255,255,255,0.4) 0 1px, transparent 1px 8px)',
+              ].join(', '),
+              backgroundSize: '40px 12px, 8px 6px',
+              backgroundPosition: '0 bottom, 0 bottom',
+              backgroundRepeat: 'repeat-x',
+            }}
+          />
+          {/* Left edge */}
+          <div
+            className="absolute top-0 bottom-0 left-0 w-3 opacity-[0.12]"
+            style={{
+              backgroundImage: [
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.8) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.4) 0 1px, transparent 1px 8px)',
+              ].join(', '),
+              backgroundSize: '12px 40px, 6px 8px',
+              backgroundPosition: '0 0, 0 0',
+              backgroundRepeat: 'repeat-y',
+            }}
+          />
+          {/* Right edge */}
+          <div
+            className="absolute top-0 right-0 bottom-0 w-3 opacity-[0.12]"
+            style={{
+              backgroundImage: [
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.8) 0 1px, transparent 1px 40px)',
+                'repeating-linear-gradient(to bottom, rgba(255,255,255,0.4) 0 1px, transparent 1px 8px)',
+              ].join(', '),
+              backgroundSize: '12px 40px, 6px 8px',
+              backgroundPosition: 'right 0, right 0',
+              backgroundRepeat: 'repeat-y',
+            }}
+          />
+
+          {/* Layer 3: Corner L-brackets */}
+          {CORNER_BRACKETS.map(([top, left, rotation], i) => (
+            <svg
+              key={i}
+              className="absolute opacity-[0.2]"
+              style={{ top, left, transform: `rotate(${rotation}deg)` }}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M0 0 L0 24 M0 0 L24 0" stroke="rgba(255,255,255,1)" strokeWidth="1.5" />
+            </svg>
+          ))}
+
+          {/* Layer 4: Center crosshair — dashed lines + ring */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.06]">
+            <div
+              className="absolute h-px w-full"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(to right, rgba(255,255,255,0.8) 0 4px, transparent 4px 10px)',
+              }}
+            />
+            <div
+              className="absolute h-full w-px"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(to bottom, rgba(255,255,255,0.8) 0 4px, transparent 4px 10px)',
+              }}
+            />
+            <div className="h-6 w-6 rounded-full border border-white/80" />
+          </div>
+
+          {/* Layer 5: Radial glow mask — protect center readability */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 50% 55% at 50% 50%, transparent 0%, #151517 80%)',
+              opacity: 0.75,
+            }}
+          />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center gap-[50px] px-[20px] py-[90px] text-white lg:px-6">
-          <div ref={headingRef} style={headingStyles}>
-            <h2 className="text-left text-[34px] leading-[40px] font-medium tracking-wider lg:text-center lg:text-[70px] lg:leading-[84px]">
-              Ready to Create Your DAO?
-            </h2>
-          </div>
-          <p
-            className="font-display text-left text-[16px] leading-[22px] font-normal text-white/70 lg:max-w-[760px] lg:text-center lg:text-[30px] lg:leading-[42px]"
-            ref={descriptionRef}
-            style={descriptionStyles}
+        <div className="relative z-10 flex flex-col items-center gap-8 px-6 py-16 text-center md:py-20">
+          <h2
+            className="max-w-[600px] text-4xl font-bold tracking-[-0.03em] text-text-primary md:text-5xl"
+            ref={headingRef}
+            style={headingStyles}
           >
-            Build better communities with DeGov.AI, which makes governance easy, efficient, and
-            powerful.
+            Start governing in 10 minutes
+          </h2>
+
+          <p
+            className="max-w-[500px] text-xl text-text-secondary"
+            ref={descRef}
+            style={descStyles}
+          >
+            Launch with self-hosted docs or review the managed option. Open-source. Self-hosted. Fully yours.
           </p>
+
           <div
-            className="flex w-full flex-col items-center gap-[20px] lg:flex-row lg:justify-center lg:gap-[50px]"
+            className="flex flex-col items-center gap-4 sm:flex-row"
             ref={buttonsRef}
             style={buttonsStyles}
           >
-            {ctaButtons.map((button) => (
-              <Link
-                key={button.id}
-                href={button.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  'flex w-full items-center justify-between gap-2.5 rounded-full px-[20px] py-[10px] text-[16px] font-medium transition-transform duration-300 hover:scale-[1.04] lg:w-auto lg:justify-start lg:px-[30px] lg:py-5 lg:text-[24px]',
-                  {
-                    'bg-[#202224] text-white': button.variant === 'dark',
-                    'bg-white text-neutral-900': button.variant !== 'dark'
-                  }
-                )}
-              >
-                {button.label}
-                <LazyImage
-                  src={button.icon}
-                  alt="arrow"
-                  width={15}
-                  height={15}
-                  showLoadingIndicator={false}
-                />
-              </Link>
-            ))}
+            <Button
+              variant="primary"
+              size="lg"
+              arrow
+              href="https://docs.degov.ai/integration/deploy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read Self-Host Guide
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              href="/pricing"
+            >
+              View Pricing
+            </Button>
           </div>
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </SectionWrapper>
   );
 }
