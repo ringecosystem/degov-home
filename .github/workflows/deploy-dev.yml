@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+          run_install: false
+
       - uses: darwinia-network/devops/actions/smart-vercel@main
         name: Deploy to Vercel
         with:
@@ -19,7 +24,7 @@ jobs:
           preview_output: true
           project_name: degov-home
           dist_path: out
-          script_install: corepack enable && corepack prepare pnpm@10.32.1 --activate && pnpm install --frozen-lockfile
+          script_install: pnpm install --frozen-lockfile
           script_build: pnpm build
           enable_notify_comment: true
           enable_notify_slack: false
