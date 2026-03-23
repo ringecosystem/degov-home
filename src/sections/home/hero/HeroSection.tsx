@@ -104,7 +104,7 @@ export default function HeroSection() {
             className="mt-2 text-sm text-text-secondary"
             variants={prefersReducedMotion ? undefined : childVariants}
           >
-            OpenZeppelin Governor · Self-Hosted · MIT License · Multi-Chain
+            OpenZeppelin Governor · Self-Hosted · Open Source · Multi-Chain
           </motion.p>
         </div>
       </motion.div>

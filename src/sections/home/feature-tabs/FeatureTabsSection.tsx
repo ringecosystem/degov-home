@@ -47,7 +47,7 @@ const features: Feature[] = [
     description:
       'Run DeGov on your own infrastructure with full source code access.',
     bullets: [
-      'MIT license',
+      'Open-source codebase',
       'Self-hosted',
       'No vendor lock-in',
     ],

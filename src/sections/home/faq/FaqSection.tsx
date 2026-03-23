@@ -31,12 +31,12 @@ const faqs = [
   {
     question: 'Is DeGov free?',
     answer:
-      'DeGov is open-source under the MIT license — free to self-host forever. We also offer a managed hosting plan for teams that want us to operate the infrastructure. Every instance starts with 6 months free.'
+      'DeGov is open-source and free to self-host forever. We also offer a managed hosting plan for teams that want us to operate the infrastructure. Every instance starts with 6 months free.'
   },
   {
     question: 'How customizable is the governance platform?',
     answer:
-      'Fully. Branding, colors, logo, domain, supported chains, DAO selection — all configurable via environment variables and config files. The code is open-source under MIT, so you can modify anything to fit your needs.'
+      'Fully. Branding, colors, logo, domain, supported chains, DAO selection — all configurable via environment variables and config files. The code is open-source, so you can modify anything to fit your needs.'
   }
 ];
 

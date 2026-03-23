@@ -29,7 +29,7 @@ export default function OpenSourceSection() {
           </h2>
 
           <p className="mt-6 text-xl text-text-secondary">
-            MIT-licensed, fully open-source. Clone, configure, and deploy your DAO&apos;s governance in minutes.
+            Fully open-source. Clone, configure, and deploy your DAO&apos;s governance in minutes.
           </p>
 
           <div className="mt-8">

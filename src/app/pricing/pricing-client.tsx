@@ -35,7 +35,7 @@ const selfHostedFeatures = [
   'Proposal tracking, voting, and delegation UI',
   'OpenZeppelin Governor compatible',
   'Full source code access',
-  'MIT License',
+  'Open-source codebase',
   'Community support (GitHub Issues)',
   'Multi-chain support'
 ];
