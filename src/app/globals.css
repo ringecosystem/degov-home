@@ -2,25 +2,103 @@
 @config "../../tailwind.config.ts";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Background layers — near-black with depth */
+  --bg-primary: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-card: #151517;
+  --bg-card-hover: #1a1a1c;
+  --bg-elevated: #202224;
+  --bg-terminal: #0d0d0d;
+
+  /* Section border */
+  --border-section: rgba(255, 255, 255, 0.06);
+
+  /* Text colors */
+  --text-primary: #ffffff;
+  --text-secondary: #979797;
+  --text-tertiary: #666666;
+  --text-muted: #444444;
+  --text-code: #e2e8f0;
+
+  /* Brand */
+  --brand-blue: #ffffff;
+  --brand-blue-dim: #ffffff20;
+  --brand-blue-subtle: #ffffff08;
+
+  /* Glow palette */
+  --glow-pink: #dd7bbb;
+  --glow-gold: #d79f1e;
+  --glow-green: #5a922c;
+  --glow-blue: #4c7894;
+
+  /* Functional */
+  --success: #4ade80;
+  --error: #ef4444;
+  --warning: #f59e0b;
+
+  /* Chain colors */
+  --chain-ethereum: #627eea;
+  --chain-arbitrum: #28a0f0;
+  --chain-optimism: #ff0420;
+  --chain-polygon: #8247e5;
+  --chain-base: #0052ff;
+
+  /* Radius scale */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* Legacy aliases */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
   overflow-x: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
-@layer utilities {
-  .container {
-    width: 100%; 
-    max-width: 1920px !important;
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans), "Space Grotesk", system-ui, sans-serif;
   }
 }
 
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
 
+  @media (min-width: 1280px) {
+    max-width: 1280px;
+    padding-inline: 2rem;
+  }
 
+  @media (min-width: 1536px) {
+    max-width: 1440px;
+  }
+
+  @media (min-width: 1728px) {
+    max-width: 1600px;
+  }
+}

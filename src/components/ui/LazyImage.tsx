@@ -51,7 +51,7 @@ const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(function LazyImag
     [onLoad]
   );
 
-  const effectivePlaceholder = placeholder ?? 'blur';
+  const effectivePlaceholder = placeholder ?? 'empty';
   const effectiveBlurDataURL =
     effectivePlaceholder === 'blur' ? (blurDataURL ?? DEFAULT_BLUR_DATA_URL) : blurDataURL;
   const effectiveLoading = priority ? undefined : (loading ?? 'lazy');

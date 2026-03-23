@@ -12,17 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+          run_install: false
+
       - uses: darwinia-network/devops/actions/smart-vercel@main
         name: Deploy to Vercel
         with:
-          node_version: 21
+          node_version: 22
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
           vercel_group: itering
           preview_output: true
           project_name: degov-home
           dist_path: out
           prod_mode: true
-          enable_cache: true
+          script_install: pnpm install --frozen-lockfile
+          script_build: pnpm build
           enable_notify_slack: true
           slack_channel: public-degov
           slack_webhook: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}

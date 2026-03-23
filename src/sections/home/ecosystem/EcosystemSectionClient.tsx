@@ -4,8 +4,13 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Empty } from '@/components/ui/Empty';
 import { LazyImage } from '@/components/ui/LazyImage';
+import { SectionLabel } from '@/components/ui/section-label';
+import { SectionWrapper } from '@/components/ui/section-wrapper';
+
 import { fetchTopDaos, type DaoSummary } from '@/lib/degov';
 import { formatNetworkName, formatTimeAgo } from '@/lib/formatters';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
@@ -49,184 +54,174 @@ export function EcosystemSectionClient({ initialDaos, initialError }: EcosystemS
   const skeletonRows = Array.from({ length: 5 }, (_, index) => (
     <div
       key={`skeleton-${index}`}
-      className="inline-flex w-full animate-pulse items-center justify-start border-b border-[#474747] py-5"
+      className="inline-flex w-full animate-pulse items-center justify-start border-b border-white/[0.06] py-3"
     >
       <div className="flex w-96 items-center gap-2.5 px-5">
-        <div className="h-8 w-8 rounded-full bg-[#3a3a3a]" />
-        <div className="h-5 w-32 rounded bg-[#3a3a3a]" />
+        <div className="h-8 w-8 rounded-full bg-white/[0.06]" />
+        <div className="h-5 w-32 rounded bg-white/[0.06]" />
       </div>
       <div className="flex flex-1 items-center gap-2.5 px-5">
-        <div className="h-6 w-6 rounded-full bg-[#3a3a3a]" />
-        <div className="h-5 w-24 rounded bg-[#3a3a3a]" />
+        <div className="h-6 w-6 rounded-full bg-white/[0.06]" />
+        <div className="h-5 w-24 rounded bg-white/[0.06]" />
       </div>
       <div className="flex flex-1 flex-col items-center gap-1 px-5">
-        <div className="h-5 w-28 rounded bg-[#3a3a3a]" />
+        <div className="h-5 w-28 rounded bg-white/[0.06]" />
       </div>
       <div className="flex flex-1 flex-col items-center gap-1 px-5">
-        <div className="h-5 w-16 rounded bg-[#3a3a3a]" />
+        <div className="h-5 w-16 rounded bg-white/[0.06]" />
       </div>
     </div>
   ));
 
   return (
-    <section className="container flex w-full flex-col justify-center gap-[30px] bg-black lg:gap-[60px]">
-      <div
-        className="flex flex-col gap-2.5 text-left text-white"
-        ref={headingRef}
-        style={headingStyles}
-      >
-        <h2 className="text-[34px] leading-[40px] font-medium tracking-wide lg:text-[60px] lg:leading-[72px]">
-          Explore the DAOs in our ecosystem
-        </h2>
-        <p className="font-display text-[16px] leading-[24px] font-normal text-white/70 lg:text-[30px] lg:leading-[42px]">
-          Help our partners DAOs to build better communities.
-        </p>
-      </div>
-
-      <div
-        className="self-stretch rounded-[14px] bg-[#202224] p-5 text-white"
-        ref={listRef}
-        style={listStyles}
-      >
-        <div className="inline-flex w-full items-center justify-start rounded-[14px] bg-[#2E2E2E]">
-          <div className="flex w-full items-center px-5 py-[15px] lg:w-96">
-            <div className="text-xs font-semibold text-white">Name</div>
-          </div>
-          <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
-            <div className="text-xs font-semibold text-white">Network</div>
-          </div>
-          <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
-            <div className="text-xs font-semibold text-white">Last Proposal</div>
-          </div>
-          <div className="hidden flex-1 items-center justify-center px-5 py-[15px] lg:flex">
-            <div className="text-xs font-semibold text-white">Proposals</div>
-          </div>
+    <SectionWrapper className="relative overflow-hidden">
+      <div className="flex flex-col gap-5 lg:gap-6">
+        <div
+          id="ecosystem"
+          className="flex scroll-mt-[88px] flex-col gap-2.5 text-left lg:scroll-mt-[104px]"
+          ref={headingRef}
+          style={headingStyles}
+        >
+          <SectionLabel>Ecosystem</SectionLabel>
+          <h2 className="text-text-primary text-4xl font-bold tracking-[-0.03em] lg:text-6xl">
+            DAOs Using DeGov
+          </h2>
         </div>
 
-        {effectiveError ? (
-          <div className="w-full border-b border-[#474747] p-5 text-center text-sm text-red-400">
-            {effectiveError}
+        <div ref={listRef} style={listStyles} className="text-text-primary self-stretch">
+          <div className="inline-flex w-full items-center justify-start rounded-[14px] bg-white/[0.05]">
+            <div className="flex w-full items-center px-5 py-[15px] lg:w-96">
+              <div className="text-text-primary text-xs font-semibold">Name</div>
+            </div>
+            <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
+              <div className="text-text-primary text-xs font-semibold">Network</div>
+            </div>
+            <div className="hidden flex-1 items-center px-5 py-[15px] lg:flex">
+              <div className="text-text-primary text-xs font-semibold">Last Proposal</div>
+            </div>
+            <div className="hidden flex-1 items-center justify-center px-5 py-[15px] lg:flex">
+              <div className="text-text-primary text-xs font-semibold">Proposals</div>
+            </div>
           </div>
-        ) : null}
 
-        {isLoading && !initialDaos.length ? skeletonRows : null}
+          {effectiveError ? (
+            <div className="w-full border-b border-white/[0.06] p-5 text-center text-sm text-red-400">
+              {effectiveError}
+            </div>
+          ) : null}
 
-        {!isLoading && !isFetching && daoList.length === 0 && !effectiveError ? (
-          <div className="flex w-full justify-center border-b border-[#474747] py-10">
-            <Empty label="No DAOs available." />
-          </div>
-        ) : null}
+          {isLoading && !initialDaos.length ? skeletonRows : null}
 
-        {daoList.map((dao, index) => {
-          const isActiveDao = dao.chips.some(
-            (chip) => chip.chipCode === 'METRICS_STATE' && chip.flag === 'ACTIVE'
-          );
-          const networkLabel = formatNetworkName(dao.network ?? undefined);
-          const lastProposalTimestamp = dao.lastProposal?.proposalCreatedAt ?? '';
-          const lastProposalLabel = lastProposalTimestamp
-            ? formatTimeAgo(lastProposalTimestamp)
-            : '';
-          const isLastRow = index === daoList.length - 1;
-          const daoDashboardUrl =
-            dao.endpoint ??
-            (dao.code ? `https://app.degov.io/dao/${dao.code}` : 'https://app.degov.io/');
+          {!isLoading && !isFetching && daoList.length === 0 && !effectiveError ? (
+            <div className="flex w-full justify-center border-b border-white/[0.06] py-10">
+              <Empty label="No DAOs available." />
+            </div>
+          ) : null}
 
-          return (
-            <div
-              key={dao.id}
-              className={`inline-flex w-full items-center justify-start ${
-                isLastRow ? '' : 'border-b border-[#474747]'
-              }`}
-            >
-              <div className="flex w-full items-center gap-2.5 p-5 lg:w-96">
-                {dao.logo ? (
-                  <LazyImage
-                    src={dao.logo}
-                    alt={`${dao.name} logo`}
-                    width={34}
-                    height={34}
-                    className="h-[34px] w-[34px] rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#2a2a2a] text-[16px] text-white/70">
-                    {dao.name.slice(0, 1).toUpperCase()}
+          {daoList.map((dao: DaoSummary, index: number) => {
+            const isActiveDao = dao.chips.some(
+              (chip) => chip.chipCode === 'METRICS_STATE' && chip.flag === 'ACTIVE'
+            );
+            const networkLabel = formatNetworkName(dao.network ?? undefined);
+            const lastProposalTimestamp = dao.lastProposal?.proposalCreatedAt ?? '';
+            const lastProposalLabel = lastProposalTimestamp
+              ? formatTimeAgo(lastProposalTimestamp)
+              : '';
+            const isLastRow = index === daoList.length - 1;
+            const daoDashboardUrl =
+              dao.endpoint ??
+              (dao.code ? `https://square.degov.ai/dao/${dao.code}` : 'https://square.degov.ai/');
+
+            return (
+              <div
+                key={dao.id}
+                className={`inline-flex w-full items-center justify-start transition-colors hover:bg-white/[0.02] ${
+                  isLastRow ? '' : 'border-b border-white/[0.06]'
+                }`}
+              >
+                <div className="flex w-full items-center gap-2.5 px-5 py-3 lg:w-96">
+                  {dao.logo ? (
+                    <LazyImage
+                      src={dao.logo}
+                      alt={`${dao.name} logo`}
+                      width={34}
+                      height={34}
+                      className="h-[34px] w-[34px] rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="bg-bg-elevated flex h-[34px] w-[34px] items-center justify-center rounded-full text-[16px] text-white/70">
+                      {dao.name.slice(0, 1).toUpperCase()}
+                    </div>
+                  )}
+                  <div className="flex flex-1 flex-col gap-1">
+                    <div className="flex items-center gap-2.5">
+                      <Link
+                        href={daoDashboardUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-primary hover:text-text-primary/80 text-base leading-snug transition-colors"
+                      >
+                        {dao.name}
+                      </Link>
+                      {isActiveDao ? <Badge variant="highlight">Active</Badge> : null}
+                    </div>
                   </div>
-                )}
-                <div className="flex flex-1 items-center gap-[10px]">
-                  <Link
-                    href={daoDashboardUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base leading-snug text-white transition-colors hover:text-white/80"
-                  >
-                    {dao.name}
-                  </Link>
-                  {isActiveDao ? (
-                    <span className="rounded-[100px] bg-[#00B7FF0D] px-2.5 py-[5px] text-xs font-medium text-[#00B7FF]">
-                      Active
-                    </span>
-                  ) : null}
+                </div>
+                <div className="hidden flex-1 items-center gap-2.5 px-5 py-3 lg:flex">
+                  {dao.networkLogo ? (
+                    <LazyImage
+                      src={dao.networkLogo}
+                      alt={`${dao.network ?? 'Network'} logo`}
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="bg-bg-elevated h-6 w-6 rounded-full" />
+                  )}
+                  <span className="text-text-primary text-base leading-snug">{networkLabel}</span>
+                </div>
+                <div className="hidden flex-1 flex-col items-start gap-1 px-5 py-3 text-left lg:flex">
+                  {dao.lastProposal?.proposalLink ? (
+                    <Link
+                      href={dao.lastProposal.proposalLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text-primary text-base underline-offset-4 hover:underline"
+                    >
+                      {lastProposalLabel || '-'}
+                    </Link>
+                  ) : (
+                    <span className="text-text-primary text-base">No proposals yet</span>
+                  )}
+                </div>
+                <div className="hidden flex-1 flex-col items-center gap-1 px-5 py-3 lg:flex">
+                  <span className="text-text-primary text-base">{formatNumber(dao.proposals)}</span>
                 </div>
               </div>
-              <div className="hidden flex-1 items-center gap-2.5 p-5 lg:flex">
-                {dao.networkLogo ? (
-                  <LazyImage
-                    src={dao.networkLogo}
-                    alt={`${dao.network ?? 'Network'} logo`}
-                    width={24}
-                    height={24}
-                    className="h-6 w-6 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="h-6 w-6 rounded-full bg-[#2a2a2a]" />
-                )}
-                <span className="text-base leading-snug text-white">{networkLabel}</span>
-              </div>
-              <div className="hidden flex-1 flex-col items-start gap-1 p-5 text-left lg:flex">
-                {dao.lastProposal?.proposalLink ? (
-                  <Link
-                    href={dao.lastProposal.proposalLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base text-white underline-offset-4 hover:underline"
-                  >
-                    {lastProposalLabel || '-'}
-                  </Link>
-                ) : (
-                  <span className="text-base text-white">No proposals yet</span>
-                )}
-              </div>
-              <div className="hidden flex-1 flex-col items-center gap-1 p-5 lg:flex">
-                <span className="text-base text-white">{formatNumber(dao.proposals)}</span>
-              </div>
+            );
+          })}
+
+          {isFetching && !isLoading ? (
+            <div className="w-full border-b border-transparent p-2 text-center text-xs text-white/40">
+              Refreshing…
             </div>
-          );
-        })}
+          ) : null}
+        </div>
 
-        {isFetching && !isLoading ? (
-          <div className="w-full border-b border-transparent p-2 text-center text-xs text-white/40">
-            Refreshing…
-          </div>
-        ) : null}
+        <div ref={buttonRef} style={buttonStyles}>
+          <Button
+            variant="secondary"
+            arrow
+            className="w-full justify-between lg:w-auto lg:justify-center"
+            href="https://square.degov.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Explore All on Square
+          </Button>
+        </div>
       </div>
-
-      <Link
-        href="https://square.degov.ai"
-        className="inline-flex w-full cursor-pointer items-center justify-between rounded-full border border-white px-[30px] py-2.5 text-[16px] font-medium text-white transition-all duration-300 hover:scale-[1.01] hover:opacity-80 lg:w-[210px] lg:justify-center lg:text-[24px] lg:tracking-[-0.24px]"
-        ref={buttonRef}
-        style={buttonStyles}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View All DAOs
-        <LazyImage
-          src={'/images/arrow-light.svg'}
-          alt="arrow"
-          width={13}
-          height={15}
-          className="block lg:hidden"
-        />
-      </Link>
-    </section>
+    </SectionWrapper>
   );
 }
