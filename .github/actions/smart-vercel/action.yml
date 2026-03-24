@@ -208,7 +208,7 @@ runs:
 
         VERCEL="vercel ${VERCEL_TOKEN:+--token $VERCEL_TOKEN} ${VERCEL_GROUP:+--scope $VERCEL_GROUP}"
 
-        ${VERCEL} link --confirm
+        ${VERCEL} link --yes
 
         if [ "${HIDE_GIT}" = "true" ] && [ -d ".git" ]; then
           mv .git .git.hidden
