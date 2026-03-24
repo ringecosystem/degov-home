@@ -3,19 +3,23 @@ name: Deploy develop
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
           version: 10.32.1
           run_install: false
 
-      - uses: darwinia-network/devops/actions/smart-vercel@main
+      - uses: ./.github/actions/smart-vercel
         name: Deploy to Vercel
         with:
           node_version: 22
