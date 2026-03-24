@@ -7,26 +7,85 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      NODE_VERSION: 22
+      PNPM_VERSION: 10.32.1
+      PROJECT_NAME: degov-home
+      VERCEL_GROUP: itering
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10.32.1
+          version: ${{ env.PNPM_VERSION }}
           run_install: false
 
-      - uses: darwinia-network/devops/actions/smart-vercel@main
-        name: Deploy to Vercel
+      - uses: actions/setup-node@v6
         with:
-          node_version: 22
-          vercel_token: ${{ secrets.VERCEL_TOKEN }}
-          vercel_group: itering
-          preview_output: true
-          project_name: degov-home
-          dist_path: out
-          script_install: pnpm install --frozen-lockfile
-          script_build: pnpm build
-          enable_notify_comment: true
-          enable_notify_slack: false
-          slack_channel: public-degov
-          slack_webhook: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: CI=false pnpm build
+
+      - name: Prepare deploy directory
+        id: prepare_deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          deploy_root="$(mktemp -d)"
+          app_dir="$deploy_root/${PROJECT_NAME}"
+          cp -R out "$app_dir"
+          if [ -f vercel.json ]; then
+            cp vercel.json "$app_dir/"
+          fi
+          {
+            echo "app_dir=$app_dir"
+            echo "deploy_root=$deploy_root"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Prepare vercel cli
+        run: |
+          npm uninstall -g vercel || true
+          npm install -g vercel@50.13.2
+          vercel --version
+
+      - name: Deploy to Vercel
+        id: deploy_vercel
+        shell: bash
+        working-directory: ${{ steps.prepare_deploy.outputs.app_dir }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          vercel_args=(--token "$VERCEL_TOKEN" --scope "$VERCEL_GROUP")
+          vercel link --yes "${vercel_args[@]}"
+          vercel deploy "${vercel_args[@]}" 2>&1 | tee deploy.log
+          deployment_url="$(grep -Eo 'https://[^[:space:]]+' deploy.log | tail -n 1)"
+          if [ -z "$deployment_url" ]; then
+            echo "Failed to capture deployment URL from Vercel output" >&2
+            exit 1
+          fi
+          sha="${{ github.event.pull_request.head.sha }}"
+          sha="${sha:0:7}"
+          {
+            echo "preview_link=$deployment_url"
+            echo "preview_output<<EOF"
+            echo "---"
+            echo "Commit: [$sha](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/$sha)"
+            echo "Preview: $deployment_url"
+            echo
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Comment deploy output
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          append: true
+          message: ${{ steps.deploy_vercel.outputs.preview_output }}
