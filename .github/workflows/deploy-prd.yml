@@ -17,7 +17,7 @@ jobs:
           version: 10.32.1
           run_install: false
 
-      - uses: darwinia-network/devops/actions/smart-vercel@def47cdab63e6ff6c5ab0014c58dc3f23cb09bba
+      - uses: darwinia-network/devops/actions/smart-vercel@main
         name: Deploy to Vercel
         with:
           node_version: 22
