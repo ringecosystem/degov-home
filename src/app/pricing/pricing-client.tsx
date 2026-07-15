@@ -417,9 +417,9 @@ export default function PricingClient() {
           >
             <Image
               className="brand-logo"
-              src="/images/logo.svg"
+              src="/images/degov-ai-2x.svg"
               alt="DeGov.AI"
-              width={136}
+              width={147}
               height={30}
             />
           </Link>

@@ -574,9 +574,9 @@ export default function HomeClient() {
             <a className="brand" data-od-id="footer-brand" href="#top" aria-label="DeGov.AI home">
               <Image
                 className="brand-logo"
-                src="/images/logo.svg"
+                src="/images/degov-ai-2x.svg"
                 alt="DeGov.AI"
-                width={136}
+                width={147}
                 height={30}
               />
             </a>

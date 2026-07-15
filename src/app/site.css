@@ -311,6 +311,7 @@ body.menu-open {
 .degov-site .brand-logo {
   width: clamp(116px, 10vw, 142px);
   height: auto;
+  filter: invert(1);
 }
 
 .degov-site .brand-context {

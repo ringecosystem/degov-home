@@ -85,11 +85,13 @@ requireIncludes(
   "id={isPricing ? 'mobileMenu' : 'homeMobileMenu'}",
   'detached full-screen mobile menu'
 );
+requireIncludes(header, '/images/degov-ai-2x.svg', 'approved DeGov logo asset');
 
 requireIncludes(css, '--bg: #1f2228', 'xAI near-black canvas token');
 requireIncludes(css, "'GeistMono', ui-monospace", 'GeistMono display stack');
 requireIncludes(css, "'universalSans', 'universalSans Fallback'", 'Universal Sans body stack');
-requireIncludes(css, 'border-radius: 0', 'square button corners');
+requireIncludes(css, 'border-radius: 0', 'sharp control radius');
+requireIncludes(css, 'filter: invert(1)', 'approved black logo inversion');
 requireIncludes(css, '.home-site .paths', 'two-path homepage layout');
 requireIncludes(css, '.pricing-site .comparison', 'pricing responsibility table');
 requireIncludes(css, '@media (max-width: 820px)', 'tablet/mobile reflow');
