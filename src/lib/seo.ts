@@ -11,7 +11,7 @@ export const SEO_ORGANIZATION = {
     'https://github.com/ringecosystem/degov'
   ],
   description:
-    'DeGov.AI is an open-source governance platform built on the OpenZeppelin Governor framework.'
+    'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 };
 
 export const SEO_WEBSITE = {
@@ -20,5 +20,5 @@ export const SEO_WEBSITE = {
   name: 'DeGov.AI',
   url: SITE_URL,
   description:
-    'DeGov.AI equips DAOs with proposal tracking, voting, delegation, and transparent on-chain governance tooling.'
+    'Better governance for better communities. Run governance with Square and understand it with Atlas.'
 };
