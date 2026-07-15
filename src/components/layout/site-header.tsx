@@ -12,6 +12,8 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLElement>(null);
   const isPricing = variant === 'pricing';
+  const desktopHomeOdId = (value: string) => (!isPricing && !isOpen ? value : undefined);
+  const mobileHomeOdId = (value: string) => (!isPricing && isOpen ? value : undefined);
 
   useEffect(() => {
     const closeForDesktop = () => {
@@ -103,19 +105,31 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
               </>
             ) : (
               <>
-                <a data-od-id="nav-square" href="https://square.degov.ai/" onClick={closeMenu}>
+                <a
+                  data-od-id={desktopHomeOdId('nav-square')}
+                  href="https://square.degov.ai/"
+                  onClick={closeMenu}
+                >
                   Square
                 </a>
-                <a data-od-id="nav-atlas" href="https://atlas.degov.ai/" onClick={closeMenu}>
+                <a
+                  data-od-id={desktopHomeOdId('nav-atlas')}
+                  href="https://atlas.degov.ai/"
+                  onClick={closeMenu}
+                >
                   Atlas
                 </a>
-                <a data-od-id="nav-pricing" href="/pricing" onClick={closeMenu}>
+                <a data-od-id={desktopHomeOdId('nav-pricing')} href="/pricing" onClick={closeMenu}>
                   Pricing
                 </a>
-                <a data-od-id="nav-agents" href="#agents" onClick={closeMenu}>
+                <a data-od-id={desktopHomeOdId('nav-agents')} href="#agents" onClick={closeMenu}>
                   For agents
                 </a>
-                <a data-od-id="nav-community" href="#community" onClick={closeMenu}>
+                <a
+                  data-od-id={desktopHomeOdId('nav-community')}
+                  href="#community"
+                  onClick={closeMenu}
+                >
                   Why governance
                 </a>
               </>
@@ -145,7 +159,15 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
               type="button"
               aria-expanded={isOpen}
               aria-controls={isPricing ? 'mobileMenu' : 'homeMobileMenu'}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-label={
+                isPricing
+                  ? isOpen
+                    ? 'Close navigation'
+                    : 'Open navigation'
+                  : isOpen
+                    ? 'Close menu'
+                    : 'Open menu'
+              }
               onClick={() => setIsOpen((open) => !open)}
             >
               <svg
@@ -155,7 +177,9 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                 strokeWidth="1.5"
                 aria-hidden="true"
               >
-                <path d={isOpen ? 'M5 5l14 14M19 5L5 19' : 'M4 7h16M4 12h16M4 17h16'} />
+                <path
+                  d={!isPricing && isOpen ? 'M5 5l14 14M19 5L5 19' : 'M4 7h16M4 12h16M4 17h16'}
+                />
               </svg>
             </button>
           </div>
@@ -202,20 +226,28 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
             </>
           ) : (
             <>
-              <a href="https://square.degov.ai/" onClick={closeMenu}>
-                Square <span>01</span>
+              <a
+                data-od-id={mobileHomeOdId('nav-square')}
+                href="https://square.degov.ai/"
+                onClick={closeMenu}
+              >
+                Square
               </a>
-              <a href="https://atlas.degov.ai/" onClick={closeMenu}>
-                Atlas <span>02</span>
+              <a
+                data-od-id={mobileHomeOdId('nav-atlas')}
+                href="https://atlas.degov.ai/"
+                onClick={closeMenu}
+              >
+                Atlas
               </a>
-              <a href="/pricing" onClick={closeMenu}>
-                Pricing <span>03</span>
+              <a data-od-id={mobileHomeOdId('nav-pricing')} href="/pricing" onClick={closeMenu}>
+                Pricing
               </a>
-              <a href="#agents" onClick={closeMenu}>
-                For agents <span>04</span>
+              <a data-od-id={mobileHomeOdId('nav-agents')} href="#agents" onClick={closeMenu}>
+                For agents
               </a>
-              <a href="#community" onClick={closeMenu}>
-                Why governance <span>05</span>
+              <a data-od-id={mobileHomeOdId('nav-community')} href="#community" onClick={closeMenu}>
+                Why governance
               </a>
             </>
           )}

@@ -48,6 +48,23 @@ const pricingFaqJsonLd = JSON.stringify({
   }))
 });
 
+function readSavedBilling(): BillingPeriod | null {
+  try {
+    const savedBilling = window.localStorage.getItem('degov-pricing-billing');
+    return savedBilling === 'monthly' || savedBilling === 'yearly' ? savedBilling : null;
+  } catch {
+    return null;
+  }
+}
+
+function persistBilling(billing: BillingPeriod) {
+  try {
+    window.localStorage.setItem('degov-pricing-billing', billing);
+  } catch {
+    // Storage can be unavailable; the in-memory billing interaction must still work.
+  }
+}
+
 export default function PricingClient() {
   const rootRef = useRef<HTMLDivElement>(null);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -84,7 +101,7 @@ export default function PricingClient() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const savedBilling = window.localStorage.getItem('degov-pricing-billing');
+      const savedBilling = readSavedBilling();
       if (savedBilling === 'yearly') {
         setBilling('yearly');
         setDisplayBilling('yearly');
@@ -106,7 +123,7 @@ export default function PricingClient() {
 
     setBilling(nextBilling);
     setIsChanging(true);
-    window.localStorage.setItem('degov-pricing-billing', nextBilling);
+    persistBilling(nextBilling);
     if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
     transitionTimerRef.current = setTimeout(() => {
       setDisplayBilling(nextBilling);
@@ -311,37 +328,37 @@ export default function PricingClient() {
               </thead>
               <tbody>
                 <tr>
-                  <td data-label="Responsibility">
+                  <th scope="row" data-label="Responsibility">
                     <strong>Open-source governance UI</strong>
-                  </td>
+                  </th>
                   <td data-label="Self-hosted">Included</td>
                   <td data-label="Managed">Included</td>
                 </tr>
                 <tr>
-                  <td data-label="Responsibility">
+                  <th scope="row" data-label="Responsibility">
                     <strong>Infrastructure and deployment</strong>
-                  </td>
+                  </th>
                   <td data-label="Self-hosted">Your team</td>
                   <td data-label="Managed">DeGov</td>
                 </tr>
                 <tr>
-                  <td data-label="Responsibility">
+                  <th scope="row" data-label="Responsibility">
                     <strong>Updates and maintenance</strong>
-                  </td>
+                  </th>
                   <td data-label="Self-hosted">Your team</td>
                   <td data-label="Managed">DeGov</td>
                 </tr>
                 <tr>
-                  <td data-label="Responsibility">
+                  <th scope="row" data-label="Responsibility">
                     <strong>SSL, CDN, and monitoring</strong>
-                  </td>
+                  </th>
                   <td data-label="Self-hosted">Your team</td>
                   <td data-label="Managed">DeGov</td>
                 </tr>
                 <tr>
-                  <td data-label="Responsibility">
+                  <th scope="row" data-label="Responsibility">
                     <strong>Migration freedom</strong>
-                  </td>
+                  </th>
                   <td data-label="Self-hosted">Full control</td>
                   <td data-label="Managed">Move to self-hosting</td>
                 </tr>

@@ -63,7 +63,10 @@ requireIncludes(
   "window.localStorage.setItem('degov-pricing-billing'",
   'persisted billing preference'
 );
+requireIncludes(pricing, 'function persistBilling', 'storage-failure-safe billing persistence');
+requireIncludes(pricing, 'persistBilling(nextBilling)', 'guarded billing preference write');
 requireIncludes(pricing, 'data-od-id="responsibility-comparison"', 'responsibility ledger');
+requireIncludes(pricing, 'scope="row"', 'responsibility row headers');
 requireIncludes(pricing, 'Open by design.', 'open ownership statement');
 requireIncludes(pricing, 'Is Atlas included in Square pricing?', 'Square/Atlas pricing boundary');
 requireIncludes(pricing, "odId: 'faq-free-period'", 'prototype FAQ identifiers');
@@ -86,22 +89,32 @@ requireIncludes(
   'detached full-screen mobile menu'
 );
 requireIncludes(header, '/images/degov-ai-2x.svg', 'approved DeGov logo asset');
+requireIncludes(header, "mobileHomeOdId('nav-square')", 'visible mobile navigation selector');
+requireIncludes(header, "? 'Close navigation'", 'pricing navigation label');
 
 requireIncludes(css, '--bg: #1f2228', 'xAI near-black canvas token');
+requireIncludes(css, '--meta: rgba(255, 255, 255, 0.5)', 'AA-readable metadata token');
 requireIncludes(css, "'GeistMono', ui-monospace", 'GeistMono display stack');
 requireIncludes(css, "'universalSans', 'universalSans Fallback'", 'Universal Sans body stack');
-requireIncludes(css, 'border-radius: 0', 'sharp control radius');
+requireIncludes(css, '--radius-sm: 0px', 'approved radius token');
+requireIncludes(css, '--elev-ring: 0 0 0 1px var(--border)', 'approved elevation token');
+requireIncludes(css, 'border-radius: var(--radius-sm)', 'tokenized sharp control radius');
 requireIncludes(css, 'filter: invert(1)', 'approved black logo inversion');
 requireIncludes(css, '.home-site .paths', 'two-path homepage layout');
 requireIncludes(css, '.pricing-site .comparison', 'pricing responsibility table');
+requireIncludes(css, 'overflow-y: auto', 'scrollable fixed mobile menu');
+requireIncludes(css, '.home-site .mobile-menu a', 'home-specific mobile menu treatment');
 requireIncludes(css, '@media (max-width: 820px)', 'tablet/mobile reflow');
 requireIncludes(css, '@media (max-width: 600px)', 'phone reflow');
 requireIncludes(css, '@media (prefers-reduced-motion: reduce)', 'reduced-motion contract');
 forbidIncludes(css, '--bg-primary', 'legacy visual token');
 forbidIncludes(css, 'rounded-full', 'legacy pill utility');
 forbidIncludes(css, 'box-shadow: 0 0 20px', 'legacy decorative glow');
+forbidIncludes(css, '.home-site .hero,\n  .pricing-site .hero', 'premature pricing hero collapse');
+forbidIncludes(css, '.comparison thead {\n    display: none', 'inaccessible hidden table headers');
 
 requireIncludes(layout, "themeColor: '#1f2228'", 'updated browser theme color');
+requireIncludes('src/app/pricing/page.tsx', 'Square Pricing — DeGov.AI', 'approved pricing title');
 requireIncludes(
   layout,
   'run governance with Square and understand governance with Atlas',
@@ -117,7 +130,7 @@ requireIncludes(
 );
 requireBinary('public/fonts/GeistMono-Variable.woff2', 50_000);
 requireBinary('public/fonts/UniversalSans-Fallback.woff2', 50_000);
-requireBinary('public/images/logo.svg', 3_000);
+requireBinary('public/images/degov-ai-2x.svg', 3_000);
 
 if (errors.length) {
   console.error(`Design contract failed:\n${errors.map((error) => `- ${error}`).join('\n')}`);

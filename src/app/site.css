@@ -21,7 +21,7 @@
   --fg: #ffffff;
   --fg-2: rgba(255, 255, 255, 0.7);
   --muted: rgba(255, 255, 255, 0.5);
-  --meta: rgba(255, 255, 255, 0.3);
+  --meta: rgba(255, 255, 255, 0.5);
   --border: rgba(255, 255, 255, 0.1);
   --border-soft: rgba(255, 255, 255, 0.05);
   --accent: #ffffff;
@@ -50,6 +50,7 @@
   --text-4xl: 64px;
   --leading-body: 1.5;
   --leading-tight: 1.2;
+  --tracking-display: normal;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -61,6 +62,13 @@
   --section-y-desktop: 96px;
   --section-y-tablet: 64px;
   --section-y-phone: 48px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 4px;
+  --radius-pill: 9999px;
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);
+  --elev-raised: none;
   --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.5);
   --motion-fast: 150ms;
   --motion-base: 200ms;
@@ -226,7 +234,7 @@ body.menu-open {
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: var(--radius-sm);
   background: transparent;
   font: var(--text-sm) / 1.43 var(--font-display);
   letter-spacing: 1.4px;
@@ -287,10 +295,17 @@ body.menu-open {
 .degov-site .topnav {
   position: sticky;
   top: 0;
-  z-index: 30;
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(16px);
+}
+
+.home-site .topnav {
+  z-index: 20;
+}
+
+.pricing-site .topnav {
+  z-index: 30;
 }
 
 .degov-site .nav-inner {
@@ -526,9 +541,13 @@ body.menu-open {
   position: relative;
   padding-top: var(--space-3);
   color: var(--meta);
-  font: var(--text-xs) / 1 var(--font-mono);
+  font: var(--text-xs) / 1.2 var(--font-mono);
   text-transform: uppercase;
   transition: color var(--motion-base) var(--ease-standard);
+}
+
+.home-site .path-signal span {
+  line-height: 1;
 }
 
 .home-site .path-signal span::before,
@@ -772,10 +791,14 @@ body.menu-open {
   left: 0;
 }
 
-.home-site .evidence-panel.is-visible .life-step::before,
-.home-site .community-step.is-visible::before {
+.home-site .evidence-panel.is-visible .life-step::before {
   background: var(--fg);
   transform: scale(1.35);
+}
+
+.home-site .community-step.is-visible::before {
+  background: var(--fg);
+  transform: scale(1.4);
 }
 
 .home-site .feed-row {
@@ -1102,6 +1125,8 @@ body.menu-open {
   inset: 72px 0 0;
   z-index: 25;
   display: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--bg);
 }
 
@@ -1111,7 +1136,7 @@ body.menu-open {
 
 .degov-site .mobile-menu-inner {
   display: flex;
-  height: 100%;
+  min-height: 100%;
   flex-direction: column;
   padding-block: var(--space-8);
 }
@@ -1129,6 +1154,11 @@ body.menu-open {
 .degov-site .mobile-menu a.external::after {
   color: var(--muted);
   content: '↗';
+}
+
+.home-site .mobile-menu a {
+  font-size: var(--text-xl);
+  text-transform: none;
 }
 
 .pricing-site .hero {
@@ -1384,15 +1414,23 @@ body.menu-open {
   vertical-align: top;
 }
 
-.pricing-site .comparison th {
+.pricing-site .comparison thead th {
   color: var(--muted);
   font: 400 var(--text-xs) / 1.5 var(--font-mono);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
+.pricing-site .comparison tbody th {
+  color: var(--fg);
+  font: inherit;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 .pricing-site .comparison td:not(:first-child),
-.pricing-site .comparison th:not(:first-child) {
+.pricing-site .comparison thead th:not(:first-child) {
   width: 25%;
   text-align: right;
 }
@@ -1516,7 +1554,7 @@ body.menu-open {
     padding-block: var(--section-y-tablet);
   }
 
-  .degov-site .section::before {
+  .pricing-site .section::before {
     left: var(--container-gutter-tablet);
   }
 
@@ -1528,12 +1566,14 @@ body.menu-open {
     grid-template-columns: 1fr;
   }
 
-  .home-site .hero,
-  .pricing-site .hero {
+  .home-site .hero {
     min-height: auto;
   }
 
-  .home-site .hero-copy,
+  .home-site .hero-copy {
+    max-width: 62ch;
+  }
+
   .pricing-site .hero-copy {
     max-width: 620px;
   }
@@ -1629,12 +1669,21 @@ body.menu-open {
   }
 
   .pricing-site .comparison thead {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .pricing-site .comparison,
   .pricing-site .comparison tbody,
   .pricing-site .comparison tr,
+  .pricing-site .comparison tbody th,
   .pricing-site .comparison td {
     display: block;
     width: 100% !important;
@@ -1654,13 +1703,10 @@ body.menu-open {
     border: 0;
   }
 
-  .pricing-site .comparison td:first-child {
+  .pricing-site .comparison tbody th {
     display: block;
-    padding-bottom: var(--space-3);
-  }
-
-  .pricing-site .comparison td:first-child::before {
-    display: none;
+    padding: 0 0 var(--space-3);
+    border: 0;
   }
 
   .pricing-site .comparison td::before {
@@ -1681,7 +1727,7 @@ body.menu-open {
     padding-block: var(--section-y-phone);
   }
 
-  .degov-site .section::before {
+  .pricing-site .section::before {
     top: var(--space-4);
     left: var(--container-gutter-phone);
   }
