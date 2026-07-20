@@ -168,7 +168,7 @@ export default function PricingClient() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Managed hosting timeline</p>
-              <h2 className="h2">Launch first. Choose your long-term model later.</h2>
+              <h2 className="h2">Launch now. Choose later.</h2>
             </div>
             <div className="timeline">
               <article className="time" data-od-id="timeline-day-one">

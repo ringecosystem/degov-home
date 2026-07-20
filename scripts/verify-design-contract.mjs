@@ -57,6 +57,12 @@ forbidIncludes(home, '/cdn-cgi/', 'Cloudflare prototype email shim');
 requireIncludes('src/app/pricing/page.tsx', '<PricingClient />', 'pricing client mount');
 requireIncludes(pricing, 'Start managed. Stay in control.', 'pricing hero');
 requireIncludes(pricing, 'data-od-id="pricing-timeline"', 'managed-hosting timeline');
+requireIncludes(pricing, 'Launch now. Choose later.', 'current managed-hosting timeline heading');
+forbidIncludes(
+  pricing,
+  'Launch first. Choose your long-term model later.',
+  'retired managed-hosting timeline heading'
+);
 requireIncludes(pricing, 'Yearly · save $400', 'annual billing control');
 requireIncludes(
   pricing,
