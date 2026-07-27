@@ -426,8 +426,43 @@ body.menu-open {
   gap: var(--space-3);
 }
 
+.home-site .hero-playground {
+  margin-top: var(--space-4);
+  color: var(--muted);
+  font: var(--text-sm) / 1.5 var(--font-body);
+}
+
+.home-site .hero-playground a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--fg-2);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 4px;
+  transition:
+    color var(--motion-fast) var(--ease-standard),
+    text-decoration-color var(--motion-fast) var(--ease-standard);
+}
+
+.home-site .hero-playground a::after {
+  font-family: var(--font-mono);
+  content: '↗';
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+
+.home-site .hero-playground a:hover {
+  color: var(--muted);
+  text-decoration-color: var(--muted);
+}
+
+.home-site .hero-playground a:hover::after {
+  transform: translate(2px, -2px);
+}
+
 .home-site .hero-note {
-  margin-top: var(--space-12);
+  margin-top: var(--space-8);
   padding-top: var(--space-6);
   border-top: 1px solid var(--border);
   color: var(--muted);

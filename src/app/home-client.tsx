@@ -77,6 +77,12 @@ export default function HomeClient() {
                   Understand with Atlas
                 </a>
               </div>
+              <p className="hero-playground" data-od-id="hero-playground-entry">
+                New to DeGov?{' '}
+                <a data-od-id="hero-playground-link" href="https://playground.degov.ai/">
+                  Try the Playground on Base.
+                </a>
+              </p>
               <p className="hero-note">
                 Square turns participation into action.
                 <br />
