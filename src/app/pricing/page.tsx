@@ -3,16 +3,18 @@ import { SITE_URL } from '@/lib/seo';
 import PricingClient from './pricing-client';
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: {
+    absolute: 'Square Pricing — DeGov.AI'
+  },
   description:
-    'Start free for 6 months. Then self-host for free or choose managed hosting at $200/mo.',
+    'DeGov.AI Square pricing: self-host for free or choose managed hosting, with the first six months free.',
   alternates: {
     canonical: `${SITE_URL}/pricing`
   },
   openGraph: {
-    title: 'Pricing | DeGov.AI',
+    title: 'Square Pricing — DeGov.AI',
     description:
-      'Start free for 6 months. Then self-host for free or choose managed hosting at $200/mo.',
+      'Self-host Square for free or choose managed hosting, with the first six months free.',
     url: `${SITE_URL}/pricing`
   }
 };
