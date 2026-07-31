@@ -1,7 +1,13 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 
-import { SEO_ORGANIZATION, SEO_WEBSITE, SITE_URL } from '@/lib/seo';
+import {
+  SEO_ORGANIZATION,
+  SEO_WEBSITE,
+  SITE_URL,
+  SOCIAL_IMAGE_ALT,
+  SOCIAL_IMAGE_URL
+} from '@/lib/seo';
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 
@@ -17,7 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.';
   const siteUrl = SITE_URL;
-  const ogImageUrl = `${siteUrl}/images/og.png`;
   const keywords = [
     'DeGov',
     'DAO governance',
@@ -48,10 +53,11 @@ export async function generateMetadata(): Promise<Metadata> {
       url: siteUrl,
       images: [
         {
-          url: ogImageUrl,
-          width: 512,
-          height: 512,
-          alt: 'DeGov.AI'
+          url: SOCIAL_IMAGE_URL,
+          width: 1200,
+          height: 630,
+          alt: SOCIAL_IMAGE_ALT,
+          type: 'image/png'
         }
       ],
       locale: 'en_US'
@@ -60,9 +66,14 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       site: '@ai_degov',
       creator: '@ai_degov',
-      title: siteName,
+      title,
       description,
-      images: [ogImageUrl]
+      images: [
+        {
+          url: SOCIAL_IMAGE_URL,
+          alt: SOCIAL_IMAGE_ALT
+        }
+      ]
     },
     robots: {
       index: true,

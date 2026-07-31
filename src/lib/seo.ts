@@ -1,5 +1,10 @@
 export const SITE_URL = 'https://degov.ai';
 
+// A distinct asset URL helps social platforms invalidate the cached square
+// logo that was previously advertised as a large preview card.
+export const SOCIAL_IMAGE_URL = `${SITE_URL}/images/degov-social-card.png`;
+export const SOCIAL_IMAGE_ALT = 'DeGov.AI — Better governance for better communities.';
+
 export const SEO_ORGANIZATION = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
