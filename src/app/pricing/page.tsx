@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { SITE_URL } from '@/lib/seo';
+import { SITE_URL, SOCIAL_IMAGE_ALT, SOCIAL_IMAGE_URL } from '@/lib/seo';
 import PricingClient from './pricing-client';
 
 export const metadata: Metadata = {
@@ -12,10 +12,30 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/pricing`
   },
   openGraph: {
+    type: 'website',
+    siteName: 'DeGov.AI',
+    locale: 'en_US',
     title: 'Square Pricing — DeGov.AI',
     description:
       'Self-host Square for free or choose managed hosting, with the first six months free.',
-    url: `${SITE_URL}/pricing`
+    url: `${SITE_URL}/pricing`,
+    images: [
+      {
+        url: SOCIAL_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: SOCIAL_IMAGE_ALT,
+        type: 'image/png'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ai_degov',
+    creator: '@ai_degov',
+    title: 'Square Pricing — DeGov.AI',
+    description: 'Self-host Square for free or choose managed hosting, with six months free.',
+    images: [{ url: SOCIAL_IMAGE_URL, alt: SOCIAL_IMAGE_ALT }]
   }
 };
 

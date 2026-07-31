@@ -1,0 +1,39 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Editable source for the raster social card. Social crawlers receive the PNG derivative. -->
+  <rect width="1200" height="630" fill="#1F2228"/>
+
+  <!-- The restrained ledger grid mirrors the visual language used across the marketing site. -->
+  <g stroke="white" stroke-opacity="0.08">
+    <path d="M0 80.5H1200M0 550.5H1200"/>
+    <path d="M72.5 0V630M1127.5 0V630"/>
+  </g>
+
+  <!-- DeGov pinwheel mark, reconstructed as vector geometry for crisp rendering. -->
+  <g transform="translate(73 25) scale(0.1)" fill="white">
+    <path d="M100.333 0L110.333 120L0.333 100V0H100.333Z"/>
+    <path d="M300.333 0V100L110.333 120L200.333 0H300.333Z"/>
+    <path d="M110.333 120L100.333 300H0.333V200L110.333 120Z"/>
+    <path d="M110.333 120L300.333 200V300H200.333L110.333 120Z"/>
+  </g>
+  <text x="118" y="57" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="-0.7">DeGov.AI</text>
+  <text x="1127" y="55" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" text-anchor="end" letter-spacing="1.5">GOVERNANCE INFRASTRUCTURE</text>
+
+  <text x="72" y="155" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="15" letter-spacing="2">RUN · UNDERSTAND · VERIFY</text>
+  <text x="67" y="256" fill="white" font-family="DejaVu Sans Mono, monospace" font-size="73" font-weight="700" letter-spacing="-4">Better governance</text>
+  <text x="67" y="344" fill="white" font-family="DejaVu Sans Mono, monospace" font-size="73" font-weight="700" letter-spacing="-4">for better communities.</text>
+  <text x="72" y="406" fill="white" fill-opacity="0.7" font-family="DejaVu Sans, Arial, sans-serif" font-size="22">Open infrastructure for communities and the agents that serve them.</text>
+
+  <g transform="translate(72 470)">
+    <rect x="0.5" y="0.5" width="500" height="80" stroke="white" stroke-opacity="0.18"/>
+    <text x="20" y="27" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="1.5">01 / SQUARE</text>
+    <text x="20" y="60" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">RUN GOVERNANCE</text>
+  </g>
+  <g transform="translate(592 470)">
+    <rect x="0.5" y="0.5" width="535" height="80" stroke="white" stroke-opacity="0.18"/>
+    <text x="20" y="27" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="1.5">02 / ATLAS</text>
+    <text x="20" y="60" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">UNDERSTAND GOVERNANCE</text>
+  </g>
+
+  <text x="72" y="594" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" letter-spacing="1">DEGOV.AI</text>
+  <text x="1127" y="594" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" text-anchor="end" letter-spacing="1">BETTER COMMUNITIES / BETTER DECISIONS</text>
+</svg>

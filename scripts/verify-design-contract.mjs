@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, readFileSync, statSync } from 'node:fs';
+import { validateRgbPng } from './png-validation.mjs';
 
 const errors = [];
 
@@ -31,11 +32,25 @@ function requireBinary(path, minimumBytes) {
   if (size < minimumBytes) errors.push(`Asset ${path} is unexpectedly small (${size} bytes)`);
 }
 
+function requirePng(path, expectedWidth, expectedHeight) {
+  if (!existsSync(path)) {
+    errors.push(`Missing required PNG asset: ${path}`);
+    return;
+  }
+
+  try {
+    validateRgbPng(path, expectedWidth, expectedHeight);
+  } catch (error) {
+    errors.push(error.message);
+  }
+}
+
 const home = 'src/app/home-client.tsx';
 const pricing = 'src/app/pricing/pricing-client.tsx';
 const css = 'src/app/site.css';
 const header = 'src/components/layout/site-header.tsx';
 const layout = 'src/app/layout.tsx';
+const seo = 'src/lib/seo.ts';
 
 requireIncludes('src/app/page.tsx', '<HomeClient />', 'homepage client mount');
 requireIncludes(home, 'Better', 'homepage brand slogan');
@@ -133,6 +148,11 @@ requireIncludes(
   'run governance with Square and understand governance with Atlas',
   'two-product metadata'
 );
+requireIncludes(layout, "card: 'summary_large_image'", 'large X card metadata');
+requireIncludes(seo, '/images/degov-social-card.png', 'social preview image metadata');
+requireIncludes(layout, 'width: 1200', 'social preview width metadata');
+requireIncludes(layout, 'height: 630', 'social preview height metadata');
+requireIncludes('src/app/pricing/page.tsx', 'SOCIAL_IMAGE_URL', 'pricing social preview');
 forbidIncludes(layout, '<HeroGrid', 'legacy decorative grid');
 forbidIncludes(layout, '<Navbar', 'legacy navbar mount');
 
@@ -141,9 +161,17 @@ requireIncludes(
   '"test:design": "node scripts/verify-design-contract.mjs"',
   'design-contract package script'
 );
+requireIncludes(
+  'package.json',
+  '"build": "next build && node scripts/verify-social-metadata.mjs"',
+  'built social-metadata verification'
+);
 requireBinary('public/fonts/GeistMono-Variable.woff2', 50_000);
 requireBinary('public/fonts/UniversalSans-Fallback.woff2', 50_000);
 requireBinary('public/images/degov-ai-2x.svg', 3_000);
+requireBinary('public/images/degov-social-card.svg', 3_000);
+requireBinary('public/images/degov-social-card.png', 20_000);
+requirePng('public/images/degov-social-card.png', 1200, 630);
 
 if (errors.length) {
   console.error(`Design contract failed:\n${errors.map((error) => `- ${error}`).join('\n')}`);
