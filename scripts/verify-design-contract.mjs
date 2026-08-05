@@ -68,6 +68,14 @@ requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
 requireIncludes(home, '30K+', 'portfolio proposal metric');
 requireIncludes(
   home,
+  'data-od-id="homepage-content-provenance"',
+  'homepage content provenance block'
+);
+requireIncludes(home, 'Canonical owner:', 'homepage canonical content owner');
+requireIncludes(home, 'Editorial review:', 'homepage editorial review date');
+requireIncludes(home, 'not deploy or build', 'content-review freshness distinction');
+requireIncludes(
+  home,
   'mailto:contact@degov.ai?subject=Atlas%20data%20partnership',
   'Atlas contact path'
 );

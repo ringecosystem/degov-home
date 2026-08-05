@@ -433,6 +433,31 @@ export default function HomeClient() {
               Portfolio figures from DeGov product materials. Add a confirmed reporting date before
               launch.
             </p>
+            <div
+              className="content-provenance"
+              data-od-id="homepage-content-provenance"
+              aria-label="Homepage content provenance"
+            >
+              <p className="eyebrow">Content provenance</p>
+              <div className="provenance-grid">
+                <p>
+                  <strong>Canonical owner:</strong> DeGov official website.
+                </p>
+                <p>
+                  <strong>Editorial review:</strong> 2026-08-05.
+                </p>
+                <p>
+                  The review date describes evergreen product-copy review, not deploy or build
+                  freshness.
+                </p>
+                <nav className="provenance-links" aria-label="Primary homepage sources">
+                  <a href="https://docs.degov.ai/">Docs</a>
+                  <a href="https://square.degov.ai/">Square</a>
+                  <a href="https://atlas.degov.ai/">Atlas</a>
+                  <a href="https://github.com/ringecosystem/degov">Source</a>
+                </nav>
+              </div>
+            </div>
           </div>
         </section>
 
