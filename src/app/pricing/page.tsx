@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SOCIAL_IMAGE_ALT, SOCIAL_IMAGE_URL } from '@/lib/seo';
+import { PRICING_WEBPAGE, SITE_URL, SOCIAL_IMAGE_ALT, SOCIAL_IMAGE_URL } from '@/lib/seo';
 import PricingClient from './pricing-client';
+
+const PRICING_WEBPAGE_STRUCTURED_DATA = JSON.stringify(PRICING_WEBPAGE);
 
 export const metadata: Metadata = {
   title: {
@@ -40,5 +42,14 @@ export const metadata: Metadata = {
 };
 
 export default function PricingPage() {
-  return <PricingClient />;
+  return (
+    <>
+      <PricingClient />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: PRICING_WEBPAGE_STRUCTURED_DATA }}
+      />
+    </>
+  );
 }
