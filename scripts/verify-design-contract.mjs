@@ -171,8 +171,13 @@ requireIncludes(
 );
 requireIncludes(
   'package.json',
-  '"build": "next build && node scripts/verify-social-metadata.mjs"',
+  '"build": "next build && node scripts/verify-social-metadata.mjs && node scripts/verify-structured-data.mjs"',
   'built social-metadata verification'
+);
+requireIncludes(
+  'package.json',
+  '"test:structured-data": "node scripts/verify-structured-data.mjs"',
+  'structured-data package script'
 );
 requireBinary('public/fonts/GeistMono-Variable.woff2', 50_000);
 requireBinary('public/fonts/UniversalSans-Fallback.woff2', 50_000);
