@@ -61,12 +61,25 @@ function requireMetadata(path, canonicalUrl, expected) {
   }
 
   for (const [key, values] of metadata) {
-    if (values.length > 1) errors.push(`${path}: duplicate ${key} values ${JSON.stringify(values)}`);
+    if (values.length > 1)
+      errors.push(`${path}: duplicate ${key} values ${JSON.stringify(values)}`);
   }
   if (canonicalUrls.length !== 1 || canonicalUrls[0] !== canonicalUrl) {
     errors.push(
       `${path}: canonical must occur once as "${canonicalUrl}", received ${JSON.stringify(canonicalUrls)}`
     );
+  }
+}
+
+function requireBuiltText(path, requiredText) {
+  if (!existsSync(path)) {
+    errors.push(`Missing built route: ${path}`);
+    return;
+  }
+
+  const html = readFileSync(path, 'utf8');
+  for (const text of requiredText) {
+    if (!html.includes(text)) errors.push(`${path}: missing visible content "${text}"`);
   }
 }
 
@@ -99,6 +112,18 @@ requireMetadata('out/index.html', 'https://degov.ai/', {
   'twitter:description':
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 });
+requireBuiltText('out/index.html', [
+  'Content provenance',
+  'Canonical owner:',
+  'DeGov official website.',
+  'Editorial review:',
+  '2026-08-05.',
+  'not deploy or build freshness',
+  'https://docs.degov.ai/',
+  'https://square.degov.ai/',
+  'https://atlas.degov.ai/',
+  'https://github.com/ringecosystem/degov'
+]);
 requireMetadata('out/pricing/index.html', 'https://degov.ai/pricing/', {
   ...sharedMetadata,
   title: 'Square Pricing — DeGov.AI',
@@ -109,7 +134,8 @@ requireMetadata('out/pricing/index.html', 'https://degov.ai/pricing/', {
     'Self-host Square for free or choose managed hosting, with the first six months free.',
   'og:url': 'https://degov.ai/pricing/',
   'twitter:title': 'Square Pricing — DeGov.AI',
-  'twitter:description': 'Self-host Square for free or choose managed hosting, with six months free.'
+  'twitter:description':
+    'Self-host Square for free or choose managed hosting, with six months free.'
 });
 
 // Validate the copied build artifact rather than only its source file so a
@@ -122,7 +148,9 @@ if (!existsSync(builtImagePath)) {
     const sourceImage = validateRgbPng('public/images/degov-social-card.png', 1200, 630);
     const builtImage = validateRgbPng(builtImagePath, 1200, 630);
     if (!sourceImage.equals(builtImage)) {
-      errors.push(`${builtImagePath} does not match public/images/degov-social-card.png byte-for-byte`);
+      errors.push(
+        `${builtImagePath} does not match public/images/degov-social-card.png byte-for-byte`
+      );
     }
   } catch (error) {
     errors.push(error.message);
@@ -130,7 +158,9 @@ if (!existsSync(builtImagePath)) {
 }
 
 if (errors.length) {
-  console.error(`Social metadata verification failed:\n${errors.map((error) => `- ${error}`).join('\n')}`);
+  console.error(
+    `Social metadata verification failed:\n${errors.map((error) => `- ${error}`).join('\n')}`
+  );
   process.exit(1);
 }
 

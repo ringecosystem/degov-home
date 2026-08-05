@@ -973,6 +973,45 @@ body.menu-open {
   font-size: var(--text-xs);
 }
 
+.home-site .content-provenance {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.home-site .provenance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr minmax(220px, 1.2fr) auto;
+  align-items: start;
+  gap: var(--space-5);
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+
+.home-site .provenance-grid strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.home-site .provenance-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.home-site .provenance-links a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 4px;
+}
+
+.home-site .provenance-links a:hover,
+.home-site .provenance-links a:focus-visible {
+  text-decoration-color: var(--fg);
+}
+
 .home-site .agent-system {
   display: grid;
   grid-template-columns: 0.82fr 1.18fr;
@@ -1877,6 +1916,14 @@ body.menu-open {
   .home-site .ledger-row {
     grid-template-columns: 1fr;
     gap: var(--space-2);
+  }
+
+  .home-site .provenance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-site .provenance-links {
+    justify-content: flex-start;
   }
 
   .home-site .access-step {
