@@ -8,6 +8,7 @@ import {
   SOCIAL_IMAGE_ALT,
   SOCIAL_IMAGE_URL
 } from '@/lib/seo';
+import { ProductNavigationAnalytics } from '@/components/ProductNavigationAnalytics';
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 
@@ -97,6 +98,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ProductNavigationAnalytics />
         {children}
         <script
           type="application/ld+json"

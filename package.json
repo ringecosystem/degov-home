@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint src next.config.ts eslint.config.mjs tailwind.config.ts --ext .js,.jsx,.ts,.tsx,.mjs --max-warnings=0",
     "test:design": "node scripts/verify-design-contract.mjs",
+    "test:product-navigation-analytics": "node --experimental-strip-types scripts/verify-product-navigation-analytics.mjs",
     "test:structured-data": "node scripts/verify-structured-data.mjs",
     "verify": "pnpm lint && pnpm build"
   },
