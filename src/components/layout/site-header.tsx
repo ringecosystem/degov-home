@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
+import { MotionButtonContent } from '@/components/layout/motion-button-content';
+
 type SiteHeaderProps = {
   variant: 'home' | 'pricing';
 };
@@ -138,7 +140,7 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
 
           <div className="nav-actions">
             <a
-              className={isPricing ? 'btn btn-primary btn-external' : 'btn btn-primary'}
+              className={`${isPricing ? 'btn btn-primary btn-external' : 'btn btn-ghost'} motion-btn`}
               data-od-id={isPricing ? 'pricing-nav-cta' : 'nav-choose-path'}
               href={isPricing ? 'https://square.degov.ai/' : '#products'}
               {...(isPricing
@@ -149,7 +151,7 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                   }
                 : {})}
             >
-              {isPricing ? 'Open Square' : 'Choose your path'}
+              <MotionButtonContent label={isPricing ? 'Open Square' : 'Choose your path'} />
             </a>
             <button
               ref={menuButtonRef}
