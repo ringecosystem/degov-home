@@ -34,9 +34,9 @@ const pricingFaqs = [
   },
   {
     odId: 'faq-atlas',
-    question: 'Is Atlas included in Square pricing?',
+    question: 'Is Atlas included in DeGov pricing?',
     answer:
-      'No. This page applies to Square hosting. Atlas data access and integration work are scoped separately to real product requirements.'
+      'No. This page applies to DeGov hosting. Atlas data access and integration work are scoped separately to real product requirements.'
   }
 ];
 
@@ -579,8 +579,14 @@ export default function PricingClient() {
             </div>
             <div className="hero-copy">
               <p className="lead">
-                Run the open-source Square stack yourself, or let DeGov deploy and maintain it.
+                Run the open-source degov stack yourself, or let our team deploy and maintain it.
                 Managed hosting starts with six months at no cost
+              </p>
+              <p className="hero-playground" data-od-id="pricing-playground-entry">
+                New to DeGov?{' '}
+                <a data-od-id="pricing-playground-link" href="https://playground.degov.ai/">
+                  Try the Playground on Base.
+                </a>
               </p>
               <a
                 className="btn btn-primary motion-btn"

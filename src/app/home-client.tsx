@@ -138,9 +138,7 @@ export default function HomeClient() {
           }
 
           const heroTitleLines = select<HTMLElement>('.arc-hero__title span');
-          const heroSupportingCopy = select<HTMLElement>(
-            '.arc-hero__summary, .arc-hero__playground'
-          );
+          const heroSupportingCopy = select<HTMLElement>('.arc-hero__summary');
           const heroFocus = select<HTMLElement>('.arc-hero__focus');
           const heroArt = select<HTMLElement>('.arc-hero__art');
           const heroTimeline = gsap.timeline({
@@ -425,12 +423,6 @@ export default function HomeClient() {
                 stagger: 0.09
               },
               '-=0.36'
-            )
-            .fromTo(
-              '.arc-index__provenance',
-              { autoAlpha: 0, y: 24, clipPath: 'inset(0 100% 0 0)' },
-              { autoAlpha: 1, y: 0, clipPath: 'inset(0 0% 0 0)', duration: 0.68 },
-              '-=0.28'
             );
 
           gsap
@@ -472,22 +464,6 @@ export default function HomeClient() {
               }
             );
           });
-          gsap.fromTo(
-            '.arc-agents__note',
-            { autoAlpha: 0, clipPath: 'inset(0 100% 0 0)' },
-            {
-              autoAlpha: 1,
-              clipPath: 'inset(0 0% 0 0)',
-              duration: 0.64,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: '.arc-agents__note',
-                start: 'top 90%',
-                once: true
-              }
-            }
-          );
-
           const commercialPaths = select<HTMLElement>('.arc-commercial__path');
           const commercialTimeline = gsap.timeline({
             scrollTrigger: {
@@ -769,12 +745,6 @@ export default function HomeClient() {
                 Strong communities understand decisions, participate with confidence, and verify the
                 outcome
               </p>
-              <p className="arc-hero__playground" data-od-id="hero-playground-entry">
-                New to DeGov?{' '}
-                <a data-od-id="hero-playground-link" href="https://playground.degov.ai/">
-                  Try the Playground on Base.
-                </a>
-              </p>
             </div>
 
             <div className="arc-hero__focus" aria-hidden="true">
@@ -794,7 +764,7 @@ export default function HomeClient() {
                   </svg>
                   <span>Square</span>
                 </span>
-                <span className="arc-path__description">Open governance layer</span>
+                <span className="arc-path__description">Onchain governance layer</span>
                 <a
                   className="arc-path__action motion-btn"
                   data-od-id="hero-square-cta"
@@ -883,8 +853,8 @@ export default function HomeClient() {
                 <span className="arc-product-row__body">
                   <strong>Understand the record</strong>
                   <span>
-                    Discover DAOs, track proposals, and surface the context people and agents need
-                    to act
+                    Reveal the meaning behind proposals through community behavior and the data
+                    surrounding them
                   </span>
                   <span className="arc-product-row__signal" aria-hidden="true">
                     <i>Discover</i>
@@ -971,16 +941,12 @@ export default function HomeClient() {
                 </header>
 
                 <div className="arc-proof__screen">
-                  <div className="arc-proof__bar">
-                    <span>Compound DAO</span>
-                    <span className="arc-proof__status">Public snapshot</span>
-                  </div>
                   <p className="arc-proof__proposal">
                     Return rsETH Price Feeds on WETH and wstETH Markets (Mainnet)
                   </p>
                   <div
                     className="arc-proof__metrics"
-                    aria-label="Compound DAO public index metrics"
+                    aria-label="DeGov Square public index metrics"
                   >
                     <span>
                       <b>199</b>
@@ -1002,7 +968,6 @@ export default function HomeClient() {
                     <span>Execute</span>
                   </div>
                   <footer className="arc-proof__foot">
-                    <span>Source: api.degov.ai · launch review pending</span>
                     <a data-od-id="square-evidence-cta" href="https://square.degov.ai/">
                       Open Square
                       <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -1026,10 +991,6 @@ export default function HomeClient() {
                 </header>
 
                 <div className="arc-proof__screen">
-                  <div className="arc-proof__bar">
-                    <span>Governance feed</span>
-                    <span className="arc-proof__status">Public snapshot</span>
-                  </div>
                   <div className="arc-proof__feed">
                     <a data-od-id="atlas-feed-ens-treasury" href="https://atlas.degov.ai/">
                       <span>ENS</span>
@@ -1064,10 +1025,13 @@ export default function HomeClient() {
                       </small>
                     </a>
                   </div>
+                  <div className="arc-proof__lifecycle" aria-label="Atlas data lifecycle">
+                    <span>Ingest</span>
+                    <span>Index</span>
+                    <span>Analyze</span>
+                    <span>Explain</span>
+                  </div>
                   <footer className="arc-proof__foot">
-                    <span>
-                      Sources: DeGov DAO indexers · approved snapshot required before launch
-                    </span>
                     <a data-od-id="atlas-evidence-cta" href="https://atlas.degov.ai/">
                       Investigate in Atlas
                       <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -1175,33 +1139,6 @@ export default function HomeClient() {
               </div>
             </div>
 
-            <aside
-              className="arc-index__provenance"
-              data-od-id="homepage-content-provenance"
-              aria-label="Homepage content provenance"
-            >
-              <p className="arc-index__provenance-title">Content provenance</p>
-              <div>
-                <p>
-                  <strong>Canonical owner:</strong>
-                  DeGov official website.
-                </p>
-                <p>
-                  <strong>Editorial review:</strong>
-                  2026-08-05.
-                </p>
-                <p>
-                  The review date describes evergreen product-copy review, not deploy or build
-                  freshness.
-                </p>
-                <nav aria-label="Primary homepage sources">
-                  <a href="https://docs.degov.ai/">Docs</a>
-                  <a href="https://square.degov.ai/">Square</a>
-                  <a href="https://atlas.degov.ai/">Atlas</a>
-                  <a href="https://github.com/ringecosystem/degov">Source</a>
-                </nav>
-              </div>
-            </aside>
           </div>
         </section>
 
@@ -1262,10 +1199,6 @@ export default function HomeClient() {
                   <p>Skills turn Atlas data into source-aware answers instead of raw JSON</p>
                 </li>
               </ol>
-              <p className="arc-agents__note">
-                Agents should ask for user consent before any paid request. Wallet credentials stay
-                local.
-              </p>
             </div>
           </div>
         </section>

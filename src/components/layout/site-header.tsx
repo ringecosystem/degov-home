@@ -86,7 +86,7 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
               height={30}
               priority
             />
-            {isPricing ? <span className="brand-context">Square pricing</span> : null}
+            {isPricing ? <span className="brand-context">DeGov Pricing</span> : null}
           </a>
 
           <nav
@@ -104,6 +104,14 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                 <a href="#faq" onClick={closeMenu}>
                   FAQ
                 </a>
+                <a
+                  href="https://docs.degov.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                >
+                  Docs
+                </a>
               </>
             ) : (
               <>
@@ -120,6 +128,15 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                   onClick={closeMenu}
                 >
                   Atlas
+                </a>
+                <a
+                  data-od-id={desktopHomeOdId('nav-docs')}
+                  href="https://docs.degov.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                >
+                  Docs
                 </a>
                 <a data-od-id={desktopHomeOdId('nav-pricing')} href="/pricing" onClick={closeMenu}>
                   Pricing
@@ -142,16 +159,16 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
             <a
               className={`${isPricing ? 'btn btn-primary btn-external' : 'btn btn-ghost'} motion-btn`}
               data-od-id={isPricing ? 'pricing-nav-cta' : 'nav-choose-path'}
-              href={isPricing ? 'https://square.degov.ai/' : '#products'}
+              href={isPricing ? 'https://github.com/ringecosystem/degov' : '#products'}
               {...(isPricing
                 ? {
                     target: '_blank',
                     rel: 'noopener noreferrer',
-                    'aria-label': 'Open Square app in a new tab'
+                    'aria-label': 'Open the DeGov GitHub repository in a new tab'
                   }
                 : {})}
             >
-              <MotionButtonContent label={isPricing ? 'Open Square' : 'Choose your path'} />
+              <MotionButtonContent label={isPricing ? 'Open DeGov' : 'Choose your path'} />
             </a>
             <button
               ref={menuButtonRef}
@@ -209,12 +226,21 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
               </a>
               <a
                 className="external"
-                href="https://square.degov.ai/"
+                href="https://docs.degov.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
               >
-                Open Square
+                DeGov Docs
+              </a>
+              <a
+                className="external"
+                href="https://github.com/ringecosystem/degov"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Open DeGov
               </a>
               <a
                 className="external"
@@ -241,6 +267,16 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                 onClick={closeMenu}
               >
                 Atlas
+              </a>
+              <a
+                className="external"
+                data-od-id={mobileHomeOdId('nav-docs')}
+                href="https://docs.degov.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                DeGov Docs
               </a>
               <a data-od-id={mobileHomeOdId('nav-pricing')} href="/pricing" onClick={closeMenu}>
                 Pricing

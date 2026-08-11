@@ -125,6 +125,23 @@
   line-height: 1.55;
 }
 
+.pricing-site .hero-playground {
+  margin: 0;
+  color: var(--pricing-text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pricing-site .hero-playground a {
+  color: var(--pricing-square);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.pricing-site .hero-playground a:hover {
+  color: var(--pricing-text);
+}
+
 .pricing-site .btn {
   min-height: 52px;
   padding: 0 24px;

@@ -59,8 +59,6 @@ requireIncludes(home, 'Better', 'homepage brand slogan');
 requireIncludes(home, 'For Better Communities', 'complete homepage brand slogan');
 requireIncludes(home, 'data-od-id="square-path-card"', 'Square task path');
 requireIncludes(home, 'data-od-id="atlas-path-card"', 'Atlas task path');
-requireIncludes(home, 'data-od-id="hero-playground-entry"', 'Playground hero entry');
-requireIncludes(home, 'data-od-id="hero-playground-link"', 'Playground hero link');
 requireIncludes(
   home,
   'degov-governance-temporal-field-f885cd9c.png',
@@ -79,21 +77,16 @@ forbidIncludes(home, 'Public product evidence', 'retired evidence eyebrow');
 forbidIncludes(home, 'Why governance builds community', 'retired community eyebrow');
 forbidIncludes(home, 'Open agent skills', 'retired agent eyebrow');
 forbidIncludes(home, 'Choose your next move', 'retired closing eyebrow');
-requireIncludes(home, 'https://playground.degov.ai/', 'official Playground destination');
-requireIncludes(home, 'New to DeGov?', 'Playground introduction copy');
-requireIncludes(home, 'Try the Playground on Base.', 'Playground CTA copy');
+forbidIncludes(home, 'playground.degov.ai', 'Playground link moved from homepage');
 requireIncludes(home, 'data-od-id="community-governance-chain"', 'community capability chain');
 requireIncludes(home, 'data-od-id="agent-governance-access"', 'agent-native governance section');
 requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
+requireIncludes(home, 'aria-label="Atlas data lifecycle"', 'Atlas data lifecycle');
+requireIncludes(home, '<span>Analyze</span>', 'Atlas analysis stage');
+forbidIncludes(home, 'Public snapshot', 'retired evidence snapshot bars');
 requireIncludes(home, '30K+', 'portfolio proposal metric');
-requireIncludes(
-  home,
-  'data-od-id="homepage-content-provenance"',
-  'homepage content provenance block'
-);
-requireIncludes(home, 'Canonical owner:', 'homepage canonical content owner');
-requireIncludes(home, 'Editorial review:', 'homepage editorial review date');
-requireIncludes(home, 'not deploy or build', 'content-review freshness distinction');
+forbidIncludes(home, 'homepage-content-provenance', 'retired homepage provenance block');
+forbidIncludes(home, 'arc-agents__note', 'retired agent consent note');
 requireIncludes(
   home,
   'mailto:contact@degov.ai?subject=Atlas%20data%20partnership',
@@ -104,6 +97,10 @@ forbidIncludes(home, '/cdn-cgi/', 'Cloudflare prototype email shim');
 
 requireIncludes('src/app/pricing/page.tsx', '<PricingClient />', 'pricing client mount');
 requireIncludes(pricing, 'Start managed. Stay in control', 'pricing hero');
+requireIncludes(pricing, 'data-od-id="pricing-playground-entry"', 'Pricing Playground entry');
+requireIncludes(pricing, 'data-od-id="pricing-playground-link"', 'Pricing Playground link');
+requireIncludes(pricing, 'https://playground.degov.ai/', 'official Playground destination');
+requireIncludes(pricing, 'Try the Playground on Base.', 'Playground CTA copy');
 requireIncludes(pricing, 'data-od-id="pricing-timeline"', 'managed-hosting timeline');
 requireIncludes(pricing, 'Launch now. Choose later', 'current managed-hosting timeline heading');
 forbidIncludes(
@@ -122,7 +119,7 @@ requireIncludes(pricing, 'persistBilling(nextBilling)', 'guarded billing prefere
 requireIncludes(pricing, 'data-od-id="responsibility-comparison"', 'responsibility ledger');
 requireIncludes(pricing, 'scope="row"', 'responsibility row headers');
 requireIncludes(pricing, 'Open by design', 'open ownership statement');
-requireIncludes(pricing, 'Is Atlas included in Square pricing?', 'Square/Atlas pricing boundary');
+requireIncludes(pricing, 'Is Atlas included in DeGov pricing?', 'DeGov/Atlas pricing boundary');
 requireIncludes(pricing, "odId: 'faq-free-period'", 'prototype FAQ identifiers');
 requireIncludes(
   pricing,
@@ -149,6 +146,9 @@ requireIncludes(
 );
 requireIncludes(header, '/images/degov-ai-2x.svg', 'approved DeGov logo asset');
 requireIncludes(header, "mobileHomeOdId('nav-square')", 'visible mobile navigation selector');
+requireIncludes(header, 'https://docs.degov.ai/', 'DeGov Docs navigation destination');
+requireIncludes(header, "mobileHomeOdId('nav-docs')", 'visible mobile Docs navigation selector');
+requireIncludes(header, "isPricing ? 'Open DeGov'", 'DeGov pricing navigation CTA');
 requireIncludes(header, "? 'Close navigation'", 'pricing navigation label');
 
 requireIncludes(css, '--bg: #1f2228', 'xAI near-black canvas token');
@@ -160,8 +160,8 @@ requireIncludes(css, '--elev-ring: 0 0 0 1px var(--border)', 'approved elevation
 requireIncludes(css, 'border-radius: var(--radius-sm)', 'tokenized sharp control radius');
 requireIncludes(css, 'filter: invert(1)', 'approved black logo inversion');
 requireIncludes(homeCss, '.home-site .arc-hero__paths', 'two-path homepage layout');
-requireIncludes(homeCss, '.home-site .arc-hero__playground', 'secondary Playground entry styling');
-requireIncludes(homeCss, '.home-site .arc-hero__playground a', 'Playground link affordance');
+requireIncludes(pricingCss, '.pricing-site .hero-playground', 'Pricing Playground entry styling');
+requireIncludes(pricingCss, '.pricing-site .hero-playground a', 'Playground link affordance');
 requireIncludes(
   homeCss,
   '/images/home/degov-journey-signal-record.png',
