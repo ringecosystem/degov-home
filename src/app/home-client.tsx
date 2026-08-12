@@ -1147,22 +1147,24 @@ export default function HomeClient() {
           <div className="arc-lower__inner">
             <header className="arc-agents__header" data-od-id="agent-skills-panel">
               <h2 data-od-id="agent-section-title">Governance research agents can verify</h2>
-              <p>
-                Reusable skills help agents research DAO activity and review proposal security with
-                evidence, sources, and explicit uncertainty
-              </p>
-              <div className="arc-agents__actions">
-                <a
-                  data-od-id="agent-skills-cta"
-                  href="https://github.com/ringecosystem/degov-agent-skills"
-                >
-                  View skills on GitHub
-                  <ArrowMark />
-                </a>
-                <a data-od-id="agent-api-daos-cta" href="https://agent-api.degov.ai/v1/daos">
-                  Explore covered DAOs
-                  <ArrowMark />
-                </a>
+              <div className="arc-agents__aside">
+                <p>
+                  Reusable skills help agents research DAO activity and review proposal security with
+                  evidence, sources, and explicit uncertainty
+                </p>
+                <div className="arc-agents__actions">
+                  <a
+                    data-od-id="agent-skills-cta"
+                    href="https://github.com/ringecosystem/degov-agent-skills"
+                  >
+                    View skills on GitHub
+                    <ArrowMark />
+                  </a>
+                  <a data-od-id="agent-api-daos-cta" href="https://agent-api.degov.ai/v1/daos">
+                    Explore covered DAOs
+                    <ArrowMark />
+                  </a>
+                </div>
               </div>
             </header>
 
