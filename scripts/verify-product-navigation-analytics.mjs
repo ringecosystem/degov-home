@@ -74,6 +74,9 @@ assert.equal(
 const analyticsSource = read('src/lib/analytics.ts');
 const componentSource = read('src/components/ProductNavigationAnalytics.tsx');
 const layoutSource = read('src/app/layout.tsx');
+const productionWorkflow = read('.github/workflows/deploy-prd.yml');
+const stagingWorkflow = read('.github/workflows/deploy-stg.yml');
+const previewWorkflow = read('.github/workflows/deploy-dev.yml');
 const combinedSource = `${analyticsSource}\n${componentSource}\n${layoutSource}`;
 
 assert.deepEqual(
@@ -107,6 +110,26 @@ assert.ok(
     '`${PRODUCT_NAVIGATION_EVENT_NAME}:${params.target_surface}:${params.target_path_class}`'
   ),
   'dedupe key must use session plus target surface plus target path class'
+);
+assert.ok(
+  layoutSource.includes("const GA4_MEASUREMENT_ID = 'G-QRLBRTT5X1'"),
+  'GA4 must use the public production measurement ID'
+);
+assert.ok(
+  layoutSource.includes("process.env.NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED === 'true'"),
+  'GA4 initialization must be gated by a build-time public environment flag'
+);
+assert.ok(
+  productionWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build'),
+  'production tag workflow must enable GA4 at build time'
+);
+assert.ok(
+  !stagingWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED'),
+  'staging workflow must not enable production GA4'
+);
+assert.ok(
+  !previewWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED'),
+  'PR preview workflow must not enable production GA4'
 );
 
 console.log('Product navigation analytics verification passed.');
