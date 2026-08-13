@@ -120,6 +120,21 @@ assert.ok(
   'GA4 initialization must be gated by a build-time public environment flag'
 );
 assert.ok(
+  layoutSource.indexOf("gtag('consent', 'default'") < layoutSource.indexOf("gtag('config'"),
+  'GA4 consent defaults must be denied before configuration'
+);
+for (const storage of [
+  'analytics_storage',
+  'ad_storage',
+  'ad_user_data',
+  'ad_personalization'
+]) {
+  assert.ok(
+    layoutSource.includes(`${storage}: 'denied'`),
+    `${storage} must default to denied`
+  );
+}
+assert.ok(
   productionWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build'),
   'production tag workflow must enable GA4 at build time'
 );
