@@ -81,6 +81,12 @@ forbidIncludes(home, 'playground.degov.ai', 'Playground link moved from homepage
 requireIncludes(home, 'data-od-id="community-governance-chain"', 'community capability chain');
 requireIncludes(home, 'data-od-id="agent-governance-access"', 'agent-native governance section');
 requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
+requireIncludes(
+  home,
+  'npx skills add ringecosystem/degov-agent-skills',
+  'DeGov agent skills install command'
+);
+requireIncludes(home, 'data-od-id="agent-skills-copy"', 'agent skills copy control');
 requireIncludes(home, 'aria-label="Atlas data lifecycle"', 'Atlas data lifecycle');
 requireIncludes(home, '<span>Analyze</span>', 'Atlas analysis stage');
 forbidIncludes(home, 'Public snapshot', 'retired evidence snapshot bars');
@@ -148,6 +154,8 @@ requireIncludes(header, '/images/degov-ai-2x.svg', 'approved DeGov logo asset');
 requireIncludes(header, "mobileHomeOdId('nav-square')", 'visible mobile navigation selector');
 requireIncludes(header, 'https://docs.degov.ai/', 'DeGov Docs navigation destination');
 requireIncludes(header, "mobileHomeOdId('nav-docs')", 'visible mobile Docs navigation selector');
+requireIncludes(header, 'https://t.me/degov_realtime_signal', 'DeGov Signals destination');
+requireIncludes(header, "mobileHomeOdId('nav-signals')", 'visible mobile Signals selector');
 requireIncludes(header, "isPricing ? 'Open DeGov'", 'DeGov pricing navigation CTA');
 requireIncludes(header, "? 'Close navigation'", 'pricing navigation label');
 

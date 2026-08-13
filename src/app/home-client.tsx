@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { SiteHeader } from '@/components/layout/site-header';
 import { MotionButtonContent } from '@/components/layout/motion-button-content';
@@ -17,6 +17,8 @@ const HERO_VISUAL = {
   motion: '/images/hero/degov-governance-temporal-field-loop-hd.mp4',
   useMotion: true
 } as const;
+
+const AGENT_SKILLS_INSTALL_COMMAND = 'npx skills add ringecosystem/degov-agent-skills';
 
 function AtlasMark({ className = '' }: { className?: string }) {
   return (
@@ -93,6 +95,41 @@ function JourneyMark({ kind }: { kind: JourneyMarkKind }) {
 
 export default function HomeClient() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const copyResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+
+  useEffect(
+    () => () => {
+      if (copyResetTimerRef.current) clearTimeout(copyResetTimerRef.current);
+    },
+    []
+  );
+
+  const copyAgentSkillsCommand = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(AGENT_SKILLS_INSTALL_COMMAND);
+      } else {
+        const copyField = document.createElement('textarea');
+        copyField.value = AGENT_SKILLS_INSTALL_COMMAND;
+        copyField.setAttribute('readonly', '');
+        copyField.style.position = 'fixed';
+        copyField.style.opacity = '0';
+        document.body.append(copyField);
+        copyField.select();
+        const copied = document.execCommand('copy');
+        copyField.remove();
+        if (!copied) throw new Error('Copy command was unavailable');
+      }
+
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('error');
+    }
+
+    if (copyResetTimerRef.current) clearTimeout(copyResetTimerRef.current);
+    copyResetTimerRef.current = setTimeout(() => setCopyStatus('idle'), 2200);
+  };
 
   useGSAP(
     (context, contextSafe) => {
@@ -1164,6 +1201,24 @@ export default function HomeClient() {
                     Explore covered DAOs
                     <ArrowMark />
                   </a>
+                </div>
+                <div className="arc-agents__install" data-od-id="agent-skills-install">
+                  <span>Install DeGov agent skills</span>
+                  <div className="arc-agents__command">
+                    <code>{AGENT_SKILLS_INSTALL_COMMAND}</code>
+                    <button
+                      type="button"
+                      data-od-id="agent-skills-copy"
+                      onClick={copyAgentSkillsCommand}
+                      aria-label="Copy the DeGov agent skills install command"
+                    >
+                      {copyStatus === 'copied'
+                        ? 'Copied'
+                        : copyStatus === 'error'
+                          ? 'Copy failed'
+                          : 'Copy'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </header>

@@ -1640,6 +1640,61 @@
   color: var(--home-color-text);
 }
 
+.home-site .arc-agents__install {
+  display: grid;
+  gap: var(--home-space-12);
+  padding-top: var(--home-space-20);
+}
+
+.home-site .arc-agents__install > span {
+  color: var(--home-color-text-muted);
+  font: var(--home-type-size-meta) / var(--home-leading-label) var(--font-display);
+  letter-spacing: var(--home-tracking-label);
+  text-transform: uppercase;
+}
+
+.home-site .arc-agents__command {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: var(--home-space-56);
+  align-items: stretch;
+  border: 1px solid var(--home-color-border-strong);
+  background: var(--home-color-surface);
+}
+
+.home-site .arc-agents__command code {
+  min-width: 0;
+  align-self: center;
+  overflow: hidden;
+  padding: 0 var(--home-space-16);
+  color: var(--home-color-text-strong);
+  font: var(--home-type-size-meta) / var(--home-leading-copy-tight) var(--font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-site .arc-agents__command button {
+  min-width: var(--home-space-96);
+  padding: 0 var(--home-space-14);
+  border: 0;
+  border-left: 1px solid var(--home-color-border-strong);
+  background: transparent;
+  color: var(--home-color-atlas);
+  cursor: pointer;
+  font: var(--home-type-size-label) / var(--home-leading-label) var(--font-display);
+  letter-spacing: var(--home-tracking-meta);
+  text-transform: uppercase;
+  transition:
+    background var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard);
+}
+
+.home-site .arc-agents__command button:hover,
+.home-site .arc-agents__command button:focus-visible {
+  background: var(--home-color-atlas-wash);
+  color: var(--home-color-text);
+}
+
 .home-site .arc-agents__system {
   border-bottom: 0;
 }
@@ -2079,6 +2134,17 @@
   .home-site .arc-proof__system--atlas {
     border-top: 1px solid var(--home-color-border-strong);
     border-left: 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .home-site .nav-links,
+  .home-site .nav-actions > .btn {
+    display: none;
+  }
+
+  .home-site .menu-button {
+    display: grid;
   }
 }
 

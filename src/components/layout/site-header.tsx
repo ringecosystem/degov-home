@@ -19,7 +19,8 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
 
   useEffect(() => {
     const closeForDesktop = () => {
-      if (window.innerWidth > 820) setIsOpen(false);
+      const menuBreakpoint = isPricing ? 820 : 1080;
+      if (window.innerWidth > menuBreakpoint) setIsOpen(false);
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -64,7 +65,7 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
       window.removeEventListener('resize', closeForDesktop);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, isPricing]);
 
   const closeMenu = () => setIsOpen(false);
 
@@ -128,6 +129,15 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                   onClick={closeMenu}
                 >
                   Atlas
+                </a>
+                <a
+                  data-od-id={desktopHomeOdId('nav-signals')}
+                  href="https://t.me/degov_realtime_signal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                >
+                  Signals
                 </a>
                 <a
                   data-od-id={desktopHomeOdId('nav-docs')}
@@ -267,6 +277,16 @@ export function SiteHeader({ variant }: SiteHeaderProps) {
                 onClick={closeMenu}
               >
                 Atlas
+              </a>
+              <a
+                className="external"
+                data-od-id={mobileHomeOdId('nav-signals')}
+                href="https://t.me/degov_realtime_signal"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Signals
               </a>
               <a
                 className="external"
