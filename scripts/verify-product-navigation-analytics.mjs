@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,6 +12,16 @@ import {
 
 const root = join(fileURLToPath(new URL('..', import.meta.url)));
 const read = (path) => readFileSync(join(root, path), 'utf8');
+const artifactExpectation = process.argv.find((arg) => arg.startsWith('--expect-'));
+
+function readGeneratedFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true })
+    .flatMap((entry) => {
+      const path = join(directory, entry.name);
+      return entry.isDirectory() ? readGeneratedFiles(path) : [readFileSync(path, 'utf8')];
+    })
+    .join('\n');
+}
 
 assert.equal(PRODUCT_NAVIGATION_EVENT_NAME, 'degov_product_navigation');
 
@@ -146,5 +156,26 @@ assert.ok(
   !previewWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED'),
   'PR preview workflow must not enable production GA4'
 );
+
+if (artifactExpectation) {
+  assert.ok(
+    ['--expect-enabled', '--expect-disabled'].includes(artifactExpectation),
+    'artifact expectation must be --expect-enabled or --expect-disabled'
+  );
+  const artifact = readGeneratedFiles(join(root, 'out'));
+  if (artifactExpectation === '--expect-enabled') {
+    assert.ok(artifact.includes('G-QRLBRTT5X1'), 'production artifact must contain GA4 ID');
+    assert.ok(
+      artifact.includes('analytics_storage') && artifact.includes('denied'),
+      'production artifact must preserve denied consent defaults'
+    );
+  } else {
+    assert.ok(!artifact.includes('G-QRLBRTT5X1'), 'non-production artifact must exclude GA4 ID');
+    assert.ok(
+      !artifact.includes('googletagmanager.com/gtag/js'),
+      'non-production artifact must exclude the Google tag loader'
+    );
+  }
+}
 
 console.log('Product navigation analytics verification passed.');

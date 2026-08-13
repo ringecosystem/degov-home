@@ -26,7 +26,7 @@ jobs:
           project_name: degov-home
           dist_path: out
           script_install: pnpm install --frozen-lockfile
-          script_build: pnpm test:product-navigation-analytics && pnpm build
+          script_build: pnpm build && pnpm test:product-navigation-analytics -- --expect-disabled
           enable_notify_slack: false
           slack_channel: public-degov
           slack_webhook: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
