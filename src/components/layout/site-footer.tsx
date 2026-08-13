@@ -48,7 +48,7 @@ export function SiteFooter({ variant }: SiteFooterProps) {
               <a href="https://github.com/ringecosystem/degov">GitHub</a>
               <a href="https://github.com/ringecosystem/degov-agent-skills">Agent Skills</a>
               <a href="https://agent-api.degov.ai/v1/daos">Agent API</a>
-              <a href="mailto:contact@degov.ai">Contact</a>
+              <a href="mailto:support@degov.ai">Contact</a>
             </div>
           </div>
 

@@ -591,7 +591,7 @@ export default function PricingClient() {
               <a
                 className="btn btn-primary motion-btn"
                 data-od-id="pricing-primary-cta"
-                href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+                href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
               >
                 <MotionButtonContent label="Request managed hosting" />
               </a>
@@ -729,7 +729,7 @@ export default function PricingClient() {
                   <a
                     className="btn btn-primary motion-btn"
                     data-od-id="managed-cta"
-                    href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+                    href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
                   >
                     <MotionButtonContent label="Request managed hosting" />
                   </a>
@@ -856,7 +856,7 @@ export default function PricingClient() {
             <a
               className="btn btn-primary motion-btn"
               data-od-id="pricing-closing-cta"
-              href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+              href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
             >
               <MotionButtonContent label="Talk to DeGov" />
             </a>

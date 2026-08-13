@@ -31,7 +31,7 @@ assert.deepEqual(getProductNavigationTarget('https://atlas.degov.ai/'), {
   target_surface: 'atlas',
   target_path_class: 'root'
 });
-assert.equal(getProductNavigationTarget('mailto:contact@degov.ai'), null);
+assert.equal(getProductNavigationTarget('mailto:support@degov.ai'), null);
 assert.equal(getProductNavigationTarget('https://github.com/ringecosystem/degov'), null);
 
 assert.deepEqual(

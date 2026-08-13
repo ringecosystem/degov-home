@@ -1304,7 +1304,7 @@ export default function HomeClient() {
               </p>
               <a
                 data-od-id="talk-atlas-cta"
-                href="mailto:contact@degov.ai?subject=Atlas%20data%20partnership"
+                href="mailto:support@degov.ai?subject=Atlas%20data%20partnership"
               >
                 Talk to Atlas
                 <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">

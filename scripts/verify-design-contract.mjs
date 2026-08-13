@@ -95,7 +95,7 @@ forbidIncludes(home, 'homepage-content-provenance', 'retired homepage provenance
 forbidIncludes(home, 'arc-agents__note', 'retired agent consent note');
 requireIncludes(
   home,
-  'mailto:contact@degov.ai?subject=Atlas%20data%20partnership',
+  'mailto:support@degov.ai?subject=Atlas%20data%20partnership',
   'Atlas contact path'
 );
 forbidIncludes(home, 'pricing.html', 'static prototype pricing URL');
@@ -129,7 +129,7 @@ requireIncludes(pricing, 'Is Atlas included in DeGov pricing?', 'DeGov/Atlas pri
 requireIncludes(pricing, "odId: 'faq-free-period'", 'prototype FAQ identifiers');
 requireIncludes(
   pricing,
-  'mailto:contact@degov.ai?subject=DeGov%20managed%20hosting',
+  'mailto:support@degov.ai?subject=DeGov%20managed%20hosting',
   'managed-hosting contact path'
 );
 forbidIncludes(pricing, 'rounded-2xl', 'legacy rounded pricing cards');
