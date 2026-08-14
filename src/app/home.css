@@ -1650,7 +1650,6 @@
   color: var(--home-color-text-muted);
   font: var(--home-type-size-meta) / var(--home-leading-label) var(--font-display);
   letter-spacing: var(--home-tracking-label);
-  text-transform: uppercase;
 }
 
 .home-site .arc-agents__command {
@@ -1668,7 +1667,7 @@
   overflow: hidden;
   padding: 0 var(--home-space-16);
   color: var(--home-color-text-strong);
-  font: var(--home-type-size-meta) / var(--home-leading-copy-tight) var(--font-mono);
+  font: var(--home-type-size-body) / var(--home-leading-copy-tight) var(--font-mono);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1683,7 +1682,6 @@
   cursor: pointer;
   font: var(--home-type-size-label) / var(--home-leading-label) var(--font-display);
   letter-spacing: var(--home-tracking-meta);
-  text-transform: uppercase;
   transition:
     background var(--motion-fast) var(--ease-standard),
     color var(--motion-fast) var(--ease-standard);
