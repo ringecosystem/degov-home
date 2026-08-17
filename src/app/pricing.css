@@ -567,7 +567,6 @@
 }
 
 .pricing-site .arc-footer__links a,
-.pricing-site .arc-footer__links .analytics-preferences-button,
 .pricing-site .arc-footer__links p {
   margin: 0;
   color: var(--pricing-text-strong);
@@ -576,8 +575,6 @@
 }
 
 .pricing-site .arc-footer__links a:hover,
-.pricing-site .arc-footer__links .analytics-preferences-button:hover,
-.pricing-site .arc-footer__links .analytics-preferences-button:focus-visible,
 .pricing-site .arc-footer__links a:focus-visible {
   color: var(--pricing-text);
 }

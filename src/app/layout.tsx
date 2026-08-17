@@ -1,7 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 
-import { AnalyticsConsentBanner } from '@/components/AnalyticsConsent';
 import {
   SEO_ORGANIZATION,
   SEO_WEBSITE,
@@ -10,7 +9,6 @@ import {
   SOCIAL_IMAGE_URL
 } from '@/lib/seo';
 import { ProductNavigationAnalytics } from '@/components/ProductNavigationAnalytics';
-import { ANALYTICS_CONSENT_STORAGE_KEY } from '@/lib/analytics-consent';
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 const GA4_MEASUREMENT_ID = 'G-QRLBRTT5X1';
@@ -19,20 +17,8 @@ const GA4_BOOTSTRAP = `
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
 
-  var consentStorageKey = '${ANALYTICS_CONSENT_STORAGE_KEY}';
-  function readAnalyticsConsent() {
-    try {
-      var storedConsent = window.localStorage.getItem(consentStorageKey);
-      return storedConsent === 'granted' || storedConsent === 'denied' ? storedConsent : null;
-    } catch {
-      return null;
-    }
-  }
-
-  var analyticsConsent = readAnalyticsConsent() === 'granted' ? 'granted' : 'denied';
-
   window.gtag('consent', 'default', {
-    analytics_storage: analyticsConsent,
+    analytics_storage: 'granted',
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied'
@@ -45,44 +31,6 @@ const GA4_BOOTSTRAP = `
   googleTag.async = true;
   googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}';
   document.head.appendChild(googleTag);
-
-  window.degovSetAnalyticsConsent = function (consent) {
-    if (consent !== 'granted' && consent !== 'denied') return;
-
-    try {
-      window.localStorage.setItem(consentStorageKey, consent);
-    } catch {}
-
-    window.gtag('consent', 'update', { analytics_storage: consent });
-    var banner = document.getElementById('analytics-consent-banner');
-    if (banner) banner.hidden = true;
-  };
-
-  window.degovOpenAnalyticsPreferences = function () {
-    var banner = document.getElementById('analytics-consent-banner');
-    if (banner) banner.hidden = false;
-  };
-
-  function initializeAnalyticsConsentControls() {
-    var banner = document.getElementById('analytics-consent-banner');
-    if (banner) banner.hidden = readAnalyticsConsent() !== null;
-
-    document.querySelectorAll('[data-analytics-consent]').forEach(function (button) {
-      button.onclick = function () {
-        window.degovSetAnalyticsConsent(button.getAttribute('data-analytics-consent'));
-      };
-    });
-
-    document.querySelectorAll('[data-open-analytics-preferences]').forEach(function (button) {
-      button.onclick = window.degovOpenAnalyticsPreferences;
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeAnalyticsConsentControls);
-  } else {
-    initializeAnalyticsConsentControls();
-  }
 `;
 
 export const viewport: Viewport = {
@@ -176,7 +124,6 @@ export default function RootLayout({
         ) : null}
       </head>
       <body>
-        <AnalyticsConsentBanner />
         <ProductNavigationAnalytics />
         {children}
         <script

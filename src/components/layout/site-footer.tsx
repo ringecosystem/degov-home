@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { AnalyticsPreferencesButton } from '@/components/AnalyticsConsent';
-
 type SiteFooterProps = {
   variant: 'home' | 'pricing';
 };
@@ -51,7 +49,6 @@ export function SiteFooter({ variant }: SiteFooterProps) {
               <a href="https://github.com/ringecosystem/degov-agent-skills">Agent Skills</a>
               <a href="https://agent-api.degov.ai/v1/daos">Agent API</a>
               <a href="mailto:support@degov.ai">Contact</a>
-              <AnalyticsPreferencesButton />
             </div>
           </div>
 

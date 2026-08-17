@@ -135,16 +135,6 @@ body.menu-open {
   font: inherit;
 }
 
-.analytics-preferences-button {
-  appearance: none;
-  width: fit-content;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-}
-
 .degov-site a,
 .degov-site button,
 .degov-site summary {
