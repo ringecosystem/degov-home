@@ -1,10 +1,15 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
+import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 
 import { SiteHeader } from '@/components/layout/site-header';
+import { MotionButtonContent } from '@/components/layout/motion-button-content';
+import { SiteFooter } from '@/components/layout/site-footer';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type BillingPeriod = 'monthly' | 'yearly';
 
@@ -29,9 +34,9 @@ const pricingFaqs = [
   },
   {
     odId: 'faq-atlas',
-    question: 'Is Atlas included in Square pricing?',
+    question: 'Is Atlas included in DeGov pricing?',
     answer:
-      'No. This page applies to Square hosting. Atlas data access and integration work are scoped separately to real product requirements.'
+      'No. This page applies to DeGov hosting. Atlas data access and integration work are scoped separately to real product requirements.'
   }
 ];
 
@@ -72,32 +77,459 @@ export default function PricingClient() {
   const [displayBilling, setDisplayBilling] = useState<BillingPeriod>('monthly');
   const [isChanging, setIsChanging] = useState(false);
 
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
+  useGSAP(
+    (context, contextSafe) => {
+      const root = rootRef.current;
+      if (!root) return;
 
-    const timelineItems = root.querySelectorAll<HTMLElement>('.time');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const select = <T extends Element>(selector: string) => gsap.utils.toArray<T>(selector, root);
+      const timelineItems = select<HTMLElement>('.time');
+      const plans = select<HTMLElement>('.plan');
+      const media = gsap.matchMedia();
 
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-      timelineItems.forEach((item) => item.classList.add('is-visible'));
-      return;
-    }
+      media.add(
+        {
+          isDesktop: '(min-width: 821px)',
+          reduceMotion: '(prefers-reduced-motion: reduce)',
+          allowHover: '(hover: hover) and (pointer: fine)'
+        },
+        (mediaContext) => {
+          const isDesktop = Boolean(mediaContext.conditions?.isDesktop);
+          const reduceMotion = Boolean(mediaContext.conditions?.reduceMotion);
+          const allowHover = Boolean(mediaContext.conditions?.allowHover);
+          const motionDistance = isDesktop ? 58 : 24;
+          let cancelled = false;
+          let refreshFrame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.35 }
-    );
+          const refreshTriggers = () => {
+            if (!cancelled) ScrollTrigger.refresh();
+          };
 
-    timelineItems.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, []);
+          refreshFrame = window.requestAnimationFrame(refreshTriggers);
+          void document.fonts?.ready.then(refreshTriggers);
+
+          if (reduceMotion) {
+            return () => {
+              cancelled = true;
+              window.cancelAnimationFrame(refreshFrame);
+            };
+          }
+
+          gsap
+            .timeline({
+              defaults: { ease: 'power4.out' },
+              onComplete: () =>
+                gsap.set('.pricing-site .hero h1, .pricing-site .hero-copy > *', {
+                  clearProps: 'willChange,clipPath,opacity,visibility,transform'
+                })
+            })
+            .set('.pricing-site .hero h1, .pricing-site .hero-copy > *', {
+              willChange: 'transform,clip-path,opacity'
+            })
+            .fromTo(
+              '.pricing-site .hero h1',
+              { autoAlpha: 0, yPercent: 22, clipPath: 'inset(0 0 100% 0)' },
+              {
+                autoAlpha: 1,
+                yPercent: 0,
+                clipPath: 'inset(0 0 0% 0)',
+                duration: 0.82
+              }
+            )
+            .fromTo(
+              '.pricing-site .hero-copy > *',
+              { autoAlpha: 0, x: motionDistance * 0.6, clipPath: 'inset(0 0 0 100%)' },
+              {
+                autoAlpha: 1,
+                x: 0,
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.66,
+                stagger: 0.09
+              },
+              '-=0.52'
+            );
+
+          gsap.fromTo(
+            "[data-od-id='pricing-timeline'] .section-heading > *",
+            { autoAlpha: 0, y: 28, clipPath: 'inset(0 0 100% 0)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 0.74,
+              stagger: 0.1,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: "[data-od-id='pricing-timeline']",
+                start: 'top 76%',
+                once: true
+              }
+            }
+          );
+          timelineItems.forEach((target, index) => {
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: target,
+                  start: 'top 84%',
+                  once: true
+                },
+                defaults: { ease: 'power4.out' }
+              })
+              .fromTo(
+                target,
+                {
+                  autoAlpha: 0.18,
+                  y: motionDistance * 0.5,
+                  clipPath: 'inset(100% 0 0 0)'
+                },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  clipPath: 'inset(0% 0 0 0)',
+                  duration: 0.72
+                }
+              )
+              .fromTo(
+                target.children,
+                { autoAlpha: 0, y: 14 },
+                { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.07 },
+                '-=0.42'
+              );
+            gsap.set(target, { zIndex: timelineItems.length - index });
+          });
+
+          gsap.fromTo(
+            '.billing-head > *',
+            {
+              autoAlpha: 0,
+              x: (index) => (index === 0 ? -motionDistance : motionDistance),
+              clipPath: (index) =>
+                index === 0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)'
+            },
+            {
+              autoAlpha: 1,
+              x: 0,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.82,
+              stagger: 0.08,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: '.section-operational',
+                start: 'top 74%',
+                once: true
+              }
+            }
+          );
+
+          const planContents = plans.flatMap((plan) => Array.from(plan.children));
+          const splitTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: '.pricing-site .plans',
+              start: 'top 88%',
+              once: true,
+              onToggle: (self) => {
+                gsap.set([self.trigger, ...plans], {
+                  willChange: self.isActive ? 'transform,clip-path,opacity' : 'auto'
+                });
+              }
+            }
+          });
+          splitTimeline
+            .fromTo(
+              '.pricing-site .plans',
+              {
+                clipPath: isDesktop
+                  ? 'inset(10% 49.8% 10% 49.8%)'
+                  : 'inset(0 0 100% 0)'
+              },
+              {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.84,
+                ease: 'power4.out'
+              }
+            )
+            .fromTo(
+              plans,
+              {
+                autoAlpha: 0.4,
+                xPercent: (index) => (isDesktop ? (index === 0 ? 10 : -10) : 0),
+                yPercent: (index) => (!isDesktop ? 6 + index * 2 : 0),
+                rotationY: (index) => (isDesktop ? (index === 0 ? 6 : -6) : 0)
+              },
+              {
+                autoAlpha: 1,
+                xPercent: 0,
+                yPercent: 0,
+                rotationY: 0,
+                duration: 0.76,
+                ease: 'power4.out'
+              },
+              0
+            )
+            .fromTo(
+              planContents,
+              { autoAlpha: 0, y: 22 },
+              { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.025, ease: 'power3.out' },
+              0.42
+            );
+
+          gsap.fromTo(
+            "[data-od-id='responsibility-comparison'] .section-heading > *",
+            { autoAlpha: 0, y: 26, clipPath: 'inset(0 0 100% 0)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 0.7,
+              stagger: 0.1,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: "[data-od-id='responsibility-comparison']",
+                start: 'top 76%',
+                once: true
+              }
+            }
+          );
+          select<HTMLElement>('.comparison tbody tr').forEach((row, index) => {
+            gsap.fromTo(
+              row,
+              {
+                autoAlpha: 0.24,
+                x: index % 2 === 0 ? -motionDistance * 0.5 : motionDistance * 0.5,
+                clipPath: index % 2 === 0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)'
+              },
+              {
+                autoAlpha: 1,
+                x: 0,
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.68,
+                ease: 'power4.out',
+                scrollTrigger: {
+                  trigger: row,
+                  start: 'top 90%',
+                  once: true
+                }
+              }
+            );
+          });
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "[data-od-id='pricing-ownership']",
+                start: 'top 76%',
+                once: true
+              },
+              defaults: { ease: 'power4.out' }
+            })
+            .fromTo(
+              '.ownership-statement span',
+              {
+                autoAlpha: 0,
+                x: (index) => (index === 0 ? -motionDistance : motionDistance),
+                clipPath: (index) =>
+                  index === 0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)'
+              },
+              {
+                autoAlpha: 1,
+                x: 0,
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.8,
+                stagger: 0.1
+              }
+            )
+            .fromTo(
+              '.ownership-copy > p',
+              { autoAlpha: 0, y: 22, clipPath: 'inset(0 0 100% 0)' },
+              { autoAlpha: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.62, stagger: 0.1 },
+              '-=0.4'
+            );
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "[data-od-id='pricing-faq']",
+                start: 'top 76%',
+                once: true
+              },
+              defaults: { ease: 'power4.out' }
+            })
+            .fromTo(
+              "[data-od-id='pricing-faq'] .section-heading > *",
+              { autoAlpha: 0, y: 26, clipPath: 'inset(0 0 100% 0)' },
+              { autoAlpha: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.7, stagger: 0.1 }
+            )
+            .fromTo(
+              '.pricing-site .faq details',
+              { autoAlpha: 0.18, x: motionDistance * 0.5, clipPath: 'inset(0 0 0 100%)' },
+              {
+                autoAlpha: 1,
+                x: 0,
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.66,
+                stagger: 0.07
+              },
+              '-=0.34'
+            );
+
+          gsap.fromTo(
+            '.pricing-closing__art',
+            { scale: 1.18, clipPath: 'circle(10% at 25% 62%)' },
+            {
+              scale: 1,
+              clipPath: 'circle(86% at 38% 54%)',
+              duration: 1.2,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: '.pricing-site .closing',
+                start: 'top 92%',
+                once: true
+              }
+            }
+          );
+          gsap.fromTo(
+            '.pricing-site .closing .container > *',
+            { autoAlpha: 0, y: 34, clipPath: 'inset(0 0 100% 0)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 0.76,
+              stagger: 0.1,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: '.pricing-site .closing',
+                start: 'top 70%',
+                once: true
+              }
+            }
+          );
+          gsap.fromTo(
+            '.pricing-site .arc-footer__brand, .pricing-site .arc-footer__links > div',
+            { autoAlpha: 0, y: 18, clipPath: 'inset(0 0 100% 0)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 0.62,
+              stagger: 0.08,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: '.pricing-site .arc-footer',
+                start: 'top 94%',
+                once: true
+              }
+            }
+          );
+
+          const cleanupHover: Array<() => void> = [];
+
+          if (allowHover) {
+            const motionButtons = select<HTMLElement>('.motion-btn');
+            const motionIcons = motionButtons.flatMap((button) =>
+              Array.from(button.querySelectorAll<HTMLElement>('.btn-icon'))
+            );
+            const motionFills = motionButtons.flatMap((button) =>
+              Array.from(button.querySelectorAll<HTMLElement>('.btn-fill'))
+            );
+            // Take ownership of the initial offset. Otherwise GSAP reads the
+            // CSS percentage transform as a pixel translate and the fill never
+            // reaches the visible state on first hover.
+            gsap.set(motionFills, { x: 0, xPercent: -101 });
+            gsap.set(motionIcons, { x: 15, autoAlpha: 0 });
+
+            const enterMotionButton = (event: PointerEvent) => {
+              const button = event.currentTarget as HTMLElement;
+              const fill = button.querySelector<HTMLElement>('.btn-fill');
+              const label = button.querySelector<HTMLElement>('.btn-label');
+              const icon = button.querySelector<HTMLElement>('.btn-icon');
+              if (!fill || !label || !icon) return;
+
+              const fillText = getComputedStyle(button).getPropertyValue('--button-fill-text').trim();
+              const labelShift = -12;
+              const iconGap = 12;
+              const labelRect = label.getBoundingClientRect();
+              const iconRect = icon.getBoundingClientRect();
+              const currentIconX = Number(gsap.getProperty(icon, 'x')) || 0;
+              const iconBaseLeft = iconRect.left - currentIconX;
+              const iconTargetX = labelRect.right + labelShift + iconGap - iconBaseLeft;
+              gsap.set([fill, label, icon], { willChange: 'transform,opacity,color' });
+              gsap.to(fill, { xPercent: 0, duration: 0.5, ease: 'power2.inOut', overwrite: 'auto' });
+              gsap.to(label, {
+                x: labelShift,
+                color: fillText,
+                duration: 0.36,
+                ease: 'power2.out',
+                overwrite: 'auto'
+              });
+              gsap.to(icon, {
+                x: iconTargetX,
+                autoAlpha: 1,
+                color: fillText,
+                duration: 0.4,
+                ease: 'power2.out',
+                overwrite: 'auto'
+              });
+            };
+            const leaveMotionButton = (event: PointerEvent) => {
+              const button = event.currentTarget as HTMLElement;
+              const fill = button.querySelector<HTMLElement>('.btn-fill');
+              const label = button.querySelector<HTMLElement>('.btn-label');
+              const icon = button.querySelector<HTMLElement>('.btn-icon');
+              if (!fill || !label || !icon) return;
+
+              gsap.to(fill, {
+                xPercent: 101,
+                duration: 0.5,
+                ease: 'power2.inOut',
+                overwrite: 'auto',
+                onComplete: () => gsap.set(fill, { x: 0, xPercent: -101, willChange: 'auto' })
+              });
+              gsap.to(label, {
+                x: 0,
+                duration: 0.4,
+                ease: 'power2.out',
+                overwrite: 'auto',
+                onComplete: () => gsap.set(label, { clearProps: 'color,willChange' })
+              });
+              gsap.to(icon, {
+                x: 15,
+                autoAlpha: 0,
+                duration: 0.4,
+                ease: 'power2.out',
+                overwrite: 'auto',
+                onComplete: () => gsap.set(icon, { clearProps: 'color,willChange' })
+              });
+            };
+            const onMotionEnter = contextSafe ? contextSafe(enterMotionButton) : enterMotionButton;
+            const onMotionLeave = contextSafe ? contextSafe(leaveMotionButton) : leaveMotionButton;
+
+            motionButtons.forEach((button) => {
+              button.addEventListener('pointerenter', onMotionEnter);
+              button.addEventListener('pointerleave', onMotionLeave);
+            });
+            cleanupHover.push(() => {
+              gsap.killTweensOf([motionButtons, motionIcons]);
+              motionButtons.forEach((button) => {
+                button.removeEventListener('pointerenter', onMotionEnter);
+                button.removeEventListener('pointerleave', onMotionLeave);
+              });
+            });
+          }
+
+          return () => {
+            cancelled = true;
+            window.cancelAnimationFrame(refreshFrame);
+            cleanupHover.forEach((cleanup) => cleanup());
+          };
+        }
+      );
+
+      return () => media.revert();
+    },
+    { scope: rootRef }
+  );
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -143,23 +575,26 @@ export default function PricingClient() {
           <div className="hero-grid container">
             <div>
               <p className="eyebrow">Square pricing · no lock-in</p>
-              <h1>Start managed. Stay in control.</h1>
+              <h1>Start managed. Stay in control</h1>
             </div>
             <div className="hero-copy">
               <p className="lead">
-                Run the open-source Square stack yourself, or let DeGov deploy and maintain it.
-                Managed hosting starts with six months at no cost.
+                Run the open-source degov stack yourself, or let our team deploy and maintain it.
+                Managed hosting starts with six months at no cost
+              </p>
+              <p className="hero-playground" data-od-id="pricing-playground-entry">
+                New to DeGov?{' '}
+                <a data-od-id="pricing-playground-link" href="https://playground.degov.ai/">
+                  Try the Playground on Base.
+                </a>
               </p>
               <a
-                className="btn btn-primary"
+                className="btn btn-primary motion-btn"
                 data-od-id="pricing-primary-cta"
-                href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+                href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
               >
-                Request managed hosting
+                <MotionButtonContent label="Request managed hosting" />
               </a>
-              <p className="hero-note">
-                Same code · two operating models · migrate when you choose
-              </p>
             </div>
           </div>
         </section>
@@ -168,25 +603,24 @@ export default function PricingClient() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Managed hosting timeline</p>
-              <h2 className="h2">Launch now. Choose later.</h2>
+              <h2 className="h2">Launch now. Choose later</h2>
             </div>
             <div className="timeline">
               <article className="time" data-od-id="timeline-day-one">
                 <div className="time-num">01 · Day one</div>
                 <h3>Launch managed</h3>
-                <p>DeGov deploys your governance interface and production infrastructure.</p>
+                <p>DeGov deploys your governance interface and production infrastructure</p>
               </article>
               <article className="time" data-od-id="timeline-month-six">
                 <div className="time-num">02 · Months 1–6</div>
                 <h3>Pay $0</h3>
-                <p>Establish your governance workflow without a hosting charge.</p>
+                <p>Establish your governance workflow without a hosting charge</p>
               </article>
               <article className="time" data-od-id="timeline-ongoing">
                 <div className="time-num">03 · Ongoing</div>
                 <h3>Stay or self-host</h3>
                 <p>
-                  Continue managed service or migrate. The open-source code remains available to
-                  run.
+                  Continue managed service or migrate. The open-source code remains available to run
                 </p>
               </article>
             </div>
@@ -203,9 +637,14 @@ export default function PricingClient() {
             <div className="billing-head">
               <div>
                 <p className="eyebrow">Choose an operating model</p>
-                <h2 className="h2">Same product. A different owner for the operational work.</h2>
+                <h2 className="h2">Same product. A different owner for the operational work</h2>
               </div>
-              <div className="toggle" role="group" aria-label="Managed billing period">
+              <div
+                className="toggle"
+                data-billing={billing}
+                role="group"
+                aria-label="Managed billing period"
+              >
                 <button
                   id="monthlyButton"
                   data-od-id="billing-monthly"
@@ -228,18 +667,17 @@ export default function PricingClient() {
             </div>
             <div className="plans">
               <article className="plan" data-od-id="self-hosted-plan">
-                <p className="meta">Self-hosted</p>
                 <h3>Your infrastructure</h3>
                 <div className="price-block">
                   <p className="price-kicker">Software cost</p>
                   <div className="price-line">
                     <span className="price-value">$0</span>
-                    <span className="price-period">forever</span>
                   </div>
+                  <p className="price-after">No recurring fee</p>
                 </div>
                 <p className="plan-summary">
                   Deploy and operate the open-source Square stack on infrastructure your team
-                  controls.
+                  controls
                 </p>
                 <ul>
                   <li>Same open-source DeGov code</li>
@@ -248,13 +686,13 @@ export default function PricingClient() {
                   <li>Your team handles updates and monitoring</li>
                 </ul>
                 <a
-                  className="btn btn-ghost btn-external"
+                  className="btn btn-ghost btn-external motion-btn"
                   data-od-id="self-hosted-cta"
                   href="https://github.com/ringecosystem/degov"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Deploy yourself
+                  <MotionButtonContent label="Deploy yourself" />
                 </a>
                 <div className="operation-track" aria-label="Self-hosted operating sequence">
                   <span>Fork</span>
@@ -263,7 +701,6 @@ export default function PricingClient() {
                 </div>
               </article>
               <article className="plan" data-od-id="managed-plan">
-                <p className="meta">Managed hosting</p>
                 <h3>DeGov operated</h3>
                 <div className="price-block" aria-live="polite" aria-atomic="true">
                   <p className="price-kicker">Your first six months</p>
@@ -277,8 +714,8 @@ export default function PricingClient() {
                 </div>
                 <p className={`plan-summary ${transitionClass}`}>
                   {yearly
-                    ? 'Save $400 (approximately 17%) with annual billing. DeGov operates the production instance.'
-                    : 'DeGov deploys, maintains, monitors, and updates your production instance.'}
+                    ? 'Save $400 (approximately 17%) with annual billing. DeGov operates the production instance'
+                    : 'DeGov deploys, maintains, monitors, and updates your production instance'}
                 </p>
                 <ul>
                   <li>Infrastructure deployment and hosting</li>
@@ -287,15 +724,15 @@ export default function PricingClient() {
                   <li>Monitoring and maintenance</li>
                   <li>Operational support</li>
                 </ul>
-                <div>
+                <div className="plan-action">
+                  <p className="plan-note">We’ll confirm deployment requirements with your team</p>
                   <a
-                    className="btn btn-primary"
+                    className="btn btn-primary motion-btn"
                     data-od-id="managed-cta"
-                    href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+                    href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
                   >
-                    Request managed hosting
+                    <MotionButtonContent label="Request managed hosting" />
                   </a>
-                  <p className="plan-note">We’ll confirm deployment requirements with your team.</p>
                 </div>
                 <div className="operation-track" aria-label="Managed operating sequence">
                   <span>Deploy</span>
@@ -316,7 +753,7 @@ export default function PricingClient() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Responsibility ledger</p>
-              <h2 className="h2">A clear division of work.</h2>
+              <h2 className="h2">A clear division of work</h2>
             </div>
             <table className="comparison">
               <thead>
@@ -370,15 +807,14 @@ export default function PricingClient() {
         <section className="section" data-od-id="pricing-ownership" data-ledger="04 / OWNERSHIP">
           <div className="ownership-grid container">
             <p className="ownership-statement">
-              Open by design.
-              <br />
-              Managed when needed.
+              <span>Open by design</span>
+              <span>Managed when needed</span>
             </p>
             <div className="ownership-copy">
-              <p>Self-hosted and managed deployments run the same open-source DeGov code.</p>
+              <p>Self-hosted and managed deployments run the same open-source DeGov code</p>
               <p>
                 Start with operational support, then stay managed or move to infrastructure your
-                team controls.
+                team controls
               </p>
             </div>
           </div>
@@ -388,7 +824,10 @@ export default function PricingClient() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Pricing FAQ</p>
-              <h2 className="h2">Operational clarity before you commit.</h2>
+              <h2 className="h2">
+                <span>Operational clarity</span>
+                <span>before you commit</span>
+              </h2>
             </div>
             <div className="faq">
               {pricingFaqs.map((faq) => (
@@ -406,43 +845,26 @@ export default function PricingClient() {
         </section>
 
         <section className="section closing" data-od-id="pricing-closing" data-ledger="06 / DECIDE">
+          <div className="pricing-closing__art" aria-hidden="true" />
           <div className="container">
             <p className="eyebrow">Run governance your way</p>
-            <h2 className="h2">Launch without locking in.</h2>
+            <h2 className="h2">Launch without locking in</h2>
             <p>
               Begin with six months of managed hosting at no cost. Keep the service or take
-              operations in-house.
+              operations in-house
             </p>
             <a
-              className="btn btn-primary"
+              className="btn btn-primary motion-btn"
               data-od-id="pricing-closing-cta"
-              href="mailto:contact@degov.ai?subject=DeGov%20managed%20hosting"
+              href="mailto:support@degov.ai?subject=DeGov%20managed%20hosting"
             >
-              Talk to DeGov
+              <MotionButtonContent label="Talk to DeGov" />
             </a>
           </div>
         </section>
       </main>
 
-      <footer className="footer" id="site-footer" data-od-id="pricing-footer">
-        <div className="footer-inner container">
-          <Link
-            className="brand"
-            data-od-id="pricing-footer-brand"
-            href="/"
-            aria-label="DeGov.AI home"
-          >
-            <Image
-              className="brand-logo"
-              src="/images/degov-ai-2x.svg"
-              alt="DeGov.AI"
-              width={147}
-              height={30}
-            />
-          </Link>
-          <span>Better governance for better communities.</span>
-        </div>
-      </footer>
+      <SiteFooter variant="pricing" />
 
       <script
         type="application/ld+json"

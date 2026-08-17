@@ -113,13 +113,9 @@ requireMetadata('out/index.html', 'https://degov.ai/', {
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 });
 requireBuiltText('out/index.html', [
-  'Content provenance',
-  'Canonical owner:',
-  'DeGov official website.',
-  'Editorial review:',
-  '2026-08-05.',
-  'not deploy or build freshness',
-  'https://docs.degov.ai/',
+  'Onchain governance layer',
+  'Reveal the meaning behind proposals',
+  'DeGov Square',
   'https://square.degov.ai/',
   'https://atlas.degov.ai/',
   'https://github.com/ringecosystem/degov'
@@ -137,6 +133,11 @@ requireMetadata('out/pricing/index.html', 'https://degov.ai/pricing/', {
   'twitter:description':
     'Self-host Square for free or choose managed hosting, with six months free.'
 });
+requireBuiltText('out/pricing/index.html', [
+  'New to DeGov?',
+  'Try the Playground on Base.',
+  'https://playground.degov.ai/'
+]);
 
 // Validate the copied build artifact rather than only its source file so a
 // broken static-export copy cannot pass the release build unnoticed.

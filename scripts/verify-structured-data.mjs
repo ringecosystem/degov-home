@@ -65,10 +65,10 @@ if (canonicalUrls.length !== 1 || canonicalUrls[0] !== PRICING_URL) {
   );
 }
 
-requireIncludes(pricingHtml, 'Start managed. Stay in control.', 'pricing visible H1');
+requireIncludes(pricingHtml, 'Start managed. Stay in control', 'pricing visible H1');
 requireIncludes(
   pricingHtml,
-  'Self-hosted and managed deployments run the same open-source DeGov code.',
+  'Self-hosted and managed deployments run the same open-source DeGov code',
   'pricing visible content description'
 );
 
@@ -80,7 +80,7 @@ if (!pricingWebPage) {
   requireEqual(pricingWebPage['@id'], `${PRICING_URL}#webpage`, 'WebPage @id');
   requireEqual(pricingWebPage.url, PRICING_URL, 'WebPage url');
   requireEqual(pricingWebPage.name, 'Square Pricing — DeGov.AI', 'WebPage name');
-  requireEqual(pricingWebPage.headline, 'Start managed. Stay in control.', 'WebPage headline');
+  requireEqual(pricingWebPage.headline, 'Start managed. Stay in control', 'WebPage headline');
   requireEqual(pricingWebPage.publisher?.['@id'], PUBLISHER_ID, 'WebPage publisher @id');
   requireEqual(pricingWebPage.isPartOf?.['@id'], WEBSITE_ID, 'WebPage isPartOf @id');
   requireEqual(pricingWebPage.mainEntityOfPage, PRICING_URL, 'WebPage mainEntityOfPage');

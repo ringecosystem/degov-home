@@ -42,7 +42,7 @@ export const PRICING_WEBPAGE = {
   '@type': 'WebPage',
   url: PRICING_URL,
   name: 'Square Pricing — DeGov.AI',
-  headline: 'Start managed. Stay in control.',
+  headline: 'Start managed. Stay in control',
   description:
     'DeGov.AI Square pricing: self-host for free or choose managed hosting, with the first six months free.',
   isPartOf: {
