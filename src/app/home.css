@@ -2055,6 +2055,7 @@
 }
 
 .home-site .arc-footer__links a,
+.home-site .arc-footer__links .analytics-preferences-button,
 .home-site .arc-footer__links p {
   margin: 0;
   color: var(--home-color-text-strong);
@@ -2063,6 +2064,8 @@
 }
 
 .home-site .arc-footer__links a:hover,
+.home-site .arc-footer__links .analytics-preferences-button:hover,
+.home-site .arc-footer__links .analytics-preferences-button:focus-visible,
 .home-site .arc-footer__links a:focus-visible {
   color: var(--home-color-text);
 }
