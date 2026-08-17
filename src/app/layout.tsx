@@ -19,12 +19,17 @@ const GA4_BOOTSTRAP = `
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
 
-  var analyticsConsent = 'denied';
-  try {
-    if (window.localStorage.getItem('${ANALYTICS_CONSENT_STORAGE_KEY}') === 'granted') {
-      analyticsConsent = 'granted';
+  var consentStorageKey = '${ANALYTICS_CONSENT_STORAGE_KEY}';
+  function readAnalyticsConsent() {
+    try {
+      var storedConsent = window.localStorage.getItem(consentStorageKey);
+      return storedConsent === 'granted' || storedConsent === 'denied' ? storedConsent : null;
+    } catch {
+      return null;
     }
-  } catch {}
+  }
+
+  var analyticsConsent = readAnalyticsConsent() === 'granted' ? 'granted' : 'denied';
 
   window.gtag('consent', 'default', {
     analytics_storage: analyticsConsent,
@@ -40,6 +45,42 @@ const GA4_BOOTSTRAP = `
   googleTag.async = true;
   googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}';
   document.head.appendChild(googleTag);
+
+  window.degovSetAnalyticsConsent = function (consent) {
+    if (consent !== 'granted' && consent !== 'denied') return;
+
+    try {
+      window.localStorage.setItem(consentStorageKey, consent);
+    } catch {}
+
+    window.gtag('consent', 'update', { analytics_storage: consent });
+    var banner = document.getElementById('analytics-consent-banner');
+    if (banner) banner.hidden = true;
+  };
+
+  window.degovOpenAnalyticsPreferences = function () {
+    var banner = document.getElementById('analytics-consent-banner');
+    if (banner) banner.hidden = false;
+  };
+
+  document.addEventListener('click', function (event) {
+    var target = event.target instanceof Element
+      ? event.target.closest('[data-analytics-consent], [data-open-analytics-preferences]')
+      : null;
+    if (!target) return;
+
+    var consent = target.getAttribute('data-analytics-consent');
+    if (consent) {
+      window.degovSetAnalyticsConsent(consent);
+    } else {
+      window.degovOpenAnalyticsPreferences();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var banner = document.getElementById('analytics-consent-banner');
+    if (banner) banner.hidden = readAnalyticsConsent() !== null;
+  });
 `;
 
 export const viewport: Viewport = {

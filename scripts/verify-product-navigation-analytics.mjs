@@ -9,11 +9,6 @@ import {
   getProductNavigationTarget,
   PRODUCT_NAVIGATION_EVENT_NAME
 } from '../src/lib/analytics.ts';
-import {
-  ANALYTICS_CONSENT_STORAGE_KEY,
-  readAnalyticsConsent,
-  updateAnalyticsConsent
-} from '../src/lib/analytics-consent.ts';
 
 const root = join(fileURLToPath(new URL('..', import.meta.url)));
 const read = (path) => readFileSync(join(root, path), 'utf8');
@@ -48,22 +43,6 @@ assert.deepEqual(getProductNavigationTarget('https://atlas.degov.ai/'), {
 });
 assert.equal(getProductNavigationTarget('mailto:support@degov.ai'), null);
 assert.equal(getProductNavigationTarget('https://github.com/ringecosystem/degov'), null);
-
-const consentStorage = new Map();
-const consentUpdates = [];
-globalThis.window = {
-  localStorage: {
-    getItem: (key) => consentStorage.get(key) ?? null,
-    setItem: (key, value) => consentStorage.set(key, value)
-  },
-  gtag: (...args) => consentUpdates.push(args)
-};
-assert.equal(readAnalyticsConsent(), null);
-updateAnalyticsConsent('granted');
-assert.equal(consentStorage.get(ANALYTICS_CONSENT_STORAGE_KEY), 'granted');
-assert.equal(readAnalyticsConsent(), 'granted');
-assert.deepEqual(consentUpdates, [['consent', 'update', { analytics_storage: 'granted' }]]);
-delete globalThis.window;
 
 assert.deepEqual(
   buildProductNavigationEventParams({
@@ -158,7 +137,7 @@ assert.ok(
   'GA4 consent defaults must be denied before configuration'
 );
 assert.ok(
-  layoutSource.includes("var analyticsConsent = 'denied'") &&
+  layoutSource.includes("readAnalyticsConsent() === 'granted' ? 'granted' : 'denied'") &&
     layoutSource.includes('analytics_storage: analyticsConsent'),
   'analytics storage must default to denied and restore a persisted grant'
 );
@@ -179,13 +158,17 @@ assert.ok(
   'GA4 consent and configuration must be queued before loading the Google tag'
 );
 assert.ok(
-  consentSource.includes("window.gtag?.('consent', 'update'") &&
-    consentSource.includes('window.localStorage.setItem'),
-  'analytics consent choices must be persisted and sent to Google'
+  layoutSource.includes("window.gtag('consent', 'update'") &&
+    layoutSource.includes('window.localStorage.setItem'),
+  'analytics consent choices must be persisted and sent to Google without hydration'
 );
 assert.ok(
-  consentComponentSource.includes('Allow analytics') && consentComponentSource.includes('Decline'),
-  'analytics consent UI must provide allow and decline choices'
+  !consentComponentSource.includes("'use client'") &&
+    consentComponentSource.includes('id="analytics-consent-banner"') &&
+    consentComponentSource.includes('data-analytics-consent="granted"') &&
+    consentComponentSource.includes('data-analytics-consent="denied"') &&
+    layoutSource.includes("document.addEventListener('DOMContentLoaded'"),
+  'analytics consent UI must work before React hydration'
 );
 assert.ok(
   productionWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build'),
