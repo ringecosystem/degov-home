@@ -167,7 +167,8 @@ assert.ok(
     consentComponentSource.includes('id="analytics-consent-banner"') &&
     consentComponentSource.includes('data-analytics-consent="granted"') &&
     consentComponentSource.includes('data-analytics-consent="denied"') &&
-    layoutSource.includes("document.addEventListener('DOMContentLoaded'"),
+    layoutSource.includes("document.addEventListener('DOMContentLoaded'") &&
+    layoutSource.includes('button.onclick = function'),
   'analytics consent UI must work before React hydration'
 );
 assert.ok(

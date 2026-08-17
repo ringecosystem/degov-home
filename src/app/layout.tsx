@@ -63,24 +63,26 @@ const GA4_BOOTSTRAP = `
     if (banner) banner.hidden = false;
   };
 
-  document.addEventListener('click', function (event) {
-    var target = event.target instanceof Element
-      ? event.target.closest('[data-analytics-consent], [data-open-analytics-preferences]')
-      : null;
-    if (!target) return;
-
-    var consent = target.getAttribute('data-analytics-consent');
-    if (consent) {
-      window.degovSetAnalyticsConsent(consent);
-    } else {
-      window.degovOpenAnalyticsPreferences();
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', function () {
+  function initializeAnalyticsConsentControls() {
     var banner = document.getElementById('analytics-consent-banner');
     if (banner) banner.hidden = readAnalyticsConsent() !== null;
-  });
+
+    document.querySelectorAll('[data-analytics-consent]').forEach(function (button) {
+      button.onclick = function () {
+        window.degovSetAnalyticsConsent(button.getAttribute('data-analytics-consent'));
+      };
+    });
+
+    document.querySelectorAll('[data-open-analytics-preferences]').forEach(function (button) {
+      button.onclick = window.degovOpenAnalyticsPreferences;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAnalyticsConsentControls);
+  } else {
+    initializeAnalyticsConsentControls();
+  }
 `;
 
 export const viewport: Viewport = {
