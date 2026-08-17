@@ -9,6 +9,11 @@ import {
   getProductNavigationTarget,
   PRODUCT_NAVIGATION_EVENT_NAME
 } from '../src/lib/analytics.ts';
+import {
+  ANALYTICS_CONSENT_STORAGE_KEY,
+  readAnalyticsConsent,
+  updateAnalyticsConsent
+} from '../src/lib/analytics-consent.ts';
 
 const root = join(fileURLToPath(new URL('..', import.meta.url)));
 const read = (path) => readFileSync(join(root, path), 'utf8');
@@ -43,6 +48,22 @@ assert.deepEqual(getProductNavigationTarget('https://atlas.degov.ai/'), {
 });
 assert.equal(getProductNavigationTarget('mailto:support@degov.ai'), null);
 assert.equal(getProductNavigationTarget('https://github.com/ringecosystem/degov'), null);
+
+const consentStorage = new Map();
+const consentUpdates = [];
+globalThis.window = {
+  localStorage: {
+    getItem: (key) => consentStorage.get(key) ?? null,
+    setItem: (key, value) => consentStorage.set(key, value)
+  },
+  gtag: (...args) => consentUpdates.push(args)
+};
+assert.equal(readAnalyticsConsent(), null);
+updateAnalyticsConsent('granted');
+assert.equal(consentStorage.get(ANALYTICS_CONSENT_STORAGE_KEY), 'granted');
+assert.equal(readAnalyticsConsent(), 'granted');
+assert.deepEqual(consentUpdates, [['consent', 'update', { analytics_storage: 'granted' }]]);
+delete globalThis.window;
 
 assert.deepEqual(
   buildProductNavigationEventParams({
@@ -83,11 +104,13 @@ assert.equal(
 
 const analyticsSource = read('src/lib/analytics.ts');
 const componentSource = read('src/components/ProductNavigationAnalytics.tsx');
+const consentComponentSource = read('src/components/AnalyticsConsent.tsx');
+const consentSource = read('src/lib/analytics-consent.ts');
 const layoutSource = read('src/app/layout.tsx');
 const productionWorkflow = read('.github/workflows/deploy-prd.yml');
 const stagingWorkflow = read('.github/workflows/deploy-stg.yml');
 const previewWorkflow = read('.github/workflows/deploy-dev.yml');
-const combinedSource = `${analyticsSource}\n${componentSource}\n${layoutSource}`;
+const combinedSource = `${analyticsSource}\n${componentSource}\n${consentComponentSource}\n${consentSource}\n${layoutSource}`;
 
 assert.deepEqual(
   Object.keys(
@@ -130,20 +153,40 @@ assert.ok(
   'GA4 initialization must be gated by a build-time public environment flag'
 );
 assert.ok(
-  layoutSource.indexOf("gtag('consent', 'default'") < layoutSource.indexOf("gtag('config'"),
+  layoutSource.indexOf("window.gtag('consent', 'default'") <
+    layoutSource.indexOf("window.gtag('config'"),
   'GA4 consent defaults must be denied before configuration'
 );
-for (const storage of [
-  'analytics_storage',
-  'ad_storage',
-  'ad_user_data',
-  'ad_personalization'
-]) {
-  assert.ok(
-    layoutSource.includes(`${storage}: 'denied'`),
-    `${storage} must default to denied`
-  );
+assert.ok(
+  layoutSource.includes("var analyticsConsent = 'denied'") &&
+    layoutSource.includes('analytics_storage: analyticsConsent'),
+  'analytics storage must default to denied and restore a persisted grant'
+);
+for (const storage of ['ad_storage', 'ad_user_data', 'ad_personalization']) {
+  assert.ok(layoutSource.includes(`${storage}: 'denied'`), `${storage} must default to denied`);
 }
+assert.ok(
+  !layoutSource.includes("from 'next/script'"),
+  'GA4 bootstrap must not depend on hydration'
+);
+assert.ok(
+  layoutSource.includes('<script') && layoutSource.includes('id="ga4-bootstrap"'),
+  'GA4 bootstrap must be emitted as an executable HTML script'
+);
+assert.ok(
+  layoutSource.indexOf("window.gtag('config'") <
+    layoutSource.indexOf("document.createElement('script')"),
+  'GA4 consent and configuration must be queued before loading the Google tag'
+);
+assert.ok(
+  consentSource.includes("window.gtag?.('consent', 'update'") &&
+    consentSource.includes('window.localStorage.setItem'),
+  'analytics consent choices must be persisted and sent to Google'
+);
+assert.ok(
+  consentComponentSource.includes('Allow analytics') && consentComponentSource.includes('Decline'),
+  'analytics consent UI must provide allow and decline choices'
+);
 assert.ok(
   productionWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build'),
   'production tag workflow must enable GA4 at build time'
@@ -163,8 +206,25 @@ if (artifactExpectation) {
     'artifact expectation must be --expect-enabled or --expect-disabled'
   );
   const artifact = readGeneratedFiles(join(root, 'out'));
+  const homeArtifact = readFileSync(join(root, 'out', 'index.html'), 'utf8');
   if (artifactExpectation === '--expect-enabled') {
     assert.ok(artifact.includes('G-QRLBRTT5X1'), 'production artifact must contain GA4 ID');
+    assert.match(
+      homeArtifact,
+      /<script id="ga4-bootstrap">[\s\S]*document\.createElement\('script'\)[\s\S]*<\/script>/,
+      'production HTML must execute the GA4 bootstrap without waiting for hydration'
+    );
+    assert.ok(
+      !homeArtifact.includes(
+        '<link rel="preload" href="https://www.googletagmanager.com/gtag/js?id=G-QRLBRTT5X1"'
+      ),
+      'production HTML must not mistake a preload for an executed Google tag'
+    );
+    assert.ok(
+      artifact.includes('degov_analytics_consent') &&
+        /(?:'consent', 'update'|"consent","update")/.test(artifact),
+      'production artifact must contain the complete analytics consent flow'
+    );
     assert.ok(
       artifact.includes('analytics_storage') && artifact.includes('denied'),
       'production artifact must preserve denied consent defaults'

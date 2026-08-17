@@ -30,7 +30,15 @@ export type ProductNavigationEventParams = {
 
 declare global {
   interface Window {
-    gtag?: (command: 'event', eventName: string, params: ProductNavigationEventParams) => void;
+    dataLayer?: unknown[];
+    gtag?: {
+      (command: 'event', eventName: string, params: ProductNavigationEventParams): void;
+      (
+        command: 'consent',
+        action: 'update',
+        params: { analytics_storage: 'granted' | 'denied' }
+      ): void;
+    };
   }
 }
 

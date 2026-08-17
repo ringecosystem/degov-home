@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 
+import { AnalyticsConsentBanner } from '@/components/AnalyticsConsent';
 import {
   SEO_ORGANIZATION,
   SEO_WEBSITE,
@@ -10,10 +10,37 @@ import {
   SOCIAL_IMAGE_URL
 } from '@/lib/seo';
 import { ProductNavigationAnalytics } from '@/components/ProductNavigationAnalytics';
+import { ANALYTICS_CONSENT_STORAGE_KEY } from '@/lib/analytics-consent';
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 const GA4_MEASUREMENT_ID = 'G-QRLBRTT5X1';
 const IS_GA4_ENABLED = process.env.NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED === 'true';
+const GA4_BOOTSTRAP = `
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  var analyticsConsent = 'denied';
+  try {
+    if (window.localStorage.getItem('${ANALYTICS_CONSENT_STORAGE_KEY}') === 'granted') {
+      analyticsConsent = 'granted';
+    }
+  } catch {}
+
+  window.gtag('consent', 'default', {
+    analytics_storage: analyticsConsent,
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+
+  window.gtag('js', new Date());
+  window.gtag('config', '${GA4_MEASUREMENT_ID}');
+
+  var googleTag = document.createElement('script');
+  googleTag.async = true;
+  googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}';
+  document.head.appendChild(googleTag);
+`;
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -100,29 +127,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <head>
         {IS_GA4_ENABLED ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('consent', 'default', {
-                  analytics_storage: 'denied',
-                  ad_storage: 'denied',
-                  ad_user_data: 'denied',
-                  ad_personalization: 'denied'
-                });
-                gtag('js', new Date());
-                gtag('config', '${GA4_MEASUREMENT_ID}');
-              `}
-            </Script>
-          </>
+          <script id="ga4-bootstrap" dangerouslySetInnerHTML={{ __html: GA4_BOOTSTRAP }} />
         ) : null}
+      </head>
+      <body>
+        <AnalyticsConsentBanner />
         <ProductNavigationAnalytics />
         {children}
         <script
