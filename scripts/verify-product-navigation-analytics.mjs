@@ -83,13 +83,12 @@ assert.equal(
 
 const analyticsSource = read('src/lib/analytics.ts');
 const componentSource = read('src/components/ProductNavigationAnalytics.tsx');
-const consentComponentSource = read('src/components/AnalyticsConsent.tsx');
-const consentSource = read('src/lib/analytics-consent.ts');
+const footerSource = read('src/components/layout/site-footer.tsx');
 const layoutSource = read('src/app/layout.tsx');
 const productionWorkflow = read('.github/workflows/deploy-prd.yml');
 const stagingWorkflow = read('.github/workflows/deploy-stg.yml');
 const previewWorkflow = read('.github/workflows/deploy-dev.yml');
-const combinedSource = `${analyticsSource}\n${componentSource}\n${consentComponentSource}\n${consentSource}\n${layoutSource}`;
+const combinedSource = `${analyticsSource}\n${componentSource}\n${footerSource}\n${layoutSource}`;
 
 assert.deepEqual(
   Object.keys(
@@ -134,12 +133,11 @@ assert.ok(
 assert.ok(
   layoutSource.indexOf("window.gtag('consent', 'default'") <
     layoutSource.indexOf("window.gtag('config'"),
-  'GA4 consent defaults must be denied before configuration'
+  'GA4 storage defaults must be set before configuration'
 );
 assert.ok(
-  layoutSource.includes("readAnalyticsConsent() === 'granted' ? 'granted' : 'denied'") &&
-    layoutSource.includes('analytics_storage: analyticsConsent'),
-  'analytics storage must default to denied and restore a persisted grant'
+  layoutSource.includes("analytics_storage: 'granted'"),
+  'analytics storage must be enabled without a visitor prompt'
 );
 for (const storage of ['ad_storage', 'ad_user_data', 'ad_personalization']) {
   assert.ok(layoutSource.includes(`${storage}: 'denied'`), `${storage} must default to denied`);
@@ -158,18 +156,10 @@ assert.ok(
   'GA4 consent and configuration must be queued before loading the Google tag'
 );
 assert.ok(
-  layoutSource.includes("window.gtag('consent', 'update'") &&
-    layoutSource.includes('window.localStorage.setItem'),
-  'analytics consent choices must be persisted and sent to Google without hydration'
-);
-assert.ok(
-  !consentComponentSource.includes("'use client'") &&
-    consentComponentSource.includes('id="analytics-consent-banner"') &&
-    consentComponentSource.includes('data-analytics-consent="granted"') &&
-    consentComponentSource.includes('data-analytics-consent="denied"') &&
-    layoutSource.includes("document.addEventListener('DOMContentLoaded'") &&
-    layoutSource.includes('button.onclick = function'),
-  'analytics consent UI must work before React hydration'
+  !combinedSource.includes('AnalyticsConsent') &&
+    !combinedSource.includes('degov_analytics_consent') &&
+    !combinedSource.includes('Allow analytics'),
+  'site must not render or initialize an analytics consent prompt'
 );
 assert.ok(
   productionWorkflow.includes('NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build'),
@@ -205,13 +195,12 @@ if (artifactExpectation) {
       'production HTML must not mistake a preload for an executed Google tag'
     );
     assert.ok(
-      artifact.includes('degov_analytics_consent') &&
-        /(?:'consent', 'update'|"consent","update")/.test(artifact),
-      'production artifact must contain the complete analytics consent flow'
+      artifact.includes('analytics_storage') && artifact.includes('granted'),
+      'production artifact must enable analytics storage by default'
     );
     assert.ok(
-      artifact.includes('analytics_storage') && artifact.includes('denied'),
-      'production artifact must preserve denied consent defaults'
+      !artifact.includes('degov_analytics_consent') && !artifact.includes('Allow analytics'),
+      'production artifact must not contain an analytics consent prompt'
     );
   } else {
     assert.ok(!artifact.includes('G-QRLBRTT5X1'), 'non-production artifact must exclude GA4 ID');
