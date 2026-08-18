@@ -1,39 +1,63 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Editable source for the raster social card. Social crawlers receive the PNG derivative. -->
-  <rect width="1200" height="630" fill="#1F2228"/>
+  <!-- Editable source for the raster social card approved on 2026-08-18. Social crawlers receive the PNG derivative; the supplied PNG remains the canonical visual output. -->
+  <defs>
+    <linearGradient id="hero-shade" x1="90" y1="40" x2="1110" y2="590" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.76"/>
+      <stop offset="0.42" stop-color="#000000" stop-opacity="0.48"/>
+      <stop offset="0.72" stop-color="#02070D" stop-opacity="0.56"/>
+      <stop offset="1" stop-color="#02070D" stop-opacity="0.7"/>
+    </linearGradient>
+    <radialGradient id="mark-focus" cx="0" cy="0" r="1" gradientTransform="translate(596 298) rotate(90) scale(242 410)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#03070D" stop-opacity="0"/>
+      <stop offset="0.62" stop-color="#03070D" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#03070D" stop-opacity="0.34"/>
+    </radialGradient>
+    <linearGradient id="bottom-fade" x1="600" y1="386" x2="600" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
 
-  <!-- The restrained ledger grid mirrors the visual language used across the marketing site. -->
-  <g stroke="white" stroke-opacity="0.08">
-    <path d="M0 80.5H1200M0 550.5H1200"/>
-    <path d="M72.5 0V630M1127.5 0V630"/>
+  <!-- The homepage temporal field remains the sole atmospheric image. -->
+  <rect width="1200" height="630" fill="#03070D"/>
+  <image href="hero/degov-governance-temporal-field-f885cd9c.png" x="0" y="-21" width="1200" height="672" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1200" height="630" fill="url(#hero-shade)"/>
+  <rect width="1200" height="630" fill="url(#mark-focus)"/>
+  <rect y="384" width="1200" height="246" fill="url(#bottom-fade)"/>
+
+  <!-- Quiet structural rules retain the new site's measured governance-infrastructure language. -->
+  <g stroke="#DCE7F8" stroke-opacity="0.13">
+    <path d="M72.5 0V630"/>
+    <path d="M1127.5 0V630"/>
+    <path d="M0 80.5H1200"/>
+    <path d="M0 550.5H1200"/>
+  </g>
+  <g stroke="#DCE7F8" stroke-opacity="0.045">
+    <path d="M273.5 80V551"/>
+    <path d="M472.5 80V551"/>
+    <path d="M727.5 80V551"/>
+    <path d="M927.5 80V551"/>
+    <path d="M72 291.5H1128"/>
+    <path d="M72 464.5H1128"/>
   </g>
 
-  <!-- DeGov pinwheel mark, reconstructed as vector geometry for crisp rendering. -->
-  <g transform="translate(73 25) scale(0.1)" fill="white">
+  <!-- DeGov pinwheel, reconstructed as vector geometry so the identity stays crisp at every preview size. -->
+  <g transform="translate(517.5 181) scale(0.55)" fill="#F5F3ED">
     <path d="M100.333 0L110.333 120L0.333 100V0H100.333Z"/>
     <path d="M300.333 0V100L110.333 120L200.333 0H300.333Z"/>
     <path d="M110.333 120L100.333 300H0.333V200L110.333 120Z"/>
     <path d="M110.333 120L300.333 200V300H200.333L110.333 120Z"/>
   </g>
-  <text x="118" y="57" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="-0.7">DeGov.AI</text>
-  <text x="1127" y="55" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" text-anchor="end" letter-spacing="1.5">GOVERNANCE INFRASTRUCTURE</text>
 
-  <text x="72" y="155" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="15" letter-spacing="2">RUN · UNDERSTAND · VERIFY</text>
-  <text x="67" y="256" fill="white" font-family="DejaVu Sans Mono, monospace" font-size="73" font-weight="700" letter-spacing="-4">Better governance</text>
-  <text x="67" y="344" fill="white" font-family="DejaVu Sans Mono, monospace" font-size="73" font-weight="700" letter-spacing="-4">for better communities.</text>
-  <text x="72" y="406" fill="white" fill-opacity="0.7" font-family="DejaVu Sans, Arial, sans-serif" font-size="22">Open infrastructure for communities and the agents that serve them.</text>
-
-  <g transform="translate(72 470)">
-    <rect x="0.5" y="0.5" width="500" height="80" stroke="white" stroke-opacity="0.18"/>
-    <text x="20" y="27" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="1.5">01 / SQUARE</text>
-    <text x="20" y="60" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">RUN GOVERNANCE</text>
-  </g>
-  <g transform="translate(592 470)">
-    <rect x="0.5" y="0.5" width="535" height="80" stroke="white" stroke-opacity="0.18"/>
-    <text x="20" y="27" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="1.5">02 / ATLAS</text>
-    <text x="20" y="60" fill="white" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">UNDERSTAND GOVERNANCE</text>
-  </g>
-
-  <text x="72" y="594" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" letter-spacing="1">DEGOV.AI</text>
-  <text x="1127" y="594" fill="white" fill-opacity="0.5" font-family="DejaVu Sans Mono, monospace" font-size="13" text-anchor="end" letter-spacing="1">BETTER COMMUNITIES / BETTER DECISIONS</text>
+  <!-- The wordmark is intentionally the only copy in the card; title and description remain in page metadata. -->
+  <text
+    x="600"
+    y="434"
+    text-anchor="middle"
+    fill="#F5F3ED"
+    font-family="Instrument Sans, Arial, sans-serif"
+    font-size="56"
+    font-weight="650"
+    letter-spacing="4.8"
+  >DEGOV.AI</text>
 </svg>
