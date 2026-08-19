@@ -29,6 +29,6 @@ jobs:
           prod_mode: true
           script_install: pnpm install --frozen-lockfile
           script_build: NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build && pnpm test:product-navigation-analytics -- --expect-enabled
-          enable_notify_slack: true
+          enable_notify_slack: false
           slack_channel: public-degov
           slack_webhook: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
