@@ -81,10 +81,17 @@ forbidIncludes(home, 'playground.degov.ai', 'Playground link moved from homepage
 requireIncludes(home, 'data-od-id="community-governance-chain"', 'community capability chain');
 requireIncludes(home, 'data-od-id="agent-governance-access"', 'agent-native governance section');
 requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
+requireIncludes(home, 'https://atlas.degov.ai/daos', 'Atlas covered DAO directory destination');
 requireIncludes(
   home,
+  'Install the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills.',
+  'DeGov agent skills installation request'
+);
+requireIncludes(home, 'Give this to your agent', 'agent-directed installation label');
+forbidIncludes(
+  home,
   'npx skills add ringecosystem/degov-agent-skills',
-  'DeGov agent skills install command'
+  'retired CLI install command'
 );
 requireIncludes(home, 'data-od-id="agent-skills-copy"', 'agent skills copy control');
 requireIncludes(home, 'aria-label="Atlas data lifecycle"', 'Atlas data lifecycle');

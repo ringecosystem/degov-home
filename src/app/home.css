@@ -1655,21 +1655,19 @@
 .home-site .arc-agents__command {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  min-height: var(--home-space-56);
+  min-height: var(--home-space-96);
   align-items: stretch;
   border: 1px solid var(--home-color-border-strong);
   background: var(--home-color-surface);
 }
 
-.home-site .arc-agents__command code {
+.home-site .arc-agents__command p {
   min-width: 0;
   align-self: center;
-  overflow: hidden;
-  padding: 0 var(--home-space-16);
+  margin: 0;
+  padding: var(--home-space-16);
   color: var(--home-color-text-strong);
-  font: var(--home-type-size-body) / var(--home-leading-copy-tight) var(--font-mono);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font: var(--home-type-size-body-sm) / var(--home-leading-copy) var(--font-body);
 }
 
 .home-site .arc-agents__command button {
