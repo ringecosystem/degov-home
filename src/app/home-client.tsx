@@ -18,7 +18,8 @@ const HERO_VISUAL = {
   useMotion: true
 } as const;
 
-const AGENT_SKILLS_INSTALL_COMMAND = 'npx skills add ringecosystem/degov-agent-skills';
+const AGENT_SKILLS_INSTALL_PROMPT =
+  'Install the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills. After installation, verify that the DAO governance research and security skills are available, then tell me when they are ready to use.';
 
 function AtlasMark({ className = '' }: { className?: string }) {
   return (
@@ -105,13 +106,13 @@ export default function HomeClient() {
     []
   );
 
-  const copyAgentSkillsCommand = async () => {
+  const copyAgentSkillsPrompt = async () => {
     try {
       if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(AGENT_SKILLS_INSTALL_COMMAND);
+        await navigator.clipboard.writeText(AGENT_SKILLS_INSTALL_PROMPT);
       } else {
         const copyField = document.createElement('textarea');
-        copyField.value = AGENT_SKILLS_INSTALL_COMMAND;
+        copyField.value = AGENT_SKILLS_INSTALL_PROMPT;
         copyField.setAttribute('readonly', '');
         copyField.style.position = 'fixed';
         copyField.style.opacity = '0';
@@ -1197,20 +1198,20 @@ export default function HomeClient() {
                     View skills on GitHub
                     <ArrowMark />
                   </a>
-                  <a data-od-id="agent-api-daos-cta" href="https://agent-api.degov.ai/v1/daos">
+                  <a data-od-id="agent-api-daos-cta" href="https://atlas.degov.ai/daos">
                     Explore covered DAOs
                     <ArrowMark />
                   </a>
                 </div>
                 <div className="arc-agents__install" data-od-id="agent-skills-install">
-                  <span>Install DeGov agent skills</span>
+                  <span>Give this to your agent</span>
                   <div className="arc-agents__command">
-                    <code>{AGENT_SKILLS_INSTALL_COMMAND}</code>
+                    <p>{AGENT_SKILLS_INSTALL_PROMPT}</p>
                     <button
                       type="button"
                       data-od-id="agent-skills-copy"
-                      onClick={copyAgentSkillsCommand}
-                      aria-label="Copy the DeGov agent skills install command"
+                      onClick={copyAgentSkillsPrompt}
+                      aria-label="Copy the DeGov agent skills installation request"
                     >
                       {copyStatus === 'copied'
                         ? 'Copied'
