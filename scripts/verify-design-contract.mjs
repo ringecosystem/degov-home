@@ -84,7 +84,7 @@ requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
 requireIncludes(home, 'https://atlas.degov.ai/daos', 'Atlas covered DAO directory destination');
 requireIncludes(
   home,
-  'Install the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills.',
+  'Install or update the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills.',
   'DeGov agent skills installation request'
 );
 requireIncludes(home, 'Give this to your agent', 'agent-directed installation label');
@@ -247,7 +247,7 @@ requireIncludes(
 );
 requireIncludes(
   'package.json',
-  '"build": "next build && node scripts/verify-social-metadata.mjs && node scripts/verify-structured-data.mjs && node scripts/verify-home-tokens.mjs"',
+  '"build": "next build && node scripts/verify-social-metadata.mjs && node scripts/verify-structured-data.mjs && node scripts/verify-home-tokens.mjs && node scripts/verify-agent-discovery.mjs"',
   'built social-metadata verification'
 );
 requireIncludes(

@@ -119,6 +119,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="service-desc"
+          type="application/vnd.oai.openapi+json"
+          href="https://agent-api.degov.ai/openapi.json"
+        />
+        <link rel="alternate" type="text/plain" href="https://degov.ai/llms.txt" />
         {IS_GA4_ENABLED ? (
           <script id="ga4-bootstrap" dangerouslySetInnerHTML={{ __html: GA4_BOOTSTRAP }} />
         ) : null}

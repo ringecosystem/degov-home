@@ -14,6 +14,12 @@ export const SEO_ORGANIZATION = {
   '@type': 'Organization',
   name: 'DeGov.AI',
   url: SITE_URL,
+  logo: `${SITE_URL}/images/degov-ai-2x.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'support@degov.ai',
+    contactType: 'customer support'
+  },
   sameAs: [
     'https://x.com/ai_degov',
     'https://docs.degov.ai/',
