@@ -19,7 +19,7 @@ const HERO_VISUAL = {
 } as const;
 
 const AGENT_SKILLS_INSTALL_PROMPT =
-  'Install the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills. After installation, verify that the DAO governance research and security skills are available, then tell me when they are ready to use.';
+  'Install or update the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills. Verify that DAO Governance Research and DAO Governance Security are available, then use the current OpenAPI at https://agent-api.degov.ai/openapi.json to make one free DAO discovery request without payment. Tell me when both skills are ready.';
 
 function AtlasMark({ className = '' }: { className?: string }) {
   return (
@@ -1149,8 +1149,11 @@ export default function HomeClient() {
             <header className="arc-index__header">
               <h2>Portfolio at a glance</h2>
               <p>
-                Portfolio figures from DeGov product materials. Add a confirmed reporting date
-                before launch
+                Published portfolio snapshot from 26 August 2026.{' '}
+                <a href="https://github.com/ringecosystem/degov-home/blob/1427abc596bd0ea71758fbfb70f4e8cb7cd2b61a/src/app/home-client.tsx#L1147-L1180">
+                  View source
+                </a>{' '}
+                or <a href="https://atlas.degov.ai/daos">explore current DAO coverage</a>
               </p>
             </header>
 
@@ -1176,7 +1179,6 @@ export default function HomeClient() {
                 <p>Structured signals for monitoring and integrations</p>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -1187,8 +1189,8 @@ export default function HomeClient() {
               <h2 data-od-id="agent-section-title">Governance research agents can verify</h2>
               <div className="arc-agents__aside">
                 <p>
-                  Reusable skills help agents research DAO activity and review proposal security with
-                  evidence, sources, and explicit uncertainty
+                  Reusable skills help agents research DAO activity and review proposal security
+                  with evidence, sources, and explicit uncertainty
                 </p>
                 <div className="arc-agents__actions">
                   <a
@@ -1200,6 +1202,14 @@ export default function HomeClient() {
                   </a>
                   <a data-od-id="agent-api-daos-cta" href="https://atlas.degov.ai/daos">
                     Explore covered DAOs
+                    <ArrowMark />
+                  </a>
+                  <a href="https://docs.degov.ai/agent-api/quickstart/">
+                    API quickstart
+                    <ArrowMark />
+                  </a>
+                  <a href="https://agent-api.degov.ai/openapi.json">
+                    OpenAPI
                     <ArrowMark />
                   </a>
                 </div>
@@ -1233,14 +1243,14 @@ export default function HomeClient() {
                 <li className="arc-agent__step" data-od-id="x402-step-discover">
                   <span>01</span>
                   <strong>Discover</strong>
-                  <p>Agents can inspect covered DAOs through public endpoints</p>
+                  <p>Find DAOs and inspect available data for free, without an API key or wallet</p>
                 </li>
                 <li className="arc-agent__step" data-od-id="x402-step-request">
                   <span>02</span>
                   <strong>Request</strong>
                   <p>
-                    Recent activity, governance events, briefs, and proposal details are available
-                    on demand
+                    Search proposals and governance discussions, inspect votes, and research DAO
+                    participants
                   </p>
                 </li>
                 <li className="arc-agent__step" data-od-id="x402-step-settle">
@@ -1254,7 +1264,10 @@ export default function HomeClient() {
                 <li className="arc-agent__step" data-od-id="x402-step-explain">
                   <span>04</span>
                   <strong>Explain</strong>
-                  <p>Skills turn Atlas data into source-aware answers instead of raw JSON</p>
+                  <p>
+                    Skills combine API evidence with official sources to explain outcomes and verify
+                    execution details
+                  </p>
                 </li>
               </ol>
             </div>
@@ -1300,8 +1313,8 @@ export default function HomeClient() {
               </span>
               <h2>Bring governance intelligence into your product</h2>
               <p>
-                Use Atlas for governance discovery, analysis, and integration. Access is scoped to
-                your product needs
+                Browse Atlas publicly, use the Agent API for structured data paid per call, or talk
+                to us about a data partnership for your product
               </p>
               <a
                 data-od-id="talk-atlas-cta"

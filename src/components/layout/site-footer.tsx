@@ -47,8 +47,8 @@ export function SiteFooter({ variant }: SiteFooterProps) {
             <div>
               <a href="https://github.com/ringecosystem/degov">GitHub</a>
               <a href="https://github.com/ringecosystem/degov-agent-skills">Agent Skills</a>
-              <a href="https://agent-api.degov.ai/v1/daos">Agent API</a>
-              <a href="mailto:support@degov.ai">Contact</a>
+              <a href="https://docs.degov.ai/agent-api/">Agent API</a>
+              <a href="https://agent-api.degov.ai/openapi.json">OpenAPI</a>
             </div>
           </div>
 
@@ -58,6 +58,11 @@ export function SiteFooter({ variant }: SiteFooterProps) {
               Open infrastructure where governance runs. Focused intelligence where governance is
               understood
             </p>
+            <div>
+              <a href="/about/">About</a>
+              <a href="/contact/">Contact</a>
+              <a href="/privacy/">Privacy</a>
+            </div>
           </div>
         </nav>
       </div>

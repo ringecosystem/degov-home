@@ -606,6 +606,10 @@
     gap: 32px;
   }
 
+  .pricing-site .ownership-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .pricing-site .hero h1 {
     max-width: 11ch;
     font-size: clamp(42px, 10.2vw, 64px);
@@ -713,4 +717,8 @@
 .pricing-site,
 .pricing-site * {
   text-transform: none;
+}
+
+.pricing-site .arc-footer__links p + div {
+  margin-top: var(--space-6);
 }

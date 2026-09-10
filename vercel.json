@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/openapi.json",
+      "destination": "https://agent-api.degov.ai/openapi.json",
+      "permanent": false
+    }
+  ]
+}

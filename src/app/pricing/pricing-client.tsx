@@ -36,7 +36,7 @@ const pricingFaqs = [
     odId: 'faq-atlas',
     question: 'Is Atlas included in DeGov pricing?',
     answer:
-      'No. This page applies to DeGov hosting. Atlas data access and integration work are scoped separately to real product requirements.'
+      'This page covers Square hosting. Atlas is public to browse. Agent API calls use separate per-call pricing, and data partnerships are scoped to your product requirements.'
   }
 ];
 

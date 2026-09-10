@@ -1,0 +1,41 @@
+# DeGov.AI
+
+> DAO governance infrastructure and research: Square runs governance, Atlas helps people explore activity, and the Agent API and Skills support evidence-based agent research.
+
+## When to use DeGov
+
+- Use Square to find communities and participate in proposing, delegation, voting, and execution.
+- Use Atlas to browse governance activity, proposals, votes, and discussions across DAOs.
+- Use the Agent API to discover DAOs, search proposals and forum topics, resolve exact proposal URLs, analyze votes, and research participants or voters.
+- Use DAO Governance Research for source-backed answers and DAO Governance Security for proposal-action risk analysis. Verify executable actions through official governance sources and explorers.
+
+## Agent API: start here
+
+- [Current OpenAPI](https://agent-api.degov.ai/openapi.json): authoritative methods, paths, input and response schemas, errors, and per-operation payment metadata. There are 11 public V2 operations.
+- [API overview](https://docs.degov.ai/agent-api/): product scope and resource groups.
+- [Quickstart](https://docs.degov.ai/agent-api/quickstart/): make a free DAO discovery request without an account, API key, or wallet.
+- [Free DAO directory](https://agent-api.degov.ai/v2/daos?limit=5): records in data; cursor pagination in top-level page.
+- [Authentication](https://docs.degov.ai/agent-api/authentication/): free DAO directory/detail, paid x402 access, and issued partner tokens.
+- [Pricing](https://docs.degov.ai/agent-api/pricing-and-rate-limits/): use OpenAPI x-payment-info and the actual PAYMENT-REQUIRED challenge; paid calls use USDC on Base.
+
+API base URL: https://agent-api.degov.ai. Obtain identifiers and cursors from API responses and pass them back unchanged. Proposal resolution uses POST /v2/proposals/resolve with an exact URL or complete source identity, not a title. Details contain data; collections contain data and page with hasMore and nextCursor. Keep voting outcome separate from executionStatus. dataAsOf is source-observation provenance, not a global freshness guarantee.
+
+The API exposes a focused public subset of governance data. Atlas application features and Square GraphQL/MCP at api.degov.ai are separate surfaces; use only documented Agent API operations. Retrieve full executable payloads, transaction evidence, and full forum discussions from returned official source URLs.
+
+## Agent Skills
+
+- [Install or update](https://docs.degov.ai/agent-skills/): install from the current repository and verify both skills and one free DAO request.
+- [Skill repository](https://github.com/ringecosystem/degov-agent-skills): maintained skill source.
+- [DAO Governance Research instructions](https://raw.githubusercontent.com/ringecosystem/degov-agent-skills/main/skills/dao-governance-research/SKILL.md): research routing and evidence rules.
+- [DAO Governance Security instructions](https://raw.githubusercontent.com/ringecosystem/degov-agent-skills/main/skills/dao-governance-security/SKILL.md): proposal-risk analysis.
+
+For paid resources, the research skill delegates authorization, spending controls, signing, settlement verification, and safe retries to MetaMask Agent Wallet. Free discovery does not require payment. Use official sources and disclose limitations when paid structured data is unavailable.
+
+## Products and contact
+
+- [Official website](https://degov.ai/): product overview.
+- [Square](https://square.degov.ai/): onchain governance.
+- [Atlas](https://atlas.degov.ai/): governance intelligence, public to browse.
+- [Documentation](https://docs.degov.ai/): public guides.
+- [Square hosting pricing](https://degov.ai/pricing/): separate from Agent API per-call pricing and Atlas partnerships.
+- [Contact](https://degov.ai/contact/): support@degov.ai for product, integration, and partnership questions.
