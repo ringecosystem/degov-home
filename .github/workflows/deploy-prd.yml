@@ -26,6 +26,7 @@ jobs:
           preview_output: true
           project_name: degov-home
           dist_path: .
+          hide_git: true
           prod_mode: true
           script_install: pnpm install --frozen-lockfile
           script_build: NEXT_PUBLIC_DEGOV_HOME_GA4_ENABLED=true pnpm build && pnpm test:product-navigation-analytics -- --expect-enabled
