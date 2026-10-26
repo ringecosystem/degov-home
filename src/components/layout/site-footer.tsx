@@ -38,7 +38,7 @@ export function SiteFooter({ variant }: SiteFooterProps) {
             <div>
               <a href="https://square.degov.ai/">Square</a>
               <a href="https://atlas.degov.ai/">Atlas</a>
-              <a href="/pricing">Pricing</a>
+              <a href="#pricing">Pricing</a>
             </div>
           </div>
 
@@ -53,15 +53,10 @@ export function SiteFooter({ variant }: SiteFooterProps) {
           </div>
 
           <div>
-            <h3>Principle</h3>
-            <p>
-              Open infrastructure where governance runs. Focused intelligence where governance is
-              understood
-            </p>
+            <h3>Contact</h3>
             <div>
-              <a href="/about/">About</a>
-              <a href="/contact/">Contact</a>
-              <a href="/privacy/">Privacy</a>
+              <a href="mailto:support@degov.ai">support@degov.ai</a>
+              <a href="/chat/?q=I%20want%20to%20contact%20the%20DeGov%20team.">Contact the team</a>
             </div>
           </div>
         </nav>

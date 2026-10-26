@@ -23,7 +23,8 @@ jobs:
           vercel_group: itering
           preview_output: true
           project_name: degov-home
-          dist_path: out
+          dist_path: .
+          hide_git: true
           script_install: pnpm install --frozen-lockfile
           script_build: pnpm build && pnpm test:product-navigation-analytics -- --expect-disabled
           enable_notify_comment: true

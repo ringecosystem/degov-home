@@ -179,8 +179,8 @@ if (artifactExpectation) {
     ['--expect-enabled', '--expect-disabled'].includes(artifactExpectation),
     'artifact expectation must be --expect-enabled or --expect-disabled'
   );
-  const artifact = readGeneratedFiles(join(root, 'out'));
-  const homeArtifact = readFileSync(join(root, 'out', 'index.html'), 'utf8');
+  const artifact = readGeneratedFiles(join(root, '.next/server/app'));
+  const homeArtifact = readFileSync(join(root, '.next/server/app/index.html'), 'utf8');
   if (artifactExpectation === '--expect-enabled') {
     assert.ok(artifact.includes('G-QRLBRTT5X1'), 'production artifact must contain GA4 ID');
     assert.match(

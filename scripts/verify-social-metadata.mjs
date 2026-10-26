@@ -99,7 +99,7 @@ const sharedMetadata = {
   'twitter:image:alt': SOCIAL_IMAGE_ALT
 };
 
-requireMetadata('out/index.html', 'https://degov.ai/', {
+requireMetadata('.next/server/app/index.html', 'https://degov.ai/', {
   ...sharedMetadata,
   title: SOCIAL_IMAGE_ALT,
   description:
@@ -112,47 +112,22 @@ requireMetadata('out/index.html', 'https://degov.ai/', {
   'twitter:description':
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 });
-requireBuiltText('out/index.html', [
-  'Onchain governance layer',
-  'Reveal the meaning behind proposals',
-  'DeGov Square',
+requireBuiltText('.next/server/app/index.html', [
+  'Better Governance',
+  'For Better Communities',
   'https://square.degov.ai/',
   'https://atlas.degov.ai/',
-  'https://github.com/ringecosystem/degov'
-]);
-requireMetadata('out/pricing/index.html', 'https://degov.ai/pricing/', {
-  ...sharedMetadata,
-  title: 'Square Pricing — DeGov.AI',
-  description:
-    'DeGov.AI Square pricing: self-host for free or choose managed hosting, with the first six months free.',
-  'og:title': 'Square Pricing — DeGov.AI',
-  'og:description':
-    'Self-host Square for free or choose managed hosting, with the first six months free.',
-  'og:url': 'https://degov.ai/pricing/',
-  'twitter:title': 'Square Pricing — DeGov.AI',
-  'twitter:description':
-    'Self-host Square for free or choose managed hosting, with six months free.'
-});
-requireBuiltText('out/pricing/index.html', [
-  'New to DeGov?',
-  'Try the Playground on Base.',
+  'https://github.com/ringecosystem/degov',
   'https://playground.degov.ai/'
 ]);
 
-// Validate the copied build artifact rather than only its source file so a
-// broken static-export copy cannot pass the release build unnoticed.
-const builtImagePath = 'out/images/degov-social-card.png';
+// The Next server serves public/ directly, so the source image is the artifact.
+const builtImagePath = 'public/images/degov-social-card.png';
 if (!existsSync(builtImagePath)) {
   errors.push(`Missing built social image: ${builtImagePath}`);
 } else {
   try {
-    const sourceImage = validateRgbPng('public/images/degov-social-card.png', 1200, 630);
-    const builtImage = validateRgbPng(builtImagePath, 1200, 630);
-    if (!sourceImage.equals(builtImage)) {
-      errors.push(
-        `${builtImagePath} does not match public/images/degov-social-card.png byte-for-byte`
-      );
-    }
+    validateRgbPng(builtImagePath, 1200, 630);
   } catch (error) {
     errors.push(error.message);
   }
@@ -165,4 +140,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Social metadata verification passed for / and /pricing/.');
+console.log('Social metadata verification passed for /.');

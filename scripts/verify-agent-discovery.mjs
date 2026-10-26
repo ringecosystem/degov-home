@@ -6,16 +6,13 @@ import { readFileSync } from 'node:fs';
 const read = (path) => readFileSync(path, 'utf8');
 const openapi = 'https://agent-api.degov.ai/openapi.json';
 const docs = 'https://docs.degov.ai/agent-api/';
-const homepage = read('out/index.html');
-const llms = read('out/llms.txt');
+const homepage = read('.next/server/app/index.html');
+const llms = read('public/llms.txt');
 
-for (const path of ['out/index.html', 'out/pricing/index.html']) {
-  const html = read(path);
-  assert.ok(!html.includes('agent-api.degov.ai/v1/'), `${path}: retired API link`);
-  assert.ok(html.includes(`href="${docs}"`), `${path}: missing Agent API docs entry`);
-  assert.ok(html.includes(`href="${openapi}"`), `${path}: missing authoritative OpenAPI entry`);
-}
-assert.ok(homepage.includes('API quickstart'), 'Missing visible API quickstart');
+assert.ok(!homepage.includes('agent-api.degov.ai/v1/'), 'homepage: retired API link');
+assert.ok(homepage.includes(`href="${docs}"`), 'homepage: missing Agent API docs entry');
+assert.ok(homepage.includes(`href="${openapi}"`), 'homepage: missing authoritative OpenAPI entry');
+assert.ok(homepage.includes('Agent API'), 'Missing visible Agent API link');
 assert.ok(!homepage.includes('Add a confirmed reporting date'), 'Editorial placeholder remains');
 for (const phrase of [openapi, 'POST /v2/proposals/resolve', 'When to use', 'page', 'Skills']) {
   assert.ok(llms.includes(phrase), `Agent navigation is missing ${phrase}`);
@@ -25,28 +22,17 @@ assert.ok(
   'Agent navigation advertises retired resources'
 );
 
-const missing = read('out/404.html');
+const missing = read('.next/server/app/_not-found.html');
 for (const target of ['/', '/llms.txt', '/sitemap.xml', `${docs}quickstart/`, openapi]) {
   assert.ok(missing.includes(`href="${target}"`), `404 is missing recovery link ${target}`);
 }
 assert.match(missing, /name="robots" content="noindex"/, '404 must not be indexed');
 
-for (const slug of ['about', 'contact', 'privacy']) {
-  const html = read(`out/${slug}/index.html`);
-  assert.ok(
-    html.includes(`rel="canonical" href="https://degov.ai/${slug}/"`),
-    `${slug}: wrong canonical`
-  );
-  assert.ok(
-    read('out/sitemap.xml').includes(`https://degov.ai/${slug}/`),
-    `${slug}: missing sitemap entry`
-  );
-  assert.ok(
-    html.includes('support@degov.ai') || html.includes('href="/contact/"'),
-    `${slug}: no contact path`
-  );
-  assert.ok(html.includes('property="og:image"'), `${slug}: missing social image`);
-}
+assert.ok(
+  read('.next/server/app/sitemap.xml.body').includes('https://degov.ai'),
+  'homepage missing from sitemap'
+);
+assert.ok(!read('.next/server/app/sitemap.xml.body').includes('/pricing'), 'retired pricing route remains in sitemap');
 const structuredData = [
   ...homepage.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)
 ].flatMap((match) => JSON.parse(match[1]));
