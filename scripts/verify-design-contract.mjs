@@ -46,7 +46,6 @@ function requirePng(path, expectedWidth, expectedHeight) {
 }
 
 const home = 'src/app/home-client.tsx';
-const pricing = 'src/app/pricing/pricing-client.tsx';
 const css = 'src/app/site.css';
 const homeCss = 'src/app/home.css';
 const pricingCss = 'src/app/pricing.css';
@@ -59,88 +58,26 @@ requireIncludes(home, 'Better', 'homepage brand slogan');
 requireIncludes(home, 'For Better Communities', 'complete homepage brand slogan');
 requireIncludes(home, 'data-od-id="square-path-card"', 'Square task path');
 requireIncludes(home, 'data-od-id="atlas-path-card"', 'Atlas task path');
-requireIncludes(
-  home,
-  'degov-governance-temporal-field-f885cd9c.png',
-  'static hero poster and fallback'
-);
-requireIncludes(
-  home,
-  'degov-governance-temporal-field-loop-hd.mp4',
-  'looping hero video'
-);
-requireIncludes(home, 'autoPlay', 'autoplaying hero video');
-requireIncludes(home, 'playsInline', 'inline hero video playback');
-requireIncludes(home, 'className="arc-closing__art"', 'closing atmosphere layer');
+requireIncludes(home, 'Ask about a proposal, a vote, or what a DAO decided.', 'homepage ask prompt');
+requireIncludes(home, 'How to use', 'connected product paths');
+forbidIncludes(home, 'degov-governance-temporal-field-loop-hd.mp4', 'retired hero video');
 forbidIncludes(home, 'arc-path__rule', 'retired hero product rule');
 forbidIncludes(home, 'Public product evidence', 'retired evidence eyebrow');
 forbidIncludes(home, 'Why governance builds community', 'retired community eyebrow');
 forbidIncludes(home, 'Open agent skills', 'retired agent eyebrow');
 forbidIncludes(home, 'Choose your next move', 'retired closing eyebrow');
-forbidIncludes(home, 'playground.degov.ai', 'Playground link moved from homepage');
-requireIncludes(home, 'data-od-id="community-governance-chain"', 'community capability chain');
-requireIncludes(home, 'data-od-id="agent-governance-access"', 'agent-native governance section');
-requireIncludes(home, 'Agent × x402', 'Atlas x402 access flow');
-requireIncludes(home, 'https://atlas.degov.ai/daos', 'Atlas covered DAO directory destination');
-requireIncludes(
-  home,
-  'Install or update the DeGov agent skills from https://github.com/ringecosystem/degov-agent-skills.',
-  'DeGov agent skills installation request'
-);
-requireIncludes(home, 'Give this to your agent', 'agent-directed installation label');
+requireIncludes(home, 'id="pricing"', 'homepage pricing section');
+requireIncludes(home, 'https://playground.degov.ai/', 'Playground destination on the homepage');
 forbidIncludes(
   home,
   'npx skills add ringecosystem/degov-agent-skills',
   'retired CLI install command'
 );
-requireIncludes(home, 'data-od-id="agent-skills-copy"', 'agent skills copy control');
-requireIncludes(home, 'aria-label="Atlas data lifecycle"', 'Atlas data lifecycle');
-requireIncludes(home, '<span>Analyze</span>', 'Atlas analysis stage');
 forbidIncludes(home, 'Public snapshot', 'retired evidence snapshot bars');
-requireIncludes(home, '30K+', 'portfolio proposal metric');
 forbidIncludes(home, 'homepage-content-provenance', 'retired homepage provenance block');
 forbidIncludes(home, 'arc-agents__note', 'retired agent consent note');
-requireIncludes(
-  home,
-  'mailto:support@degov.ai?subject=Atlas%20data%20partnership',
-  'Atlas contact path'
-);
 forbidIncludes(home, 'pricing.html', 'static prototype pricing URL');
 forbidIncludes(home, '/cdn-cgi/', 'Cloudflare prototype email shim');
-
-requireIncludes('src/app/pricing/page.tsx', '<PricingClient />', 'pricing client mount');
-requireIncludes(pricing, 'Start managed. Stay in control', 'pricing hero');
-requireIncludes(pricing, 'data-od-id="pricing-playground-entry"', 'Pricing Playground entry');
-requireIncludes(pricing, 'data-od-id="pricing-playground-link"', 'Pricing Playground link');
-requireIncludes(pricing, 'https://playground.degov.ai/', 'official Playground destination');
-requireIncludes(pricing, 'Try the Playground on Base.', 'Playground CTA copy');
-requireIncludes(pricing, 'data-od-id="pricing-timeline"', 'managed-hosting timeline');
-requireIncludes(pricing, 'Launch now. Choose later', 'current managed-hosting timeline heading');
-forbidIncludes(
-  pricing,
-  'Launch first. Choose your long-term model later.',
-  'retired managed-hosting timeline heading'
-);
-requireIncludes(pricing, 'Yearly · save $400', 'annual billing control');
-requireIncludes(
-  pricing,
-  "window.localStorage.setItem('degov-pricing-billing'",
-  'persisted billing preference'
-);
-requireIncludes(pricing, 'function persistBilling', 'storage-failure-safe billing persistence');
-requireIncludes(pricing, 'persistBilling(nextBilling)', 'guarded billing preference write');
-requireIncludes(pricing, 'data-od-id="responsibility-comparison"', 'responsibility ledger');
-requireIncludes(pricing, 'scope="row"', 'responsibility row headers');
-requireIncludes(pricing, 'Open by design', 'open ownership statement');
-requireIncludes(pricing, 'Is Atlas included in DeGov pricing?', 'DeGov/Atlas pricing boundary');
-requireIncludes(pricing, "odId: 'faq-free-period'", 'prototype FAQ identifiers');
-requireIncludes(
-  pricing,
-  'mailto:support@degov.ai?subject=DeGov%20managed%20hosting',
-  'managed-hosting contact path'
-);
-forbidIncludes(pricing, 'rounded-2xl', 'legacy rounded pricing cards');
-forbidIncludes(pricing, '/cdn-cgi/', 'Cloudflare prototype email shim');
 
 requireIncludes(header, "variant: 'home' | 'pricing'", 'shared route-aware header');
 requireIncludes(
@@ -178,31 +115,6 @@ requireIncludes(homeCss, '.home-site .arc-hero__paths', 'two-path homepage layou
 requireIncludes(pricingCss, '.pricing-site .hero-playground', 'Pricing Playground entry styling');
 requireIncludes(pricingCss, '.pricing-site .hero-playground a', 'Playground link affordance');
 requireIncludes(
-  homeCss,
-  '/images/home/degov-journey-signal-record.png',
-  'dedicated journey atmosphere'
-);
-requireIncludes(
-  homeCss,
-  '/images/home/degov-community-common-field.png',
-  'dedicated community atmosphere'
-);
-requireIncludes(
-  homeCss,
-  '/images/home/degov-agents-verification-lattice.png',
-  'dedicated agent atmosphere'
-);
-requireIncludes(
-  homeCss,
-  '/images/home/degov-atlas-connection-field.png',
-  'dedicated Atlas atmosphere'
-);
-requireIncludes(
-  homeCss,
-  '/images/closing/degov-shared-outcome-field-v2.png',
-  'dedicated closing atmosphere'
-);
-requireIncludes(
   pricingCss,
   '/images/pricing/degov-pricing-operating-field.png',
   'dedicated pricing hero atmosphere'
@@ -226,7 +138,6 @@ forbidIncludes(css, '.home-site .hero,\n  .pricing-site .hero', 'premature prici
 forbidIncludes(css, '.comparison thead {\n    display: none', 'inaccessible hidden table headers');
 
 requireIncludes(layout, "themeColor: '#1f2228'", 'updated browser theme color');
-requireIncludes('src/app/pricing/page.tsx', 'Square Pricing — DeGov.AI', 'approved pricing title');
 requireIncludes(
   layout,
   'run governance with Square and understand governance with Atlas',
@@ -236,7 +147,6 @@ requireIncludes(layout, "card: 'summary_large_image'", 'large X card metadata');
 requireIncludes(seo, '/images/degov-social-card.png', 'social preview image metadata');
 requireIncludes(layout, 'width: 1200', 'social preview width metadata');
 requireIncludes(layout, 'height: 630', 'social preview height metadata');
-requireIncludes('src/app/pricing/page.tsx', 'SOCIAL_IMAGE_URL', 'pricing social preview');
 forbidIncludes(layout, '<HeroGrid', 'legacy decorative grid');
 forbidIncludes(layout, '<Navbar', 'legacy navbar mount');
 

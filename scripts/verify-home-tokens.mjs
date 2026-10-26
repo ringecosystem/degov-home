@@ -55,7 +55,10 @@ if (sharedCss.includes('.home-site')) {
   errors.push(`${sharedCssPath} still contains homepage selectors`);
 }
 
-const declaredTokens = [...homeCss.matchAll(/^\s*(--home-[\w-]+)\s*:/gm)].map((match) => match[1]);
+const tokenBlock = homeCss.slice(tokenStartIndex, tokenEndIndex + tokenEnd.length);
+const declaredTokens = [...tokenBlock.matchAll(/^\s*(--home-[\w-]+)\s*:/gm)].map(
+  (match) => match[1]
+);
 const duplicateTokens = declaredTokens.filter(
   (token, index) => declaredTokens.indexOf(token) !== index
 );

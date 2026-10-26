@@ -84,6 +84,61 @@
   --container-gutter-phone: 12px;
 }
 
+html[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f6f8fb;
+  --surface-warm: #eef2f7;
+  --fg: #111827;
+  --fg-2: #3d4a5c;
+  --muted: #5b6776;
+  --meta: #5b6776;
+  --border: #d8dee8;
+  --border-soft: #e8edf3;
+  --accent: #0b4778;
+  --accent-on: #ffffff;
+  --accent-hover: #1a6fb5;
+  --accent-active: #08385f;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] .degov-site .brand-logo,
+html[data-theme='light'] .info-site .info-header .brand img {
+  filter: none;
+}
+
+.degov-site .theme-switch {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.degov-site .theme-switch svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.info-header__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
 * {
   box-sizing: border-box;
 }

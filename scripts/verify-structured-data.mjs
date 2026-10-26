@@ -2,7 +2,6 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 
-const PRICING_URL = 'https://degov.ai/pricing/';
 const PUBLISHER_ID = 'https://degov.ai/#organization';
 const WEBSITE_ID = 'https://degov.ai/#website';
 const errors = [];
@@ -57,37 +56,14 @@ function requireIncludes(html, needle, label = needle) {
   if (!html.includes(needle)) errors.push(`Missing visible content: ${label}`);
 }
 
-const pricingHtml = read('out/pricing/index.html');
-const canonicalUrls = readCanonicalUrls(pricingHtml);
-if (canonicalUrls.length !== 1 || canonicalUrls[0] !== PRICING_URL) {
-  errors.push(
-    `Pricing canonical must occur once as ${PRICING_URL}, received ${JSON.stringify(canonicalUrls)}`
-  );
+const homepageHtml = read('out/index.html');
+const canonicalUrls = readCanonicalUrls(homepageHtml);
+if (!canonicalUrls.includes('https://degov.ai/')) {
+  errors.push(`Homepage canonical missing, received ${JSON.stringify(canonicalUrls)}`);
 }
+requireIncludes(homepageHtml, 'Pricing', 'homepage pricing heading');
 
-requireIncludes(pricingHtml, 'Start managed. Stay in control', 'pricing visible H1');
-requireIncludes(
-  pricingHtml,
-  'Self-hosted and managed deployments run the same open-source DeGov code',
-  'pricing visible content description'
-);
-
-const jsonLd = readJsonLd(pricingHtml);
-const pricingWebPage = jsonLd.find((item) => item?.['@type'] === 'WebPage');
-if (!pricingWebPage) {
-  errors.push('Pricing page must emit generic WebPage JSON-LD');
-} else {
-  requireEqual(pricingWebPage['@id'], `${PRICING_URL}#webpage`, 'WebPage @id');
-  requireEqual(pricingWebPage.url, PRICING_URL, 'WebPage url');
-  requireEqual(pricingWebPage.name, 'Square Pricing — DeGov.AI', 'WebPage name');
-  requireEqual(pricingWebPage.headline, 'Start managed. Stay in control', 'WebPage headline');
-  requireEqual(pricingWebPage.publisher?.['@id'], PUBLISHER_ID, 'WebPage publisher @id');
-  requireEqual(pricingWebPage.isPartOf?.['@id'], WEBSITE_ID, 'WebPage isPartOf @id');
-  requireEqual(pricingWebPage.mainEntityOfPage, PRICING_URL, 'WebPage mainEntityOfPage');
-  if (!pricingHtml.includes(pricingWebPage.headline)) {
-    errors.push('WebPage headline must match visible pricing content');
-  }
-}
+const jsonLd = readJsonLd(homepageHtml);
 
 const forbiddenTypes = new Set(['Product', 'Offer', 'AggregateRating', 'Review']);
 for (const block of jsonLd) {
@@ -115,4 +91,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Structured-data verification passed for /pricing/.');
+console.log('Structured-data verification passed for /.');

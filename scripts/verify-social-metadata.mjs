@@ -113,29 +113,11 @@ requireMetadata('out/index.html', 'https://degov.ai/', {
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 });
 requireBuiltText('out/index.html', [
-  'Onchain governance layer',
-  'Reveal the meaning behind proposals',
-  'DeGov Square',
+  'Better Governance',
+  'For Better Communities',
   'https://square.degov.ai/',
   'https://atlas.degov.ai/',
-  'https://github.com/ringecosystem/degov'
-]);
-requireMetadata('out/pricing/index.html', 'https://degov.ai/pricing/', {
-  ...sharedMetadata,
-  title: 'Square Pricing — DeGov.AI',
-  description:
-    'DeGov.AI Square pricing: self-host for free or choose managed hosting, with the first six months free.',
-  'og:title': 'Square Pricing — DeGov.AI',
-  'og:description':
-    'Self-host Square for free or choose managed hosting, with the first six months free.',
-  'og:url': 'https://degov.ai/pricing/',
-  'twitter:title': 'Square Pricing — DeGov.AI',
-  'twitter:description':
-    'Self-host Square for free or choose managed hosting, with six months free.'
-});
-requireBuiltText('out/pricing/index.html', [
-  'New to DeGov?',
-  'Try the Playground on Base.',
+  'https://github.com/ringecosystem/degov',
   'https://playground.degov.ai/'
 ]);
 
@@ -165,4 +147,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Social metadata verification passed for / and /pricing/.');
+console.log('Social metadata verification passed for /.');

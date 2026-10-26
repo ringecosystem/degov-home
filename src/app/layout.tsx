@@ -9,6 +9,7 @@ import {
   SOCIAL_IMAGE_URL
 } from '@/lib/seo';
 import { ProductNavigationAnalytics } from '@/components/ProductNavigationAnalytics';
+import { THEME_BOOTSTRAP } from '@/lib/theme';
 
 const STRUCTURED_DATA = JSON.stringify([SEO_ORGANIZATION, SEO_WEBSITE]);
 const GA4_MEASUREMENT_ID = 'G-QRLBRTT5X1';
@@ -117,8 +118,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script id="theme-bootstrap" dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
         <link
           rel="service-desc"
           type="application/vnd.oai.openapi+json"
