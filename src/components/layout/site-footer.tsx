@@ -56,6 +56,7 @@ export function SiteFooter({ variant }: SiteFooterProps) {
             <h3>Contact</h3>
             <div>
               <a href="mailto:support@degov.ai">support@degov.ai</a>
+              <a href="/chat/?q=I%20want%20to%20contact%20the%20DeGov%20team.">Contact the team</a>
             </div>
           </div>
         </nav>
