@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Streamdown } from 'streamdown';
 
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
@@ -13,6 +14,13 @@ type ChatMessage = {
   id: string;
   role: 'user' | 'assistant';
   text: string;
+  pending?: boolean;
+  error?: boolean;
+};
+
+type StoredSession = {
+  sessionId: string;
+  sessionToken: string;
 };
 
 const SUGGESTIONS = [
@@ -20,10 +28,70 @@ const SUGGESTIONS = [
   'Show me the last proposal of ENS DAO'
 ];
 
-const PENDING_REPLY = 'Square and Atlas answers are not connected yet.';
+const SESSION_KEY = 'degov-chat-session';
+const startedQuestions = new Set<string>();
 
 function nextId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function readSession(): StoredSession | null {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as StoredSession;
+    if (!parsed.sessionId || !parsed.sessionToken) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function storeSession(session: StoredSession) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+}
+
+async function readAnswer(
+  response: Response,
+  onText: (text: string) => void
+) {
+  if (!response.ok || !response.body) {
+    const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+    throw new Error(payload?.error || 'Hast did not answer');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let answer = '';
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const chunks = buffer.split('\n\n');
+    buffer = chunks.pop() ?? '';
+    for (const chunk of chunks) {
+      const line = chunk.split('\n').find((item) => item.startsWith('data: '));
+      if (!line) continue;
+      const event = JSON.parse(line.slice(6)) as {
+        text?: string;
+        error?: string;
+        sessionId?: string;
+        sessionToken?: string;
+      };
+      if (event.error) throw new Error(event.error);
+      if (event.sessionId && event.sessionToken) {
+        storeSession({ sessionId: event.sessionId, sessionToken: event.sessionToken });
+      }
+      if (typeof event.text === 'string') {
+        answer = event.text;
+        onText(answer);
+      }
+    }
+  }
+
+  if (!answer) throw new Error('Hast finished without an answer');
 }
 
 export default function ChatClient() {
@@ -31,34 +99,69 @@ export default function ChatClient() {
   const question = params.get('q')?.trim() ?? '';
   const threadRef = useRef<HTMLDivElement>(null);
   const [draft, setDraft] = useState('');
-  const [helpOpen, setHelpOpen] = useState(true);
-  const [extra, setExtra] = useState<ChatMessage[]>([]);
-  const messages: ChatMessage[] = [
-    ...(question
+  const [helpOpen, setHelpOpen] = useState(!question);
+  const [messages, setMessages] = useState<ChatMessage[]>(() =>
+    question
       ? [
-          { id: `user-${question}`, role: 'user' as const, text: question },
-          { id: `assistant-${question}`, role: 'assistant' as const, text: PENDING_REPLY }
+          { id: `user-${question}`, role: 'user', text: question },
+          { id: `assistant-${question}`, role: 'assistant', text: '', pending: true }
         ]
-      : []),
-    ...extra
-  ];
+      : []
+  );
+
+  const updateAssistant = (id: string, patch: Partial<ChatMessage>) => {
+    setMessages((current) => current.map((message) => (message.id === id ? { ...message, ...patch } : message)));
+  };
+
+  const ask = async (text: string, assistantId: string) => {
+    const session = readSession();
+    try {
+      const response = await fetch('/api/chat/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: text,
+          sessionId: session?.sessionId,
+          sessionToken: session?.sessionToken,
+        }),
+      });
+      await readAnswer(response, (answer) => updateAssistant(assistantId, { text: answer, pending: true, error: false }));
+      updateAssistant(assistantId, { pending: false, error: false });
+    } catch (error) {
+      updateAssistant(assistantId, {
+        text: error instanceof Error ? error.message : 'Hast did not answer',
+        pending: false,
+        error: true,
+      });
+    }
+  };
 
   useEffect(() => {
     const thread = threadRef.current;
     if (!thread) return;
     thread.scrollTo({ top: thread.scrollHeight });
-  }, [extra.length, question]);
+  }, [messages]);
+
+  useEffect(() => {
+    if (!question || startedQuestions.has(question)) return;
+    startedQuestions.add(question);
+    void ask(question, `assistant-${question}`);
+    // The initial question is rendered with the page; this only starts its request.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question]);
 
   const send = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed) return;
-    setExtra((current) => [
+    if (!trimmed || messages.some((message) => message.pending)) return;
+    const assistantId = nextId();
+    setMessages((current) => [
       ...current,
       { id: nextId(), role: 'user', text: trimmed },
-      { id: nextId(), role: 'assistant', text: PENDING_REPLY }
+      { id: assistantId, role: 'assistant', text: '', pending: true },
     ]);
     setDraft('');
     setHelpOpen(false);
+    void ask(trimmed, assistantId);
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -109,7 +212,36 @@ export default function ChatClient() {
             <ol className="chat-messages">
               {messages.map((message) => (
                 <li key={message.id} className={`chat-message chat-message--${message.role}`}>
-                  {message.text}
+                  {message.role === 'assistant' && !message.error ? (
+                    message.text ? (
+                      <Streamdown
+                        className="chat-markdown"
+                        controls={false}
+                        linkSafety={{ enabled: false }}
+                        mode={message.pending ? 'streaming' : 'static'}
+                        tableMaxHeight={0}
+                        codeBlockMaxHeight={0}
+                      >
+                        {message.text}
+                      </Streamdown>
+                    ) : (
+                      <div className="chat-wait" role="status" aria-live="polite">
+                        <span className="sr-only">Thinking</span>
+                        <span className="chat-wait__line" aria-hidden="true" />
+                        <span className="chat-wait__line chat-wait__line--short" aria-hidden="true" />
+                        <span className="chat-wait__label" aria-hidden="true">
+                          Thinking
+                          <span className="chat-wait__dots">
+                            <i />
+                            <i />
+                            <i />
+                          </span>
+                        </span>
+                      </div>
+                    )
+                  ) : (
+                    message.text
+                  )}
                 </li>
               ))}
             </ol>
@@ -124,20 +256,15 @@ export default function ChatClient() {
               placeholder="Ask anything..."
               autoComplete="off"
               onChange={(event) => setDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
+                  event.preventDefault();
+                  send(draft);
+                }
+              }}
             />
           </label>
-          <button className="chat-composer__icon" type="button" disabled aria-label="Attach a file">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 12.5 14.2 6.3a3 3 0 0 1 4.2 4.2l-7.4 7.5a4.2 4.2 0 0 1-6-6L12 5" />
-            </svg>
-          </button>
-          <button className="chat-composer__icon" type="button" disabled aria-label="Use microphone">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="9" y="4" width="6" height="10" rx="3" />
-              <path d="M7 11a5 5 0 0 0 10 0M12 16v4" />
-            </svg>
-          </button>
-          <button className="chat-composer__send" type="submit" aria-label="Send" disabled={!draft.trim()}>
+          <button className="chat-composer__send" type="submit" aria-label="Send" disabled={!draft.trim() || messages.some((message) => message.pending)}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 19V6M7 11l5-5 5 5" />
             </svg>

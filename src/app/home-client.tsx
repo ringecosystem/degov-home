@@ -117,7 +117,7 @@ export default function HomeClient() {
   useEffect(() => {
     if (!menuOpen) return undefined;
 
-    const onKeyDown = (event: KeyboardEvent) => {
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === 'Escape') {
         setMenuOpen(false);
         menuButtonRef.current?.focus();

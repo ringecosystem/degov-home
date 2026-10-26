@@ -56,7 +56,7 @@ function requireIncludes(html, needle, label = needle) {
   if (!html.includes(needle)) errors.push(`Missing visible content: ${label}`);
 }
 
-const homepageHtml = read('out/index.html');
+const homepageHtml = read('.next/server/app/index.html');
 const canonicalUrls = readCanonicalUrls(homepageHtml);
 if (!canonicalUrls.includes('https://degov.ai/')) {
   errors.push(`Homepage canonical missing, received ${JSON.stringify(canonicalUrls)}`);

@@ -87,7 +87,6 @@
 
 .home-site {
   min-height: 100vh;
-  padding-bottom: var(--home-dock-clearance);
   background: var(--home-color-bg);
   color: var(--home-color-text);
   font-family: var(--home-font);
@@ -869,7 +868,7 @@ html[data-theme='dark'] .home-composer__brand img {
 
 .home-site .arc-footer {
   margin-top: var(--home-space-72);
-  padding: var(--home-space-56) var(--home-space-72);
+  padding: var(--home-space-56) var(--home-space-72) calc(var(--home-space-56) + var(--home-dock-clearance));
   background: var(--home-color-surface);
   color: var(--home-color-text);
 }

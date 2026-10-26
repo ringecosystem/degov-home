@@ -99,7 +99,7 @@ const sharedMetadata = {
   'twitter:image:alt': SOCIAL_IMAGE_ALT
 };
 
-requireMetadata('out/index.html', 'https://degov.ai/', {
+requireMetadata('.next/server/app/index.html', 'https://degov.ai/', {
   ...sharedMetadata,
   title: SOCIAL_IMAGE_ALT,
   description:
@@ -112,7 +112,7 @@ requireMetadata('out/index.html', 'https://degov.ai/', {
   'twitter:description':
     'DeGov.AI helps communities run governance with Square and understand governance with Atlas.'
 });
-requireBuiltText('out/index.html', [
+requireBuiltText('.next/server/app/index.html', [
   'Better Governance',
   'For Better Communities',
   'https://square.degov.ai/',
@@ -121,20 +121,13 @@ requireBuiltText('out/index.html', [
   'https://playground.degov.ai/'
 ]);
 
-// Validate the copied build artifact rather than only its source file so a
-// broken static-export copy cannot pass the release build unnoticed.
-const builtImagePath = 'out/images/degov-social-card.png';
+// The Next server serves public/ directly, so the source image is the artifact.
+const builtImagePath = 'public/images/degov-social-card.png';
 if (!existsSync(builtImagePath)) {
   errors.push(`Missing built social image: ${builtImagePath}`);
 } else {
   try {
-    const sourceImage = validateRgbPng('public/images/degov-social-card.png', 1200, 630);
-    const builtImage = validateRgbPng(builtImagePath, 1200, 630);
-    if (!sourceImage.equals(builtImage)) {
-      errors.push(
-        `${builtImagePath} does not match public/images/degov-social-card.png byte-for-byte`
-      );
-    }
+    validateRgbPng(builtImagePath, 1200, 630);
   } catch (error) {
     errors.push(error.message);
   }

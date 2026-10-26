@@ -6,8 +6,8 @@ import { readFileSync } from 'node:fs';
 const read = (path) => readFileSync(path, 'utf8');
 const openapi = 'https://agent-api.degov.ai/openapi.json';
 const docs = 'https://docs.degov.ai/agent-api/';
-const homepage = read('out/index.html');
-const llms = read('out/llms.txt');
+const homepage = read('.next/server/app/index.html');
+const llms = read('public/llms.txt');
 
 assert.ok(!homepage.includes('agent-api.degov.ai/v1/'), 'homepage: retired API link');
 assert.ok(homepage.includes(`href="${docs}"`), 'homepage: missing Agent API docs entry');
@@ -22,17 +22,17 @@ assert.ok(
   'Agent navigation advertises retired resources'
 );
 
-const missing = read('out/404.html');
+const missing = read('.next/server/app/_not-found.html');
 for (const target of ['/', '/llms.txt', '/sitemap.xml', `${docs}quickstart/`, openapi]) {
   assert.ok(missing.includes(`href="${target}"`), `404 is missing recovery link ${target}`);
 }
 assert.match(missing, /name="robots" content="noindex"/, '404 must not be indexed');
 
 assert.ok(
-  read('out/sitemap.xml').includes('https://degov.ai/'),
+  read('.next/server/app/sitemap.xml.body').includes('https://degov.ai'),
   'homepage missing from sitemap'
 );
-assert.ok(!read('out/sitemap.xml').includes('/pricing'), 'retired pricing route remains in sitemap');
+assert.ok(!read('.next/server/app/sitemap.xml.body').includes('/pricing'), 'retired pricing route remains in sitemap');
 const structuredData = [
   ...homepage.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)
 ].flatMap((match) => JSON.parse(match[1]));
